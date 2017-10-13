@@ -16,7 +16,6 @@ const ListItem = require('./ListItem');
 // const signupScreen = require('./SignupPage');
 const styles = require('./styles.js');
 const DataButton= require('./Button');
-// import  from './login';
 
 const {
     AppRegistry,
@@ -37,10 +36,6 @@ const firebaseConfig = {
     storageBucket: "friend-225.appspot.com",
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-// import Firebase from 'firebase';
-// let app = new Firebase("friend-225.firebaseapp.com");
-
 
 let  currentID = null;
 
@@ -246,9 +241,6 @@ class SignupScreen extends React.Component {
         );
     }
 
-    // getRef() {
-    //     return firebaseApp.database().ref();
-    // }
 
     signup() {
 
@@ -259,51 +251,18 @@ class SignupScreen extends React.Component {
         firebaseApp.auth().createUserWithEmailAndPassword(
             this.state.email,
             this.state.password
-        ).catch(function(error) {
+        ).catch(function (error) {
             // Handle Errors here.
             let errorCode = error.code;
             let errorMessage = error.message;
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-            }
+            // if (errorCode == 'auth/weak-password') {
+            //     alert('The password is too weak.');
+            // } else {
+            //     alert(errorMessage);
+            // }
             alert(errorMessage);
         });
-
-        // firebaseApp.createUser({
-        //     'email': this.state.email,
-        //     'password': this.state.password
-        // }, (error, userData) => {
-        //
-        //     if (error) {
-        //         switch (error.code) {
-        //
-        //             case "EMAIL_TAKEN":
-        //                 alert("The new user account cannot be created because the email is already in use.");
-        //                 break;
-        //
-        //             case "INVALID_EMAIL":
-        //                 alert("The specified email is not a valid email.");
-        //                 break;
-        //
-        //             default:
-        //                 alert("Error creating user:");
-        //         }
-        //
-        //     } else {
-        //         alert('Your account was created!');
-        //     }
-        //
-        //     this.setState({
-        //         email: '',
-        //         password: '',
-        //         loaded: true
-        //     });
-        //
-        // });
     }
-
 }
 
 
