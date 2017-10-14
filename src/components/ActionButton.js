@@ -1,8 +1,16 @@
+'use strict';
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
-const styles = require('./styles.js')
+
+const styles = require('../../styles.js')
 const constants = styles.constants;
-const { StyleSheet, Text, View, TouchableHighlight} = ReactNative;
+
+import {
+    AppRegistry,
+    Text,
+    View,
+    TouchableHighlight
+} from 'react-native';
 
 class ActionButton extends Component {
     render() {
@@ -11,7 +19,9 @@ class ActionButton extends Component {
                 <TouchableHighlight
                     underlayColor={constants.actionColor}
                     onPress={this.props.onPress}>
-                    <Text style={styles.actionText}>{this.props.title}</Text>
+                    <View>
+                        <Text style={styles.actionText}>{this.props.title}</Text>
+                    </View>
                 </TouchableHighlight>
 
             </View>

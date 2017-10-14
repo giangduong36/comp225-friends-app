@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 
 import React, {Component} from 'react';
-const styles = require('./styles.js')
+
+const styles = require('./styles.js');
 
 
 class DataButton extends Component {
@@ -25,5 +26,4 @@ class DataButton extends Component {
     }
 }
 
-// AppRegistry.registerComponent('button', () => button);
 module.exports = DataButton;
