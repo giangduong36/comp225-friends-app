@@ -16,7 +16,6 @@ const {
 
 const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
-const Header = require('../components/Header');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
 
@@ -80,6 +79,7 @@ class LoginScreen extends Component {
         this.setState({
             loaded: false
         });
+
         firebaseApp.auth().signInWithEmailAndPassword(
             this.state.email,
             this.state.password
@@ -88,7 +88,7 @@ class LoginScreen extends Component {
                 'Successfully logged in!',
                 null,
                 [
-                    {text: 'Go to Account', onPress: () => navigate('Main')},
+                    {text: 'Go to Account', onPress: () => navigate('Account')},
                     {text: 'Sign out', onPress: (text) => console.log('Cancelled')}
                 ]
             );

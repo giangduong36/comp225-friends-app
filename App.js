@@ -32,6 +32,7 @@ const firebaseApp = require('./src/services/firebaseInit');
 const MainScreen = require('./src/pages/Main');
 const SignupScreen = require('./src/pages/Signup');
 const LoginScreen = require('./src/pages/Login');
+const AccountScreen = require('./src/pages/Account');
 
 // Screen navigation
 
@@ -44,6 +45,7 @@ export const SimpleApp = StackNavigator({
     Login: {screen: LoginScreen},
     Signup: {screen: SignupScreen},
     Main: { screen: MainScreen },
+    Account: {screen: AccountScreen},
 });
 
 module.exports.MainScreen = MainScreen;
