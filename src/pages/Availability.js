@@ -71,11 +71,14 @@ class Availability extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
+                <Text style={styles.welcome}>Are you free right now? </Text> // slider button will eventually go here
 
                 <StatusBar title="See Friends"/>
  		  <ActionButton onPress={() => navigate('Main')} // Clicking this button redirects to Main
                     title="Friends"
                 />
+                
+                
                 </View>
 
         )
