@@ -44,7 +44,7 @@ class SignupScreen extends Component {
             <View style={styles.container}>
                 <Text style={styles.welcome}>Hello, F.R.I.E.N.D.S!</Text>
                 <ActionButton
-                    onPress={() => navigate('Main')}
+                    onPress={() => navigate('Availability')} //now goes to Availability rather than Main
                     title="Get Started"
                 />
                 <TextInput
