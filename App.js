@@ -31,6 +31,7 @@ const firebaseApp = require('./src/services/firebaseInit');
 // Import pages
 const MainScreen = require('./src/pages/Main');
 const SignupScreen = require('./src/pages/Signup');
+const LoginScreen = require('./src/pages/Login');
 
 // Screen navigation
 
@@ -40,10 +41,12 @@ import {
 
 
 export const SimpleApp = StackNavigator({
-    Login: { screen: SignupScreen },
+    Login: {screen: LoginScreen},
+    Signup: {screen: SignupScreen},
     Main: { screen: MainScreen },
 });
 
+module.exports.MainScreen = MainScreen;
 module.exports = SimpleApp;
 module.exports.firebaseApp = firebaseApp;
 

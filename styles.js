@@ -20,6 +20,7 @@ let styles = StyleSheet.create({
         textAlign: 'center',
         color: 'black',
         marginBottom: 5,
+        paddingBottom: 10,
     },
     actionText: {
         color: '#fff',

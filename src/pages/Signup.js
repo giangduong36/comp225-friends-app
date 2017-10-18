@@ -42,7 +42,7 @@ class SignupScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>Hello, F.R.I.E.N.D.S!</Text>
+                <Text style={styles.welcome}>Let's create an account!</Text>
                 <ActionButton
                     onPress={() => navigate('Main')}
                     title="Get Started"
@@ -66,7 +66,7 @@ class SignupScreen extends Component {
                 />
                 <ActionButton
                     title="Got an Account?"
-                    onPress={this.goToLogin.bind(this)}
+                    onPress={() => navigate('Login')}
                 />
 
             </View>
@@ -75,6 +75,7 @@ class SignupScreen extends Component {
 
 
     _signup() {
+        const {navigate} = this.props.navigation;
 
         this.setState({
             loaded: false
@@ -83,7 +84,16 @@ class SignupScreen extends Component {
         firebaseApp.auth().createUserWithEmailAndPassword(
             this.state.email,
             this.state.password
-        ).catch(function (error) {
+        ).then(function (user) {
+            AlertIOS.alert(
+                'Successfully created new user account!',
+                null,
+                [
+                    {text: 'Go to Login', onPress: () => navigate('Login')},
+                    {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
+                ]
+            );
+        }).catch(function (error) {
             // Handle Errors here.
             let errorCode = error.code;
             let errorMessage = error.message;
