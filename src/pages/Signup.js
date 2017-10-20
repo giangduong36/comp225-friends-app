@@ -8,6 +8,7 @@ const {
     Text,
     View,
     TouchableHighlight,
+    Alert,
     AlertIOS,
     TextInput
 } = ReactNative;
@@ -85,7 +86,7 @@ class SignupScreen extends Component {
             this.state.email,
             this.state.password
         ).then(function (user) {
-            AlertIOS.alert(
+            Alert.alert(
                 'Successfully created new user account!',
                 null,
                 [

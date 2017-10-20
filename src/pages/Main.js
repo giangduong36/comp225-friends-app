@@ -9,6 +9,7 @@ const {
     View,
     TouchableHighlight,
     AlertIOS,
+    Alert,
     TextInput
 } = ReactNative;
 const firebase = require('firebase');
@@ -89,7 +90,7 @@ class MainScreen extends Component {
     }
 
     _addItem() {
-        AlertIOS.prompt(
+        Alert.prompt(
             'Add New User',
             null,
             [
@@ -106,7 +107,7 @@ class MainScreen extends Component {
     }
 
     _addFriend() {
-        AlertIOS.prompt(
+        Alert.prompt(
             'Add New Friend',
             null,
             [
@@ -123,7 +124,7 @@ class MainScreen extends Component {
     }
 
     _addStatus() {
-        AlertIOS.prompt(
+        Alert.prompt(
             'Add New Status',
             null,
             [
@@ -142,7 +143,7 @@ class MainScreen extends Component {
     _renderItem(item) {
 
         const onPress = () => {
-            AlertIOS.alert(
+            Alert.alert(
                 'Delete',
                 null,
                 [

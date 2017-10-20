@@ -10,6 +10,7 @@ const {
     View,
     TouchableHighlight,
     AlertIOS,
+    Alert,
     Button,
     TextInput
 } = ReactNative;
@@ -84,7 +85,7 @@ class LoginScreen extends Component {
             this.state.email,
             this.state.password
         ).then(function (user) {
-            AlertIOS.alert(
+            Alert.alert(
                 'Successfully logged in!',
                 null,
                 [
@@ -103,13 +104,6 @@ class LoginScreen extends Component {
             // }
             alert(errorMessage);
         });
-    }
-
-    goToLogin() {
-        return <Main/>;
-        // this.props.navigator.push({
-        //     component: Main
-        // });
     }
 }
 

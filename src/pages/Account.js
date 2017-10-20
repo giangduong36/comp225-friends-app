@@ -10,8 +10,10 @@ const {
     View,
     TouchableHighlight,
     AlertIOS,
+    Alert,
     Button,
-    TextInput
+    TextInput,
+    Switch,
 } = ReactNative;
 
 const StatusBar = require('../components/StatusBar');
@@ -23,6 +25,9 @@ const firebaseApp = require('../services/firebaseInit');
 let currentID = null;
 
 class AccountScreen extends Component {
+    static navigationOptions = {
+        title: 'Manage your profile',
+    };
     constructor(props) {
 
         super(props);
@@ -70,7 +75,7 @@ class AccountScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text text="Account"/>
+                <Text text="Manage your account"/>
 
                 <ListView
                     dataSource={this.state.dataSource}
@@ -115,7 +120,7 @@ class AccountScreen extends Component {
 
     _exit(item) {
         const onPress = () => {
-            AlertIOS.alert(
+            Alert.alert(
                 'Delete',
                 null,
                 [
@@ -133,7 +138,7 @@ class AccountScreen extends Component {
     _addFriend() {
         let user = firebaseApp.auth().currentUser;
         if (user != null) {
-            AlertIOS.prompt(
+            Alert.prompt(
                 'Add friend',
                 null,
                 [
@@ -163,7 +168,7 @@ class AccountScreen extends Component {
     _updateStatus() {
         let user = firebaseApp.auth().currentUser;
         if (user != null) {
-            AlertIOS.prompt(
+            Alert.prompt(
                 'Change status',
                 null,
                 [
@@ -197,7 +202,7 @@ class AccountScreen extends Component {
         let name, email, photoUrl, uid, emailVerified;
         if (user != null) {
 
-            AlertIOS.prompt(
+            Alert.prompt(
                 'Change username',
                 null,
                 [
@@ -235,7 +240,7 @@ class AccountScreen extends Component {
 
         firebaseApp.auth().signOut().then(function () {
             // Sign-out successful.
-            AlertIOS.alert(
+            Alert.alert(
                 'Successfully signed out!',
                 null,
                 [
