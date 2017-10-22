@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
-import Firebase from 'firebase';
 
 const {
     AppRegistry,
@@ -21,6 +20,7 @@ const ActionButton = require('../components/ActionButton');
 const ListItem = require('../components/ListItem');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
+
 
 let currentID = null;
 
@@ -73,6 +73,7 @@ class AccountScreen extends Component {
 
 
     render() {
+        const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
                 <Text text="Manage your account"/>
@@ -82,6 +83,11 @@ class AccountScreen extends Component {
                     renderRow={this._exit.bind(this)}
                     enableEmptySections={true}
                     style={styles.listview}/>
+
+                <ActionButton
+                    title="Search Friends"
+                    onPress={() => navigate('SearchFriend')}
+                />
 
                 <ActionButton
                     title="Update Info"
@@ -138,7 +144,7 @@ class AccountScreen extends Component {
     _addFriend() {
         let user = firebaseApp.auth().currentUser;
         if (user != null) {
-            Alert.prompt(
+            AlertIOS.prompt(
                 'Add friend',
                 null,
                 [
@@ -168,7 +174,7 @@ class AccountScreen extends Component {
     _updateStatus() {
         let user = firebaseApp.auth().currentUser;
         if (user != null) {
-            Alert.prompt(
+            AlertIOS.prompt(
                 'Change status',
                 null,
                 [
@@ -201,8 +207,7 @@ class AccountScreen extends Component {
         let user = firebaseApp.auth().currentUser;
         let name, email, photoUrl, uid, emailVerified;
         if (user != null) {
-
-            Alert.prompt(
+            AlertIOS.prompt(
                 'Change username',
                 null,
                 [

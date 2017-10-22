@@ -67,7 +67,8 @@ class SignupScreen extends Component {
                 />
                 <ActionButton
                     title="Got an Account?"
-                    onPress={() => navigate('Login')}
+                    onPress={() => navigate('Login')
+                    }
                 />
 
             </View>

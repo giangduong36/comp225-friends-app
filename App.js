@@ -34,6 +34,8 @@ const SignupScreen = require('./src/pages/Signup');
 const LoginScreen = require('./src/pages/Login');
 const AccountScreen = require('./src/pages/Account');
 const AvailabilityScreen = require('./src/pages/Availability');
+const SearchFriendScreen = require('./src/pages/SearchFriend');
+
 
 // Screen navigation
 
@@ -48,6 +50,7 @@ export const SimpleApp = StackNavigator({
     Main: { screen: MainScreen },
     Availability: { screen: AvailabilityScreen },
     Account: {screen: AccountScreen},
+    SearchFriend: {screen: SearchFriendScreen},
 });
 
 module.exports = SimpleApp;

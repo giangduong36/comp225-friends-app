@@ -90,7 +90,7 @@ class MainScreen extends Component {
     }
 
     _addItem() {
-        Alert.prompt(
+        AlertIOS.prompt(
             'Add New User',
             null,
             [
@@ -107,7 +107,7 @@ class MainScreen extends Component {
     }
 
     _addFriend() {
-        Alert.prompt(
+        AlertIOS.prompt(
             'Add New Friend',
             null,
             [
@@ -124,7 +124,7 @@ class MainScreen extends Component {
     }
 
     _addStatus() {
-        Alert.prompt(
+        AlertIOS.prompt(
             'Add New Status',
             null,
             [
