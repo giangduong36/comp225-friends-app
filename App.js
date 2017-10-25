@@ -60,6 +60,7 @@ import {
     StackNavigator, TabNavigator
 } from 'react-navigation';
 
+import { BottomNavigation, NavigationComponent, Tab } from 'react-native-material-bottom-navigation'
 
 //export const SimpleApp = StackNavigator({
 //    Login: {screen: LoginScreen},
@@ -95,29 +96,58 @@ export const HomeStack = StackNavigator({
 	Settings: {screen: SettingsScreen},
 });
 
+// export const Tabs = TabNavigator({
+  // Friends: {
+    // screen: FriendStack,
+    // navigationOptions: {
+      // tabBarLabel: 'Friends',
+      // tabBarIcon: ({ tintColor }) => <Icon name="people" size={35} color={tintColor} />,
+    // },
+  // },
+  // Home: {
+    // screen: HomeStack,
+    // navigationOptions: {
+      // tabBarLabel: 'Home',
+      // tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />
+    // },
+  // },
+  // Matches: {
+    // screen: MatchesStack,
+    // navigationOptions: {
+      // tabBarLabel: 'Matches',
+      // tabBarIcon: ({ tintColor }) => <Icon name="chat-bubble-outline" size={35} color={tintColor} />
+    // },
+  // },
+// });
+
 export const Tabs = TabNavigator({
-  Friends: {
-    screen: FriendStack,
-    navigationOptions: {
-      tabBarLabel: 'Friends',
-      tabBarIcon: ({ tintColor }) => <Icon name="people" size={35} color={tintColor} />,
-    },
-  },
-  Home: {
-    screen: HomeStack,
-    navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />
-    },
-  },
-  Matches: {
-    screen: MatchesStack,
-    navigationOptions: {
-      tabBarLabel: 'Matches',
-      tabBarIcon: ({ tintColor }) => <Icon name="chat-bubble-outline" size={35} color={tintColor} />
-    },
-  },
-});
+  Friends: { screen: FriendStack },
+  Home: { screen: HomeStack },
+  Matches: { screen: MatchesStack }
+}, {
+  tabBarComponent: NavigationComponent,
+  tabBarPosition: 'bottom',
+  tabBarOptions: {
+    bottomNavigationOptions: {
+      labelColor: 'black',
+      rippleColor: 'white',
+      tabs: {
+        Friends: {
+          barBackgroundColor: '#4B5CD7'
+        },	
+        Home: {
+          barBackgroundColor: '#1729B0'
+        },
+        Matches: {
+          barBackgroundColor: '#717DD7',
+          //labelColor: '#434343', // like in the standalone version, this will override the already specified `labelColor` for this tab
+          //activeLabelColor: '#212121',
+          //activeIcon: <Icon size={24} color="#212121" name="newsstand" />
+        }
+      }
+    }
+  }
+})
 
 
 export const Root = StackNavigator({
