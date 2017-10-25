@@ -12,7 +12,8 @@ let styles = StyleSheet.create({
         backgroundColor: 'lightcyan',
     },
     welcome: {
-        fontSize: 20,
+		fontFamily: 'CaviarDreams',
+        fontSize: 50,
         textAlign: 'center',
         margin: 10,
     },
@@ -78,7 +79,10 @@ let styles = StyleSheet.create({
     center: {
         textAlign: 'center',
     },
-
+	//https://facebook.github.io/react-native/docs/handling-touches.html#content
+	buttonContainer: {
+    margin: 10
+	},
 });
 
 module.exports = styles;

@@ -72,7 +72,7 @@ class LoginScreen extends Component {
                     {/*TO DELETE LATER: Button to access Account page without log in*/}
                     <ActionButton
                         onPress={() => {
-                            navigate('Account')
+                            navigate('Home') //milo!!!!!!!!!!!!!
                         }}
                         title="Go to Account!"
                     />
@@ -93,7 +93,7 @@ class LoginScreen extends Component {
             this.state.email,
             this.state.password
         ).then(function (user) {
-            navigate('Account');
+            navigate('Home'); //milo!!!!!!!!!!!!!
             // Alert.alert(
             //     'Successfully logged in!',
             //     null,
