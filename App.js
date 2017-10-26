@@ -108,16 +108,19 @@ export const Tabs = TabNavigator({
       rippleColor: 'white',
       tabs: {
         Friends: {
+          label: 'Friends',
           barBackgroundColor: '#4B5CD7',
 		  showIcon: true,
 		  icon: (<Icon size={24} color="#4F8EF7" name="people" />) 
         },	
         Home: {
+          label: 'Home',
           barBackgroundColor: '#1729B0',
 		  showIcon: true,
 		  icon: (<Icon size={24} color="#4F8EF7" name="home" />)
         },
         Matches: {
+          label: 'Matches',
           barBackgroundColor: '#717DD7',
 		  showIcon: true,
 		  icon: (<Icon size={24} color="#4F8EF7" name="chat-bubble-outline" />) //{<Icon name="chat-bubble-outline" size={35} color="#4F8EF7" />
