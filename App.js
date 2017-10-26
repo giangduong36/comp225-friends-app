@@ -51,8 +51,7 @@ const MatchesScreen = require('./src/pages/Matches'); //this is your matches pag
 
 //Import Icon
 
-import { Icon } from 'react-native-elements';
-
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 // Screen navigation
 
@@ -96,30 +95,6 @@ export const HomeStack = StackNavigator({
 	Settings: {screen: SettingsScreen},
 });
 
-// export const Tabs = TabNavigator({
-  // Friends: {
-    // screen: FriendStack,
-    // navigationOptions: {
-      // tabBarLabel: 'Friends',
-      // tabBarIcon: ({ tintColor }) => <Icon name="people" size={35} color={tintColor} />,
-    // },
-  // },
-  // Home: {
-    // screen: HomeStack,
-    // navigationOptions: {
-      // tabBarLabel: 'Home',
-      // tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />
-    // },
-  // },
-  // Matches: {
-    // screen: MatchesStack,
-    // navigationOptions: {
-      // tabBarLabel: 'Matches',
-      // tabBarIcon: ({ tintColor }) => <Icon name="chat-bubble-outline" size={35} color={tintColor} />
-    // },
-  // },
-// });
-
 export const Tabs = TabNavigator({
   Friends: { screen: FriendStack },
   Home: { screen: HomeStack },
@@ -133,13 +108,19 @@ export const Tabs = TabNavigator({
       rippleColor: 'white',
       tabs: {
         Friends: {
-          barBackgroundColor: '#4B5CD7'
+          barBackgroundColor: '#4B5CD7',
+		  showIcon: true,
+		  icon: (<Icon size={24} color="#4F8EF7" name="people" />) 
         },	
         Home: {
-          barBackgroundColor: '#1729B0'
+          barBackgroundColor: '#1729B0',
+		  showIcon: true,
+		  icon: (<Icon size={24} color="#4F8EF7" name="home" />)
         },
         Matches: {
           barBackgroundColor: '#717DD7',
+		  showIcon: true,
+		  icon: (<Icon size={24} color="#4F8EF7" name="chat-bubble-outline" />) //{<Icon name="chat-bubble-outline" size={35} color="#4F8EF7" />
           //labelColor: '#434343', // like in the standalone version, this will override the already specified `labelColor` for this tab
           //activeLabelColor: '#212121',
           //activeIcon: <Icon size={24} color="#212121" name="newsstand" />
@@ -148,6 +129,7 @@ export const Tabs = TabNavigator({
     }
   }
 })
+
 
 
 export const Root = StackNavigator({
