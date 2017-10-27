@@ -12,7 +12,7 @@ let styles = StyleSheet.create({
         backgroundColor: 'lightcyan',
     },
     welcome: {
-		fontFamily: 'CaviarDreams',
+		//fontFamily: 'CaviarDreams',
         fontSize: 50,
         textAlign: 'center',
         margin: 10,
@@ -22,6 +22,17 @@ let styles = StyleSheet.create({
         color: 'black',
         marginBottom: 5,
         paddingBottom: 10,
+    },
+
+    textinput : {
+        textAlign: "center",
+        backgroundColor: "white",
+        color:"black",
+        borderWidth:1,
+        borderColor:"black",
+        height: 30,
+        paddingTop:10,
+        paddingBottom:10
     },
     actionText: {
         color: '#fff',

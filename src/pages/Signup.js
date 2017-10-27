@@ -29,7 +29,8 @@ class SignupScreen extends Component {
         this.state = {
             loaded: true,
             email: '',
-            password: ''
+            password: '',
+            phoneNumber: ""
         };
     }
 
@@ -46,7 +47,7 @@ class SignupScreen extends Component {
                 <Text style={styles.welcome}>Let's create an account!</Text>
                 <ActionButton
                     onPress={() => navigate('Home')} //now goes to Availability rather than Main //milo!!!!!!!!!!!
-                    title="Get Started"
+                    title="TEST BYPASS"
                 />
                 <TextInput
                     style={styles.textinput}
@@ -61,12 +62,19 @@ class SignupScreen extends Component {
                     secureTextEntry={true}
                     placeholder={"Password"}
                 />
+                <TextInput
+                    style={styles.textinput}
+                    onChangeText={(text) => this.setState({phoneNumber: text})}
+                    value={this.state.phoneNumber}
+                    secureTextEntry={true}
+                    placeholder={"Phone Number"}
+                />
                 <ActionButton
-                    title="Signup"
+                    title="Sign Up"
                     onPress={this._signup.bind(this)}
                 />
                 <ActionButton
-                    title="Got an Account?"
+                    title="Log In"
                     onPress={() => navigate('Login')
                     }
                 />
