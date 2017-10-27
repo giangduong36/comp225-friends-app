@@ -123,7 +123,7 @@ export const Tabs = TabNavigator({
           label: 'Matches',
           barBackgroundColor: '#717DD7',
 		  showIcon: true,
-		  icon: (<Icon size={24} color="#4F8EF7" name="chat-bubble-outline" />) //{<Icon name="chat-bubble-outline" size={35} color="#4F8EF7" />
+		  icon: (<Icon size={24} color="#4F8EF7" name="chat-bubble" />) //{<Icon name="chat-bubble-outline" size={35} color="#4F8EF7" />
           //labelColor: '#434343', // like in the standalone version, this will override the already specified `labelColor` for this tab
           //activeLabelColor: '#212121',
           //activeIcon: <Icon size={24} color="#212121" name="newsstand" />
