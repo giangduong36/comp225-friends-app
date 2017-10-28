@@ -31,8 +31,6 @@ let styles = StyleSheet.create({
         borderWidth:1,
         borderColor:"black",
         height: 30,
-        paddingTop:10,
-        paddingBottom:10
     },
     actionText: {
         color: '#fff',

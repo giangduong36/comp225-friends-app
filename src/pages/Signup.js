@@ -46,7 +46,7 @@ class SignupScreen extends Component {
             <View style={styles.container}>
                 <Text style={styles.welcome}>Let's create an account!</Text>
                 <ActionButton
-                    onPress={() => navigate('Home')} //now goes to Availability rather than Main //milo!!!!!!!!!!!
+                    onPress={this._testLogin.bind(this)} //now goes to Availability rather than Main //milo!!!!!!!!!!!
                     title="TEST BYPASS"
                 />
                 <TextInput
@@ -83,6 +83,26 @@ class SignupScreen extends Component {
         );
     }
 
+    _testLogin() {
+        const {navigate} = this.props.navigation;
+
+        this.setState({
+            loaded: false
+        });
+
+        firebaseApp.auth().signInWithEmailAndPassword(
+            "TEST@TEST.com",
+            "123456"
+        ).then(function (user) {
+            navigate('Home'); 
+            
+        }).catch(function (error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            alert(errorMessage);
+        });
+    }
 
     _signup() {
         const {navigate} = this.props.navigation;

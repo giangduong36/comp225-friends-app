@@ -71,16 +71,34 @@ class LoginScreen extends Component {
 
                     {/*TO DELETE LATER: Button to access Account page without log in*/}
                     <ActionButton
-                        onPress={() => {
-                            navigate('Home') //milo!!!!!!!!!!!!!
-                        }}
-                        title="Go to Account!"
+                        onPress={this._testLogin.bind(this)}
+                        title="TEST BYPASS"
                     />
                 </View>
             </View>
         );
     }
 
+    _testLogin() {
+        const {navigate} = this.props.navigation;
+
+        this.setState({
+            loaded: false
+        });
+
+        firebaseApp.auth().signInWithEmailAndPassword(
+            "TEST@TEST.com",
+            "123456"
+        ).then(function (user) {
+            navigate('Home'); 
+            
+        }).catch(function (error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            alert(errorMessage);
+        });
+    }
 
     _login() {
         const {navigate} = this.props.navigation;
