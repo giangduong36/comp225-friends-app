@@ -34,11 +34,12 @@ class SignupScreen extends Component {
         };
     }
 
-    goToLogin() {
-        this.props.navigator.push({
-            component: Main
-        });
-    }
+    //
+    // goToLogin() {
+    //     this.props.navigator.push({
+    //         component: Main
+    //     });
+    // }
 
     render() {
         const {navigate} = this.props.navigation;
