@@ -67,7 +67,6 @@ class SignupScreen extends Component {
                     style={styles.textinput}
                     onChangeText={(text) => this.setState({phoneNumber: text})}
                     value={this.state.phoneNumber}
-                    secureTextEntry={true}
                     placeholder={"Phone Number"}
                 />
                 <ActionButton
@@ -111,17 +110,26 @@ class SignupScreen extends Component {
         this.setState({
             loaded: false
         });
+        
+        let that = this;
 
         firebaseApp.auth().createUserWithEmailAndPassword(
             this.state.email,
             this.state.password
         ).then(function (user) {
+
+            uid = firebaseApp.auth().currentUser.uid;
+
+            firebaseApp.database().ref("Users").update({[uid] : that.state.email});
+            firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
+
+            console.log("The UID is",uid);
+
             Alert.alert(
                 'Successfully created new user account!',
                 null,
                 [
-                    {text: 'Go to Login', onPress: () => navigate('Login')},
-                    {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
+                    {text: 'Okay!', onPress: () => navigate("Home")}
                 ]
             );
         }).catch(function (error) {
