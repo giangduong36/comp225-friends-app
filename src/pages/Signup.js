@@ -118,10 +118,25 @@ class SignupScreen extends Component {
             this.state.password
         ).then(function (user) {
 
+            //Initializes user data in the database
             uid = firebaseApp.auth().currentUser.uid;
 
             firebaseApp.database().ref("Users").update({[uid] : that.state.email});
             firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
+            firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
+            firebaseApp.database().ref("Statuses").update({[uid] : "Write your status here. How's it going, what do you want to do?"});
+            firebaseApp.database().ref("Availabilities").update({[uid] : false}); //User is not available by default.
+            firebaseApp.database().ref("ProfileImages").update({[uid] : null});
+            firebaseApp.database().ref("FriendLists").update({[uid] : [] }); //A list of a user's friends
+            firebaseApp.database().ref("FriendsAvailableLists").update({[uid] : [] }); //A list of the user's currently available friends.
+            firebaseApp.database().ref("HangmateLists").update({[uid] : [] }); //A list of the friends the user is currently interested in hanging out with.
+            firebaseApp.database().ref("MatchLists").update({[uid] : [] });
+            
+            
+            
+            
+            
+            
 
             console.log("The UID is",uid);
 

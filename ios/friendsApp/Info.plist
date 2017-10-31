@@ -68,6 +68,17 @@
 		<string>CaviarDreams_BoldItalic.ttf</string>
 		<string>CaviarDreams_Italic.ttf</string>
 		<string>CaviarDreams.ttf</string>
+		<string>caviarDreams.ttf</string>
+		<string>JosefinSans-Bold.ttf</string>
+		<string>JosefinSans-BoldItalic.ttf</string>
+		<string>JosefinSans-Italic.ttf</string>
+		<string>JosefinSans-Light.ttf</string>
+		<string>JosefinSans-LightItalic.ttf</string>
+		<string>JosefinSans-Regular.ttf</string>
+		<string>JosefinSans-SemiBold.ttf</string>
+		<string>JosefinSans-SemiBoldItalic.ttf</string>
+		<string>JosefinSans-Thin.ttf</string>
+		<string>JosefinSans-ThinItalic.ttf</string>
 	</array>
 </dict>
 </plist>

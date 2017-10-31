@@ -12,7 +12,7 @@ let styles = StyleSheet.create({
         backgroundColor: 'lightcyan',
     },
     welcome: {
-		//fontFamily: 'CaviarDreams',
+		fontFamily: 'CaviarDreams',
         fontSize: 50,
         textAlign: 'center',
         margin: 10,
