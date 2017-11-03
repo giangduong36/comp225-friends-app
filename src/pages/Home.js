@@ -45,7 +45,10 @@ class HomeScreen extends Component {
                 
                 {/*<Header text="home" loaded={this.state.loaded} />*/}
                 
-                <Text style={styles.welcome}>welcome to the home screen</Text>
+                <Text style={styles.welcome}>Are you available?</Text>
+                
+             
+                
                 <View style = {styles.buttonContainer}>
                 <ActionButton
                 title="Profile"
@@ -61,48 +64,22 @@ class HomeScreen extends Component {
                 />
                 </View>
                 
-                <Slider
-                //value={this.state.value}
-                minimumValue={0}
-                maximumValue={1}
-                step={1}
-                minimumTrackTintColor='#1073ff'
-                maximumTrackTintColor='#b7b7b7'
-                style={sliderStyle.container}
-                trackStyle={sliderStyle.track}
-                thumbStyle={sliderStyle.thumb}
-                onValueChange={(value) => this.setState({value})} />
-                
                 <Switch //toggle switch for availability
                 value = {this.state.value}
                 style={{marginBottom: 10}}
                 onValueChange={(value) => this.setState({value})}
                 />
-                //TODO: get rid of slider, improve switch style, pass data to firebase
-                
-                // <Text>Value: {this.state.value}</Text>
                 </View>
+                
+//
+               //TODO: get rid of slider, improve switch style, pass data to firebase
+//
+//                <Text>Value: {this.state.value}</Text>
+//                </View>
                 );
     }
     
 }
-
-
-//https://snack.expo.io/H1cnedhBW
-var sliderStyle = StyleSheet.create({
-                                    track: {
-                                    height: 4,
-                                    borderRadius: 2,
-                                    },
-                                    thumb: {
-                                    width: 30,
-                                    height: 30,
-                                    borderRadius: 30 / 2,
-                                    backgroundColor: 'white',
-                                    borderColor: '#b7b7b7',
-                                    borderWidth: 2,
-                                    }
-                                    });
 
 module.exports = HomeScreen;
 
