@@ -122,6 +122,7 @@ class SignupScreen extends Component {
             uid = firebaseApp.auth().currentUser.uid;
 
             firebaseApp.database().ref("Users").update({[uid] : that.state.email});
+            firebaseApp.database().ref("UserIDs").update( {[that.state.phoneNumber] : uid})
             firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
             firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
             firebaseApp.database().ref("Statuses").update({[uid] : "Write your status here. How's it going, what do you want to do?"});

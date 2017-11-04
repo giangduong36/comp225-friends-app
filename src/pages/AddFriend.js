@@ -10,6 +10,7 @@ const {
     Text,
     View,
     TouchableHighlight,
+    Alert,
     AlertIOS,
     Button,
     TextInput,
@@ -31,10 +32,7 @@ class AddFriendScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: 'Search friend by name, email or phone number',
-            friends: [],
-            selected: null,
-            friendItems: null,
+            text: 'Enter phone number of a friend to add them',
         };
     }
 
@@ -45,10 +43,13 @@ class AddFriendScreen extends Component {
                 <Text style={styles.welcome}>welcome to the add friend screen</Text>
 
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(text) => this.searchUserByName({text})}
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor:"white", justifyContent:"center"}}
+                    onChangeText={(text) => this.state.text=text}
                     placeholder={this.state.text}
                 />
+
+                <ActionButton title="ADD FRIEND" onPress={this.addFriend.bind(this)}/>
+                
                 <Picker
                     selectedValue={this.state.selected}
                     onValueChange={(itemValue, itemIndex) => this.setState({selected: itemValue})}>
@@ -60,6 +61,57 @@ class AddFriendScreen extends Component {
 
         );
     }
+
+    addFriend() {
+        const {navigate} = this.props.navigation;
+        let friendPhone = this.state.text;
+        let friendID = null;
+        console.log(friendPhone);
+        firebaseApp.database().ref("UserIDs/" + friendPhone).once("value", function(data) {
+            friendID = data.val();
+            console.log("The reference worked");
+            console.log(friendID);
+
+            if (friendID != null) {
+                firebaseApp.database().ref("FriendLists/" + firebaseApp.auth().currentUser.uid ).push(friendID);
+                firebaseApp.database().ref("FriendLists/" + friendID).push(firebaseApp.auth().currentUser.uid);
+                Alert.alert(
+                    "Congrats",
+                    "You successfully added a friend!",
+                    [
+                    {text: "Okay!", onPress: () => navigate("AddFriend")}
+                    ]
+                );
+            }
+            else {
+                Alert.alert(
+                    "Error",
+                    "That user does not exist",
+                    [
+                    {text: 'Okay!', onPress: () => navigate("Home")}
+                    ]
+                );
+            }
+        });
+    }
+
+    //     if (friendID != null) {
+    //         firebaseApp.database().ref("FriendLists/" + firebaseApp.auth().currentUser.uid ).push(friendID);
+    //         //firebaseApp.database().ref("FriendLists/" + friendID).push(firebaseApp.auth().currentUser.uid);
+    //         Alert.alert(
+    //             "Congrats",
+    //             "You successfully added a friend!",
+    //             {text: "Okay!"}
+    //         );
+    //     }
+    //     else {
+    //         Alert.alert(
+    //             "Error",
+    //             "That user does not exist",
+    //             {text: 'Okay!', onPress: () => navigate("Home")}
+    //         );
+    //     }
+    // }
 
 
     searchUserByName(text) {
