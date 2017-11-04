@@ -14,7 +14,8 @@ const {
     AlertIOS,
     Button,
     TextInput,
-	Platform
+    Platform,
+    FlatList,
 } = ReactNative;
 
 const StatusBar = require('../components/StatusBar');
@@ -39,6 +40,7 @@ class FriendslistScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
+                {/*TODO: Make a flatlist/sectionlist view of friends*/}
 
                 <Text style={styles.welcome}>welcome to the friends list screen</Text>
 				<ActionButton
