@@ -24,9 +24,9 @@ const firebaseApp = require('../services/firebaseInit');
 
 
 class AddFriendScreen extends Component {
-    static navigationOptions = {
-        title: 'Add friend',
-    };
+    // static navigationOptions = {
+    //     title: 'Add friend',
+    // };
 
 
     constructor(props) {
@@ -49,14 +49,20 @@ class AddFriendScreen extends Component {
                 />
 
                 <ActionButton title="ADD FRIEND" onPress={this.addFriend.bind(this)}/>
-                
-                <Picker
-                    selectedValue={this.state.selected}
-                    onValueChange={(itemValue, itemIndex) => this.setState({selected: itemValue})}>
-                    {/*<Picker.Item label="Java" value="java" />*/}
-                    {/*<Picker.Item label="JavaScript" value="js" />*/}
-                    {this.state.friendItems}
-                </Picker>
+
+                {/*TO DELETE LATER: Button to create data on database*/}
+                {/*<ActionButton*/}
+                {/*onPress={this._addData.bind(this)}*/}
+                {/*title="Change Data"*/}
+                {/*/>*/}
+
+                {/*<Picker*/}
+                {/*selectedValue={this.state.selected}*/}
+                {/*onValueChange={(itemValue, itemIndex) => this.setState({selected: itemValue})}>*/}
+                {/*/!*<Picker.Item label="Java" value="java" />*!/*/}
+                {/*/!*<Picker.Item label="JavaScript" value="js" />*!/*/}
+                {/*{this.state.friendItems}*/}
+                {/*</Picker>*/}
             </View>
 
         );
@@ -72,23 +78,45 @@ class AddFriendScreen extends Component {
             console.log("The reference worked");
             console.log(friendID);
 
-            if (friendID != null) {
-                firebaseApp.database().ref("FriendLists/" + firebaseApp.auth().currentUser.uid ).push(friendID);
-                firebaseApp.database().ref("FriendLists/" + friendID).push(firebaseApp.auth().currentUser.uid);
-                Alert.alert(
-                    "Congrats",
-                    "You successfully added a friend!",
-                    [
-                    {text: "Okay!", onPress: () => navigate("AddFriend")}
-                    ]
-                );
+            if (friendID !== null) {
+                // firebaseApp.database().ref("FriendLists/" + firebaseApp.auth().currentUser.uid ).push(friendID);
+                // firebaseApp.database().ref("FriendLists/" + friendID).push(firebaseApp.auth().currentUser.uid);
+
+                // Add a new friend such that the userID is the key, value is empty for now.
+                let usersRef = firebaseApp.database().ref("FriendLists/" + firebaseApp.auth().currentUser.uid);
+                usersRef.child(friendID).once('value', function (snapshot) {
+                    let exists = (snapshot.val() !== null); // Check if already friend with this user
+                    if (exists) {
+                        Alert.alert(
+                            "You are already friends!",
+                            "",
+                            [
+                                {
+                                    text: "Okay!",
+                                    onPress: () => () => console.log("Fail to add a friend: Already friends!")
+                                }
+                            ]
+                        );
+                    } else {
+                        firebaseApp.database().ref("FriendLists/" + firebaseApp.auth().currentUser.uid).update({[friendID]: ""});
+                        firebaseApp.database().ref("FriendLists/" + friendID).update({[firebaseApp.auth().currentUser.uid]: ""});
+                        Alert.alert(
+                            "Congrats",
+                            "You successfully added a friend!",
+                            [
+                                // Don't navigate to a new AddFriend page, it creates a history of all AddFriend pages.
+                                {text: "Okay!", onPress: () => console.log("Successfully added a new friend")}
+                            ]
+                        );
+                    }
+                });
             }
             else {
                 Alert.alert(
                     "Error",
                     "That user does not exist",
                     [
-                    {text: 'Okay!', onPress: () => navigate("Home")}
+                        {text: 'Okay!', onPress: console.log("Fail to add a friend: That user does not exist")}
                     ]
                 );
             }
@@ -134,6 +162,28 @@ class AddFriendScreen extends Component {
             })
         });
     }
+
+    _addData() {
+        // Create name data for current 9 users
+        console.log("Create fake data");
+        const name = ['Monica', 'Rachel', 'Joey', 'Chandler', 'Ross', 'Phoebe', 'u1', 'u2', 'u3'],
+            friend = ['', 'b', 'c', 'd', 'e'];
+        let i = 0;
+        firebaseApp.database().ref('Names').once("value", function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                let childKey = childSnapshot.key;
+                console.log(childKey);
+                console.log(name[i]);
+                let childData = childSnapshot.val();
+                firebaseApp.database().ref("Names/" + childKey).update(name[i]);
+                i++;
+            });
+
+        });
+
+    }
+
+
 
 }
 

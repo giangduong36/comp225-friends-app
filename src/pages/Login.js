@@ -135,32 +135,32 @@ class LoginScreen extends Component {
 
 
     /* TO DELETE LATER: Function to create fake users in Firebase */
-    createFakeData() {
-        console.log("Create fake data");
-        const name = ['u1', 'u2', 'u3', 'u4', 'u5', 'u6'],
-            friend = ['', 'b', 'c', 'd', 'e'];
-
-        // var res = arr1.map(function(v, i) {
-        //     return {
-        //         index: v,
-        //         value: arr2[i]
-        //     };
-        // })
-        for (let i = 0; i < name.length; i++) {
-            let uid = Math.floor(Math.random() * 100000);
-            firebaseApp.database().ref('/randomUsers/' + uid).set({
-                "status": Math.random() < 0.5 ? "free" : "busy",
-                "name": name[i],
-                "email": name[i] + "@gmail.com",
-                "phone": Math.floor(Math.random() * 100),
-            });
-            for (let j = 0; j < name.length; j++) {
-                if (i !== j) {
-                    firebaseApp.database().ref('/randomUsers/' + uid + '/friends/').push({"name": name[i]});
-                }
-            }
-        }
-    }
+    // createFakeData() {
+    //     console.log("Create fake data");
+    //     const name = ['u1', 'u2', 'u3', 'u4', 'u5', 'u6'],
+    //         friend = ['', 'b', 'c', 'd', 'e'];
+    //
+    //     // var res = arr1.map(function(v, i) {
+    //     //     return {
+    //     //         index: v,
+    //     //         value: arr2[i]
+    //     //     };
+    //     // })
+    //     for (let i = 0; i < name.length; i++) {
+    //         let uid = Math.floor(Math.random() * 100000);
+    //         firebaseApp.database().ref('/randomUsers/' + uid).set({
+    //             "status": Math.random() < 0.5 ? "free" : "busy",
+    //             "name": name[i],
+    //             "email": name[i] + "@gmail.com",
+    //             "phone": Math.floor(Math.random() * 100),
+    //         });
+    //         for (let j = 0; j < name.length; j++) {
+    //             if (i !== j) {
+    //                 firebaseApp.database().ref('/randomUsers/' + uid + '/friends/').push({"name": name[i]});
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 
