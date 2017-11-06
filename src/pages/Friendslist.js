@@ -28,7 +28,7 @@ const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
 
-const Header = require('../components/Header');
+// const Header = require('../components/Header');
 const flatList = require('./FriendFlatList');
 
 
