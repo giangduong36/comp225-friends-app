@@ -27,10 +27,11 @@ class SignupScreen extends Component {
         super(props);
 
         this.state = {
-            loaded: true,
+            loaded: false,
             email: '',
             password: '',
-            phoneNumber: ""
+            phoneNumber: "",
+            phoneNumRef: null
         };
     }
 
@@ -110,55 +111,61 @@ class SignupScreen extends Component {
         this.setState({
             loaded: false
         });
-        
+
         let that = this;
 
-        firebaseApp.auth().createUserWithEmailAndPassword(
-            this.state.email,
-            this.state.password
-        ).then(function (user) {
-
-            //Initializes user data in the database
-            uid = firebaseApp.auth().currentUser.uid;
-
-            firebaseApp.database().ref("Users").update({[uid] : that.state.email});
-            firebaseApp.database().ref("UserIDs").update( {[that.state.phoneNumber] : uid})
-            firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
-            firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
-            firebaseApp.database().ref("Statuses").update({[uid] : "Write your status here. How's it going, what do you want to do?"});
-            firebaseApp.database().ref("Availabilities").update({[uid] : false}); //User is not available by default.
-            firebaseApp.database().ref("ProfileImages").update({[uid] : null});
-            firebaseApp.database().ref("FriendLists").update({[uid] : [] }); //A list of a user's friends
-            firebaseApp.database().ref("FriendsAvailableLists").update({[uid] : [] }); //A list of the user's currently available friends.
-            firebaseApp.database().ref("HangmateLists").update({[uid] : [] }); //A list of the friends the user is currently interested in hanging out with.
-            firebaseApp.database().ref("MatchLists").update({[uid] : [] });
-            
-            
-            
-            
-            
-            
-
-            console.log("The UID is",uid);
-
-            Alert.alert(
-                'Successfully created new user account!',
-                null,
+        firebaseApp.database().ref("UserIDs/" + that.state.phoneNumber).once(
+            "value", function(snapshot) {
+                that.setState({phoneNumRef : snapshot.val() , loaded: true})
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          }).then(() => {
+            if (that.state.loaded) {
+                if (that.state.phoneNumRef != null) {
+                    Alert.alert("Phone Number Already Registered",
+                    "Sorry, but that phone number appears to already be in our database. Please double check you entered the correct number.",
                 [
-                    {text: 'Okay!', onPress: () => navigate("Home")}
-                ]
-            );
-        }).catch(function (error) {
-            // Handle Errors here.
-            let errorCode = error.code;
-            let errorMessage = error.message;
-            // if (errorCode == 'auth/weak-password') {
-            //     alert('The password is too weak.');
-            // } else {
-            //     alert(errorMessage);
-            // }
-            alert(errorMessage);
-        });
+                    "Okay"
+                ]);
+                } else {
+
+                    firebaseApp.auth().createUserWithEmailAndPassword(
+                        that.state.email,
+                        that.state.password
+                    ).then(function (user) {
+
+                        //Initializes user data in the database
+                        uid = firebaseApp.auth().currentUser.uid;
+
+                        firebaseApp.database().ref("Users").update({[uid] : that.state.email});
+                        firebaseApp.database().ref("UserIDs").update( {[that.state.phoneNumber] : uid})
+                        firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
+                        firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
+                        firebaseApp.database().ref("Statuses").update({[uid] : "Write your status here. How's it going, what do you want to do?"});
+                        firebaseApp.database().ref("Availabilities").update({[uid] : false}); //User is not available by default.
+                        firebaseApp.database().ref("ProfileImages").update({[uid] : null});
+                        
+                        Alert.alert(
+                            'Successfully created new user account!',
+                            null,
+                            [
+                                {text: 'Okay!', onPress: () => navigate("Home")}
+                            ]
+                        );
+                    }).catch(function (error) {
+                        // Handle Errors here.
+                        let errorCode = error.code;
+                        let errorMessage = error.message;
+                        // if (errorCode == 'auth/weak-password') {
+                        //     alert('The password is too weak.');
+                        // } else {
+                        //     alert(errorMessage);
+                        // }
+                        alert(errorMessage);
+                    });
+                }
+            }
+        })
     }
 }
 
