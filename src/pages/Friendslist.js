@@ -39,7 +39,7 @@ class FriendslistScreen extends Component {
 		headerTitleStyle: {
 			alignSelf: 'center'
 		},
-		headerLeft: <Icon.Button name="person-add" backgroundColor="#3b5998" onPress={() => navigation.navigate('AddFriend')}>Add Friend</Icon.Button>
+		headerLeft: <Icon.Button name="person-add" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('AddFriend')}>Add Friend</Icon.Button>
 	});
 
     constructor(props) {

@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
 import { Slider } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const {
     AppRegistry,
@@ -26,9 +27,14 @@ const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
 
 class HomeScreen extends Component {
-    static navigationOptions = {
-    title: 'Home',
-    };
+    static navigationOptions = ({ navigation}) => ({
+		title: "Home",
+		headerTitleStyle: {
+			alignSelf: 'center'
+		},
+		headerLeft: <Icon.Button name="person" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Profile')}>Profile</Icon.Button>,
+		headerRight: <Icon.Button name="settings" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Settings')}>Settings</Icon.Button>
+	});
     
     constructor(props) {
         super(props);
@@ -47,22 +53,6 @@ class HomeScreen extends Component {
                 
                 <Text style={styles.welcome}>Are you available?</Text>
                 
-             
-                
-                <View style = {styles.buttonContainer}>
-                <ActionButton
-                title="Profile"
-                onPress={() => navigate('Profile')
-                }
-                />
-                </View>
-                <View style = {styles.buttonContainer}>
-                <ActionButton
-                title="Settings"
-                onPress={() => navigate('Settings')
-                }
-                />
-                </View>
                 
                 <Switch //toggle switch for availability
                 value = {this.state.value}
@@ -82,4 +72,3 @@ class HomeScreen extends Component {
 }
 
 module.exports = HomeScreen;
-

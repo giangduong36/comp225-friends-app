@@ -104,29 +104,26 @@ export const Tabs = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     bottomNavigationOptions: {
-      labelColor: 'black',
+      labelColor: 'white',
       rippleColor: 'white',
       tabs: {
         Friends: {
           label: 'Friends',
-          barBackgroundColor: '#4B5CD7',
+          barBackgroundColor: 'black',
 		  showIcon: true,
-		  icon: (<Icon size={24} color="#4F8EF7" name="people" />) 
+		  icon: (<Icon size={24} color="white" name="people" />) 
         },	
         Home: {
           label: 'Home',
-          barBackgroundColor: '#1729B0',
+          barBackgroundColor: 'black',
 		  showIcon: true,
-		  icon: (<Icon size={24} color="#4F8EF7" name="home" />)
+		  icon: (<Icon size={24} color="white" name="home" />)
         },
         Matches: {
           label: 'Matches',
-          barBackgroundColor: '#717DD7',
+          barBackgroundColor: 'black',
 		  showIcon: true,
-		  icon: (<Icon size={24} color="#4F8EF7" name="chat-bubble" />) //{<Icon name="chat-bubble-outline" size={35} color="#4F8EF7" />
-          //labelColor: '#434343', // like in the standalone version, this will override the already specified `labelColor` for this tab
-          //activeLabelColor: '#212121',
-          //activeIcon: <Icon size={24} color="#212121" name="newsstand" />
+		  icon: (<Icon size={24} color="white" name="chat-bubble" />)
         }
       }
     }

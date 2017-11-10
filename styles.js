@@ -9,7 +9,7 @@ let styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: 'lightcyan',
+        backgroundColor: 'white',
     },
     welcome: {
 		fontFamily: 'CaviarDreams',
@@ -17,16 +17,10 @@ let styles = StyleSheet.create({
         textAlign: 'center',
         margin: 10,
     },
-    instructions: {
-        textAlign: 'center',
-        color: 'black',
-        marginBottom: 5,
-        paddingBottom: 10,
-    },
 
     textinput : {
         textAlign: "center",
-        backgroundColor: "white",
+        backgroundColor: "lightgray",
         color:"black",
         borderWidth:1,
         borderColor:"black",
