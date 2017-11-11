@@ -51,25 +51,25 @@ class HomeScreen extends Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-                <View style={styles.container}>
-                
-                {/*<Header text="home" loaded={this.state.loaded} />*/}
+                <View style={{alignItems: 'center'}}>
+                <View style = {styles.container}/>
                 
                 <Text style={styles.welcome}>Are you available?</Text>
                 
                 
                 <Switch //toggle switch for availability
-                value = {this.state.value}
-                style={{marginBottom: 10}}
-                onValueChange={(value) => this.setState({value})}
+                    value = {this.state.value}
+                    onTintColor="#999999"
+                    style={{marginBottom: 10}}
+                    thumbTintColor="#0000ff"
+                    tintColor="#000000"
+                    onValueChange={(value) => this.setState({value})}
                 />
                 </View>
                 
-//
-               //TODO: get rid of slider, improve switch style, pass data to firebase
-//
-//                <Text>Value: {this.state.value}</Text>
-//                </View>
+                // the switch is colored differently on ios and android
+               //TODO: pass data to firebase
+                
                 );
     }
     
