@@ -95,6 +95,8 @@ export const HomeStack = StackNavigator({
 	Settings: {screen: SettingsScreen},
 });
 
+
+
 export const Tabs = TabNavigator({
   Friends: { screen: FriendStack },
   Home: { screen: HomeStack },

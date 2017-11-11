@@ -29,11 +29,15 @@ const firebaseApp = require('../services/firebaseInit');
 class HomeScreen extends Component {
     static navigationOptions = ({ navigation}) => ({
 		title: "Home",
-		headerTitleStyle: {
-			alignSelf: 'center'
+		headerStyle: {
+			backgroundColor: 'black'
 		},
+        headerTitleStyle: {
+            alignSelf: 'center',
+			color: 'white'
+        },
 		headerLeft: <Icon.Button name="person" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Profile')}>Profile</Icon.Button>,
-		headerRight: <Icon.Button name="settings" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Settings')}>Settings</Icon.Button>
+		headerRight: <Icon.Button name="settings" backgroundColor="black" style={{flex: 1}}onPress={() => navigation.navigate('Settings')}>Settings</Icon.Button>
 	});
     
     constructor(props) {

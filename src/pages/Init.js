@@ -24,6 +24,13 @@ const firebaseApp = require('../services/firebaseInit');
 class InitScreen extends Component {
     static navigationOptions = {
         title: 'Initial Screen',
+		headerStyle: {
+			backgroundColor: 'black'
+		},
+        headerTitleStyle: {
+            alignSelf: 'center',
+			color: 'white'
+        },
     };
 
     constructor(props) {
