@@ -53,7 +53,7 @@ class FriendslistScreen extends Component {
         super(props);
         this.state = {
             loading: false,
-            data: [{'name': "abc", "email": "gg.com"}],
+            data: [],
             page: 1,
             seed: 1,
             error: null,
@@ -65,12 +65,9 @@ class FriendslistScreen extends Component {
 
     render() {
         const {navigate} = this.props.navigation;
-        // const testItem = {'name':"Hello"};
-
         return (
             <View style={styles.container}>
                 {/*TODO: Make a flatlist/sectionlist view of friends*/}
-
 
                 {/*<FlatListDemo2/>*/}
                 <List>
@@ -86,16 +83,23 @@ class FriendslistScreen extends Component {
                                 // onPress={() => navigate('AddFriend')}
                                 onPress={() =>
                                     Alert.alert(
-                                        `You clicked on ${item.name} !`,
-                                        null
+                                        'Unfriend this person?',
+                                        null,
+                                        [
+                                            {
+                                                text: 'Unfriend',
+                                                onPress: (text) => firebaseApp.database().ref('FriendLists/' + uid).child(item.key).remove()
+                                            },
+                                            {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
+                                        ]
                                     )
                                 }
                             />
                         )}
-                        keyExtractor={item => item.email}
+                        keyExtractor={item => item.key}
                         ItemSeparatorComponent={this.renderSeparator}
                         ListHeaderComponent={this.renderHeader}
-                        ListFooterComponent={this.renderFooter}
+                        // ListFooterComponent={this.renderFooter}
                         onRefresh={this.handleRefresh}
                         refreshing={this.state.refreshing}
                         onEndReached={this.handleLoadMore}
@@ -109,16 +113,22 @@ class FriendslistScreen extends Component {
     loadFriends() {
         console.log("Loading friends...");
         let that = this;
-        firebaseApp.database().ref('Names').once("value", function (snapshot) {
+        uid = firebaseApp.auth().currentUser.uid;
+        firebaseApp.database().ref('FriendLists/' + uid).on("value", function (snapshot) {
+            console.log("Loading here");
+            while (that.state.data.length > 0) {
+                that.state.data.pop();
+            }
+            console.log(that.state.data);
             snapshot.forEach(function (childSnapshot) {
                 // let childKey = childSnapshot.key;
-                // console.log(childKey);
-                // console.log(name[i]);
-                let friendName = childSnapshot.val();
-                console.log(friendName);
-
-                that.state.data.push({'name': friendName});
-                // firebaseApp.database().ref("Names/" + childKey).update(name[i]);
+                let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
+                nameLoc.on('value', function (snapshot) {
+                    console.log("Here");
+                    console.log(snapshot.key);
+                    console.log(snapshot.val());
+                    that.state.data.push({'name': snapshot.val(), 'key': snapshot.key});
+                });
             });
         });
         console.log(this.state.data);
@@ -138,12 +148,16 @@ class FriendslistScreen extends Component {
     };
 
     renderHeader = () => {
+        const {navigate} = this.props.navigation;
         return (
             <View>
                 <Text style={styles.welcome}>welcome to the friends list screen</Text>
                 <ActionButton
                     title="Click a friend to see their profile's details"
-                    onPress={() => navigate('UserDetail')
+                    onPress={() => {
+                        console.log(this.state.data);
+                        navigate('UserDetail')
+                    }
                     }
                 />
                 <SearchBar placeholder="Search for a friend..." lightTheme round/>
@@ -163,6 +177,7 @@ class FriendslistScreen extends Component {
                     borderColor: "#CED0CE"
                 }}
             >
+                {/*Render the loading sign at the end of the list*/}
                 <ActivityIndicator animating size="large"/>
             </View>
         );

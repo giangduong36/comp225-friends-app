@@ -97,6 +97,17 @@ class AddFriendScreen extends Component {
                                 }
                             ]
                         );
+                    } else if (friendID === firebaseApp.auth().currentUser.uid) {
+                        Alert.alert(
+                            "Sorry you cannot add yourself!",
+                            "",
+                            [
+                                {
+                                    text: "Okay!",
+                                    onPress: () => () => console.log("Fail to add a friend: Add self!")
+                                }
+                            ]
+                        );
                     } else {
                         firebaseApp.database().ref("FriendLists/" + firebaseApp.auth().currentUser.uid).update({[friendID]: ""});
                         firebaseApp.database().ref("FriendLists/" + friendID).update({[firebaseApp.auth().currentUser.uid]: ""});
