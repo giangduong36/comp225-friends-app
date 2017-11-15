@@ -43,13 +43,15 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        value: false,
+            value: false
         }
         
     }
     
     render() {
         const {navigate} = this.props.navigation;
+        uid = firebaseApp.auth().currentUser.uid;
+        firebaseApp.database().ref("Availabilities").update({[uid] : this.state.value});
         return (
                 <View style={{alignItems: 'center'}}>
                 <View style = {styles.container}/>
@@ -57,7 +59,7 @@ class HomeScreen extends Component {
                 <Text style={styles.welcome}>Are you available?</Text>
                 
                 
-                <Switch //toggle switch for availability
+                <Switch //toggle switch for availability info
                     value = {this.state.value}
                     onTintColor="#999999"
                     style={{marginBottom: 10}}
@@ -67,8 +69,8 @@ class HomeScreen extends Component {
                 />
                 </View>
                 
+                
                 // the switch is colored differently on ios and android
-               //TODO: pass data to firebase
                 
                 );
     }
