@@ -108,7 +108,6 @@ class MatchesScreen extends Component {
                 // console.log(name[i]);
                 let friendName = childSnapshot.val();
                 console.log(friendName);
-
                 that.state.data.push({'name': friendName});
             });
         });

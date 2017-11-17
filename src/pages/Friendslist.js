@@ -144,17 +144,7 @@ class FriendslistScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <View>
-                <Text style={styles.welcome}>welcome to the friends list screen</Text>
-                <ActionButton
-                    title="Click a friend to see their profile's details"
-                    onPress={() => {
-                        console.log(this.state.data);
-                        navigate('UserDetail')
-                    }
-                    }
-                />
                 <SearchBar placeholder="Search for a friend..." lightTheme round/>
-
             </View>
 
         )
