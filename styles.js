@@ -27,7 +27,7 @@ let styles = StyleSheet.create({
         height: 30,
     },
     actionText: {
-        color: '#fff',
+        color: 'navy',
         fontSize: 16,
         textAlign: 'center',
     },

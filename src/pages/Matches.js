@@ -30,7 +30,6 @@ const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
 
-// const Header = require('../components/Header');
 // const flatList = require('./FriendFlatList');
 
 
@@ -65,45 +64,39 @@ class MatchesScreen extends Component {
             <View style={styles.container}>
                 {/*TODO: Make a flatlist/sectionlist view of friends*/}
 
-
-                {/*<FlatListDemo2/>*/}
-                <List>
-                    <FlatList
-                        data={this.state.data}
-                        renderItem={({item}) => (
-                            <ListItem
-                                roundAvatar
-                                // title={`${item.name.first} ${item.name.last}`}
-                                title={item.name}
-                                subtitle={""}
-                                containerStyle={{borderBottomWidth: 0}}
-                                // onPress={() => navigate('AddFriend')}
-                                onPress={() =>
-                                    Alert.alert(
-                                        `You clicked on ${item.name} !`,
-                                        null
-                                    )
-                                }
-                            />
-                        )}
-                        keyExtractor={item => item.email}
-                        ItemSeparatorComponent={this.renderSeparator}
-                        ListHeaderComponent={this.renderHeader}
-                        ListFooterComponent={this.renderFooter}
-                        onRefresh={this.handleRefresh}
-                        refreshing={this.state.refreshing}
-                        onEndReached={this.handleLoadMore}
-                        onEndReachedThreshold={50}
-                    />
-                </List>
+                {/*<List>*/}
+                {/*<FlatList*/}
+                {/*data={this.state.data}*/}
+                {/*renderItem={({item}) => (*/}
+                {/*<ListItem*/}
+                {/*roundAvatar*/}
+                {/*// title={`${item.name.first} ${item.name.last}`}*/}
+                {/*title={item.name}*/}
+                {/*subtitle={""}*/}
+                {/*containerStyle={{borderBottomWidth: 0}}*/}
+                {/*// onPress={() => navigate('AddFriend')}*/}
+                {/*onPress={() =>*/}
+                {/*Alert.alert(*/}
+                {/*`You clicked on ${item.name} !`,*/}
+                {/*null*/}
+                {/*)*/}
+                {/*}*/}
+                {/*/>*/}
+                {/*)}*/}
+                {/*keyExtractor={item => item.email}*/}
+                {/*ItemSeparatorComponent={this.renderSeparator}*/}
+                {/*ListHeaderComponent={this.renderHeader}*/}
+                {/*ListFooterComponent={this.renderFooter}*/}
+                {/*onRefresh={this.handleRefresh}*/}
+                {/*refreshing={this.state.refreshing}*/}
+                {/*onEndReached={this.handleLoadMore}*/}
+                {/*onEndReachedThreshold={50}*/}
+                {/*/>*/}
+                {/*</List>*/}
             </View>
         );
     }
-	
-	
-	
-	
-	
+
 
     loadFriends() {
         console.log("Loading friends...");
@@ -117,7 +110,6 @@ class MatchesScreen extends Component {
                 console.log(friendName);
 
                 that.state.data.push({'name': friendName});
-                // firebaseApp.database().ref("Names/" + childKey).update(name[i]);
             });
         });
         console.log(this.state.data);
@@ -159,8 +151,8 @@ class MatchesScreen extends Component {
             </View>
         );
     };
-	
-	
+
+
 }
 
 

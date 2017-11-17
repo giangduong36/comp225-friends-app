@@ -9,7 +9,7 @@ const {
     Text,
     View,
     TouchableHighlight,
-    AlertIOS,
+    Alert,
     Button,
     TextInput
 } = ReactNative;
@@ -44,17 +44,40 @@ class UserDetailScreen extends Component {
 
     render() {
         const {navigate} = this.props.navigation;
+        uid = firebaseApp.auth().currentUser.uid;
         return (
             <View style={styles.container}>
 
                 {/*<Header text="Friends List" loaded={this.state.loaded} />*/}
-
                 <Text style={styles.welcome}>welcome to the user detail screen</Text>
+                <Text style={styles.actionText}> Status </Text>
+                <Text style={styles.actionText}> Phone </Text>
+                <Text style={styles.actionText}> About </Text>
+                <Text style={styles.actionText}> Interest </Text>
+
+                <ActionButton title="Unfriend" onPress={this._unfriend.bind(this)}/>
             </View>
         );
     }
 
+    _unfriend() {
+        let chosenFriend = this.props.navigation.state.params.chosenFriend;
+        Alert.alert(
+            'Unfriend this person?',
+            null,
+            [
+                {
+                    text: 'Unfriend',
+                    //Not work because item is defined in FriendList
+                    onPress: (text) => firebaseApp.database().ref('FriendLists/' + uid).child(chosenFriend.key).remove()
+                },
+                {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
+            ]
+        )
+    }
+
 }
+
 
 
 module.exports = UserDetailScreen;

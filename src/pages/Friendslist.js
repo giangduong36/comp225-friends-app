@@ -34,7 +34,6 @@ const firebaseApp = require('../services/firebaseInit');
 // const flatList = require('./FriendFlatList');
 
 
-
 class FriendslistScreen extends Component {
 
     static navigationOptions = ({navigation}) => ({
@@ -57,7 +56,7 @@ class FriendslistScreen extends Component {
             page: 1,
             seed: 1,
             error: null,
-            refreshing: false
+            refreshing: false,
         };
         this.loadFriends();
 
@@ -81,18 +80,12 @@ class FriendslistScreen extends Component {
                                 subtitle={""}
                                 containerStyle={{borderBottomWidth: 0}}
                                 // onPress={() => navigate('AddFriend')}
-                                onPress={() =>
-                                    Alert.alert(
-                                        'Unfriend this person?',
-                                        null,
-                                        [
-                                            {
-                                                text: 'Unfriend',
-                                                onPress: (text) => firebaseApp.database().ref('FriendLists/' + uid).child(item.key).remove()
-                                            },
-                                            {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
-                                        ]
-                                    )
+                                onPress={
+                                    () => {
+                                        this.props.navigation.navigate('UserDetail', {
+                                            chosenFriend: item   //your user details
+                                        })
+                                    }
                                 }
                             />
                         )}
