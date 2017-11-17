@@ -63,9 +63,34 @@ constructor(props) {
                 <Text style={styles.actionText}> Phone: {this.state.phone} </Text>
                 <Text style={styles.actionText}> About </Text>
                 <Text style={styles.actionText}> Interest </Text>
+                <TextInput
+                    style={styles.textinput}
+                    onChangeText={(text) => this.setState({phoneNumber: text})}
+                    value={this.state.phoneNumber}
+                    placeholder={"Phone Number"}
+                />
+				<ActionButton
+                    title="Submit"
+                    onPress={this.update.bind(this)}
+                />
             </View>
         );
-	}	
+	}
+
+	update() {
+		this.setState({
+            loaded: false
+        });
+
+        let that = this;
+        //firebaseApp.database().ref("Users").update({[uid] : that.state.email});
+        //firebaseApp.database().ref("UserIDs").update( {[that.state.phoneNumber] : uid})
+        firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
+        //firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
+        //firebaseApp.database().ref("Statuses").update({[uid] : "Write your status here. How's it going, what do you want to do?"});
+        //firebaseApp.database().ref("Availabilities").update({[uid] : false}); //User is not available by default.
+        //firebaseApp.database().ref("ProfileImages").update({[uid] : null});
+    }	
 }
 
 
