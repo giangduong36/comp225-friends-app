@@ -53,9 +53,8 @@ class HomeScreen extends Component {
         uid = firebaseApp.auth().currentUser.uid;
         firebaseApp.database().ref("Availabilities").update({[uid] : this.state.value});
         return (
-                <View style={{alignItems: 'center'}}>
-                <View style = {styles.container}/>
-                
+            <View style={[styles.containerTop, {alignItems: 'center'}]}>
+
                 <Text style={styles.welcome}>Are you available?</Text>
                 
                 
@@ -68,8 +67,6 @@ class HomeScreen extends Component {
                     onValueChange={(value) => this.setState({value})}
                 />
                 </View>
-                
-                
                 // the switch is colored differently on ios and android
                 
                 );

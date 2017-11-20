@@ -55,7 +55,7 @@ class MatchesScreen extends Component {
             error: null,
             refreshing: false
         };
-        this.loadFriends();
+        // this.loadFriends();
 
     }
 
@@ -98,21 +98,20 @@ class MatchesScreen extends Component {
     }
 
 
-    loadFriends() {
-        console.log("Loading friends...");
-        let that = this;
-        firebaseApp.database().ref('Names').once("value", function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
-                // let childKey = childSnapshot.key;
-                // console.log(childKey);
-                // console.log(name[i]);
-                let friendName = childSnapshot.val();
-                console.log(friendName);
-                that.state.data.push({'name': friendName});
-            });
-        });
-        console.log(this.state.data);
-    }
+    // loadFriends() {
+    //     console.log("Loading friends...");
+    //     let that = this;
+    //     firebaseApp.database().ref('Names').once("value", function (snapshot) {
+    //         snapshot.forEach(function (childSnapshot) {
+    //             // let childKey = childSnapshot.key;
+    //             // console.log(childKey);
+    //             // console.log(name[i]);
+    //             let friendName = childSnapshot.val();
+    //             console.log(friendName);
+    //             that.state.data.push({'name': friendName});
+    //         });
+    //     });
+    // }
 
     renderSeparator = () => {
         return (

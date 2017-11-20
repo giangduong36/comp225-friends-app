@@ -75,7 +75,13 @@ class UserDetailScreen extends Component {
                 <Text style={styles.actionText}> About </Text>
                 <Text style={styles.actionText}> Interest </Text>
 
-                <ActionButton title="Unfriend" onPress={this._unfriend.bind(this)}/>
+                <ActionButton title="Match!" onPress={this.matchRequest.bind(this)}/>
+
+                <ActionButton title="Unfriend" onPress={this.unfriend.bind(this)}/>
+
+                {/*TO DELETE: For debug purpose only, will toggle match button to be unmatch later*/}
+                <ActionButton title="Unmatch!" onPress={this.delRequest.bind(this)}/>
+
 
                 {/*<TouchableOpacity onPress={() => {this.someFunction()}}>*/}
                 {/*<View style={styles.holder}>*/}
@@ -87,20 +93,92 @@ class UserDetailScreen extends Component {
         );
     }
 
-    // someFunction() {
-    //     console.log("test");
-    // }
+    // TO DELETE LATER
+    // Delete a match request
+    delRequest() {
+        let friend_id = this.props.navigation.state.params.chosenFriend.key;
+        let uid = firebaseApp.auth().currentUser.uid;
+        Alert.alert(
+            'Unmatch with this person?',
+            null,
+            [
+                {
+                    text: 'Unmatch',
+                    onPress: (text) => {
+                        firebaseApp.database().ref('PendingMatches/' + uid).child(friend_id).remove();
+                        firebaseApp.database().ref('PendingMatches/' + friend_id).child(uid).remove()
+                    }
+                },
 
-    _unfriend() {
-        let friend_uid = this.props.navigation.state.params.chosenFriend;
+                {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
+            ]
+        );
+
+
+    }
+
+    matchRequest() {
+        Alert.alert(
+            'Match with this person?',
+            null,
+            [
+                {
+                    text: 'Match',
+                    onPress: (text) => this.addMatchRequest()
+                },
+
+                {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
+            ]
+        );
+
+    }
+
+    addMatchRequest() {
+        console.log("Match");
+        let friend = this.props.navigation.state.params.chosenFriend;
+        let uid = firebaseApp.auth().currentUser.uid;
+        let userMatches = firebaseApp.database().ref("PendingMatches/" + uid);
+        let friendMatches = firebaseApp.database().ref("PendingMatches/" + friend.key);
+
+        userMatches.child(friend.key).once('value', function (snapshot) {
+            let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
+            if (matched) {
+                Alert.alert(
+                    "You already sent a match request to this person!",
+                    "",
+                    [
+                        {
+                            text: "Okay!",
+                            onPress: () => () => console.log("Fail to match: Already sent request!")
+                        }
+                    ]
+                );
+            } else {
+                userMatches.update({[friend.key]: ""});
+                friendMatches.update({[uid]: ""});
+                Alert.alert(
+                    "Congrats",
+                    "You successfully sent a match request to this person!",
+                    [
+                        {text: "Cool!", onPress: () => console.log("Successfully sent a match request")}
+                    ]
+                );
+            }
+        });
+    }
+
+    unfriend() {
+        let friend_id = this.props.navigation.state.params.chosenFriend.key;
         Alert.alert(
             'Unfriend this person?',
             null,
             [
                 {
                     text: 'Unfriend',
-                    //Not work because item is defined in FriendList
-                    onPress: (text) => firebaseApp.database().ref('FriendLists/' + uid).child(friend_uid.key).remove()
+                    onPress: (text) => {
+                        firebaseApp.database().ref('FriendLists/' + uid).child(friend_id).remove();
+                        firebaseApp.database().ref('FriendLists/' + friend_id).child(uid).remove()
+                    }
                 },
                 {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
             ]
