@@ -11,6 +11,13 @@ let styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'white',
     },
+
+    containerTop: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        backgroundColor: 'white',
+    },
+
     welcome: {
 		fontFamily: 'CaviarDreams',
         fontSize: 50,
