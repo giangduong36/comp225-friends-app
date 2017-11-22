@@ -36,8 +36,7 @@ class MeScreen extends Component {
             alignSelf: 'center',
 			color: 'white'
         },
-		headerLeft: <Icon.Button name="person" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Profile')}>Profile</Icon.Button>,
-		headerRight: <Icon.Button name="settings" backgroundColor="black" style={{flex: 1}}onPress={() => navigation.navigate('Settings')}>Settings</Icon.Button>
+		headerLeft: <Icon.Button name="person" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Profile')}>Profile</Icon.Button>
 	});
     
     constructor(props) {

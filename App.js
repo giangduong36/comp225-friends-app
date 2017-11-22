@@ -15,7 +15,6 @@ const LoginScreen = require('./src/pages/Login'); //this screen is the log in pa
 const MeScreen = require('./src/pages/Me'); //this screen is the me screen.
 const ProfileScreen = require('./src/pages/Profile'); //this is the user's profile (you can view your info here)
 const EditProfileScreen = require('./src/pages/EditProfile'); //this is the user's profile (you can edit your info here)
-const SettingsScreen = require('./src/pages/Settings'); //this is the settings page
 const FriendslistScreen = require('./src/pages/Friendslist'); //this is the list of friends
 const UserDetailScreen = require('./src/pages/UserDetail'); //this screen shows you another user's profile
 const AddFriendScreen = require('./src/pages/AddFriend'); //this is the page where you can search for friends and add them
