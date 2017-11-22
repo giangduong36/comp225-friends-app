@@ -23,6 +23,13 @@ const firebaseApp = require('../services/firebaseInit');
 class EditProfileScreen extends Component {
     static navigationOptions = {
         title: 'Edit Profile',
+        headerStyle: {
+            backgroundColor: "black",
+        },
+        headerTitleStyle: {
+            color: "white"
+        },
+        headerTintColor: "white"
     };
 
 constructor(props) {

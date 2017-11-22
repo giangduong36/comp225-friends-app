@@ -21,6 +21,13 @@ const firebaseApp = require('../services/firebaseInit');
 class SignupScreen extends Component {
     static navigationOptions = {
         title: 'Welcome',
+        headerStyle: {
+            backgroundColor: "black",
+        },
+        headerTitleStyle: {
+            color: "white"
+        },
+        headerTintColor: "white"
     };
 
     constructor(props) {

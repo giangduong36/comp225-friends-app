@@ -24,6 +24,13 @@ const firebaseApp = require('../services/firebaseInit');
 class LoginScreen extends Component {
     static navigationOptions = {
         title: 'Login',
+        headerStyle: {
+            backgroundColor: "black",
+        },
+        headerTitleStyle: {
+            color: "white"
+        },
+        headerTintColor: "white"
     };
 
     constructor(props) {

@@ -34,6 +34,7 @@ class UserDetailScreen extends Component {
             alignSelf: 'center',
 			color: 'white'
         },
+        headerTintColor: "white"
     };
 
     constructor(props) {

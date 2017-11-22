@@ -16,6 +16,13 @@ const firebaseApp = require('../services/firebaseInit');
 class ProfileScreen extends Component {
     static navigationOptions = {
         title: 'Profile',
+        headerStyle: {
+            backgroundColor: "black",
+        },
+        headerTitleStyle: {
+            color: "white"
+        },
+        headerTintColor: "white"
     };
 
 	constructor(props) {

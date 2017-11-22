@@ -24,9 +24,17 @@ const firebaseApp = require('../services/firebaseInit');
 
 
 class AddFriendScreen extends Component {
-    // static navigationOptions = {
-    //     title: 'Add friend',
-    // };
+    static navigationOptions = {
+        title: 'Add friend',
+        headerStyle: {
+            backgroundColor: "black",
+        },
+        headerTitleStyle: {
+            color: "white"
+        },
+        headerTintColor: "white"
+    
+    };
 
 
     constructor(props) {
