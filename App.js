@@ -43,6 +43,7 @@ const SignupScreen = require('./src/pages/Signup'); //this screen is the sign up
 const LoginScreen = require('./src/pages/Login'); //this screen is the log in page
 const HomeScreen = require('./src/pages/Home'); //this screen is the home screen. on this screen, you can change availabilty, go to choose hangmates, make a status (see trevor's design)
 const ProfileScreen = require('./src/pages/Profile'); //this is the user's profile (you can edit your info here)
+const EditProfileScreen = require('./src/pages/EditProfile');
 const SettingsScreen = require('./src/pages/Settings'); //this is the settings page
 const FriendslistScreen = require('./src/pages/Friendslist'); //this is the list of friends
 const UserDetailScreen = require('./src/pages/UserDetail'); //this screen shows you another user's profile
@@ -91,6 +92,7 @@ export const MatchesStack = StackNavigator({
 export const HomeStack = StackNavigator({
 	Home: {screen: HomeScreen},
 	Profile: {screen: ProfileScreen},
+	EditProfile: {screen: EditProfileScreen},
 	//also to settings?
 	Settings: {screen: SettingsScreen},
 });

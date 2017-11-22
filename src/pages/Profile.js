@@ -31,7 +31,6 @@ constructor(props) {
         this.state = {
             name: '',
             phone: '',
-            availability: '',
             status: ''
         }
     }
@@ -45,6 +44,9 @@ constructor(props) {
         firebaseApp.database().ref('PhoneNumbers/' + uid).on("value", function (snapshot) {
             that.setState({phone: snapshot.val()})
         });
+		firebaseApp.database().ref('Statuses/' + uid).on("value", function (snapshot) {
+            that.setState({status: snapshot.val()})
+        });
     }
 
     componentDidMount() {
@@ -56,41 +58,16 @@ constructor(props) {
 
         return (
             <View style={styles.container}>
-                {/*<Header text="Friends List" loaded={this.state.loaded} />*/}
-                <Text style={styles.welcome}>welcome to the profile screen</Text>
                 <Text style={styles.actionText}> Name: {this.state.name}</Text>
-                <Text style={styles.actionText}> Status </Text>
+                <Text style={styles.actionText}> Status: {this.state.status} </Text>
                 <Text style={styles.actionText}> Phone: {this.state.phone} </Text>
-                <Text style={styles.actionText}> About </Text>
-                <Text style={styles.actionText}> Interest </Text>
-                <TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({phoneNumber: text})}
-                    value={this.state.phoneNumber}
-                    placeholder={"Phone Number"}
-                />
 				<ActionButton
-                    title="Submit"
-                    onPress={this.update.bind(this)}
+                    title="Edit Profile"
+                    onPress={() => navigate("EditProfile")}
                 />
             </View>
         );
-	}
-
-	update() {
-		this.setState({
-            loaded: false
-        });
-
-        let that = this;
-        //firebaseApp.database().ref("Users").update({[uid] : that.state.email});
-        //firebaseApp.database().ref("UserIDs").update( {[that.state.phoneNumber] : uid})
-        firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
-        //firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
-        //firebaseApp.database().ref("Statuses").update({[uid] : "Write your status here. How's it going, what do you want to do?"});
-        //firebaseApp.database().ref("Availabilities").update({[uid] : false}); //User is not available by default.
-        //firebaseApp.database().ref("ProfileImages").update({[uid] : null});
-    }	
+	}	
 }
 
 
