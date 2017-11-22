@@ -38,9 +38,9 @@ class FriendslistScreen extends Component {
 
     static navigationOptions = ({navigation}) => ({
         title: "Friends",
-		headerStyle: {
+        headerStyle: {
 			backgroundColor: 'black'
-		},
+        },
         headerTitleStyle: {
             alignSelf: 'center',
 			color: 'white'
@@ -65,10 +65,9 @@ class FriendslistScreen extends Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.container}>
+            <View style={styles.containerTop}>
                 {/*TODO: Make a flatlist/sectionlist view of friends*/}
 
-                {/*<FlatListDemo2/>*/}
                 <List>
                     <FlatList
                         data={this.state.data}
@@ -108,23 +107,17 @@ class FriendslistScreen extends Component {
         let that = this;
         uid = firebaseApp.auth().currentUser.uid;
         firebaseApp.database().ref('FriendLists/' + uid).on("value", function (snapshot) {
-            console.log("Loading here");
             while (that.state.data.length > 0) {
                 that.state.data.pop();
             }
-            console.log(that.state.data);
             snapshot.forEach(function (childSnapshot) {
                 // let childKey = childSnapshot.key;
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
                 nameLoc.on('value', function (snapshot) {
-                    console.log("Here");
-                    console.log(snapshot.key);
-                    console.log(snapshot.val());
                     that.state.data.push({'name': snapshot.val(), 'key': snapshot.key});
                 });
             });
         });
-        console.log(this.state.data);
     }
 
     renderSeparator = () => {
@@ -132,16 +125,15 @@ class FriendslistScreen extends Component {
             <View
                 style={{
                     height: 1,
-                    width: "86%",
+                    width: "100%",
                     backgroundColor: "#CED0CE",
-                    marginLeft: "14%"
+                    marginLeft: "0%"
                 }}
             />
         );
     };
 
     renderHeader = () => {
-        const {navigate} = this.props.navigation;
         return (
             <View>
                 <SearchBar placeholder="Search for a friend..." lightTheme round/>
@@ -150,6 +142,7 @@ class FriendslistScreen extends Component {
         )
     };
 
+    /*Displaying loading sign*/
     renderFooter = () => {
         // if (!this.state.loading) return null;
         return (
@@ -165,6 +158,10 @@ class FriendslistScreen extends Component {
             </View>
         );
     };
+
+    handleLoadMore() {
+
+    }
 }
 
 
