@@ -25,6 +25,8 @@ const {
     ActivityIndicator,
 } = ReactNative;
 
+import Communications from 'react-native-communications';
+
 const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
@@ -62,6 +64,10 @@ class MatchesScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
+				<ActionButton
+                    title="Submit"
+                    onPress= {() => Communications.text('0123456789')}
+                />
                 {/*TODO: Make a flatlist/sectionlist view of friends*/}
 
                 {/*<List>*/}
@@ -130,6 +136,7 @@ class MatchesScreen extends Component {
         return (
             <View>
                 <Text style={styles.welcome}>welcome to the matches list screen</Text>
+				
             </View>
 
         )
