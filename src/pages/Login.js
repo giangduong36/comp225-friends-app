@@ -90,7 +90,7 @@ class LoginScreen extends Component {
             "TEST@TEST.com",
             "123456"
         ).then(function (user) {
-            navigate('Home'); 
+            navigate('Me'); 
             
         }).catch(function (error) {
             // Handle Errors here.
@@ -111,7 +111,7 @@ class LoginScreen extends Component {
             this.state.email,
             this.state.password
         ).then(function (user) {
-            navigate('Home'); //milo!!!!!!!!!!!!!
+            navigate('Me'); //milo!!!!!!!!!!!!!
             // Alert.alert(
             //     'Successfully logged in!',
             //     null,

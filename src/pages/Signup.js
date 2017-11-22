@@ -95,7 +95,7 @@ class SignupScreen extends Component {
             "TEST@TEST.com",
             "123456"
         ).then(function (user) {
-            navigate('Home'); 
+            navigate('Me'); 
             
         }).catch(function (error) {
             // Handle Errors here.
@@ -149,7 +149,7 @@ class SignupScreen extends Component {
                             'Successfully created new user account!',
                             null,
                             [
-                                {text: 'Okay!', onPress: () => navigate("Home")}
+                                {text: 'Okay!', onPress: () => navigate("Me")}
                             ]
                         );
                     }).catch(function (error) {

@@ -3,18 +3,11 @@ import ReactNative from 'react-native';
 import Firebase from 'firebase';
 
 const {
-    AppRegistry,
-    ListView,
-    StyleSheet,
     Text,
     View,
-    TouchableHighlight,
-    AlertIOS,
-    Button,
     TextInput
 } = ReactNative;
 
-const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
@@ -25,7 +18,7 @@ class ProfileScreen extends Component {
         title: 'Profile',
     };
 
-constructor(props) {
+	constructor(props) {
         super(props);
 
         this.state = {
@@ -55,13 +48,12 @@ constructor(props) {
 
     render() {
         const {navigate} = this.props.navigation;
-
         return (
             <View style={styles.container}>
-                <Text style={styles.actionText}> Name: {this.state.name}</Text>
-                <Text style={styles.actionText}> Status: {this.state.status} </Text>
-                <Text style={styles.actionText}> Phone: {this.state.phone} </Text>
-				<ActionButton
+                <Text style={styles.actionText}> <Text style={{fontWeight: 'bold'}}>Name:</Text> {this.state.name}</Text>
+                <Text style={styles.actionText}> <Text style={{fontWeight: 'bold'}}>Status:</Text> {this.state.status} </Text>
+                <Text style={styles.actionText}> <Text style={{fontWeight: 'bold'}}>Phone:</Text> {this.state.phone} </Text>
+				<ActionButton offsetY={5}
                     title="Edit Profile"
                     onPress={() => navigate("EditProfile")}
                 />

@@ -34,8 +34,9 @@ let styles = StyleSheet.create({
         height: 30,
     },
     actionText: {
-        color: 'navy',
-        fontSize: 16,
+        color: 'black',
+		fontFamily: 'CaviarDreams',
+        fontSize: 20,
         textAlign: 'center',
     },
     action: {

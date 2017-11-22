@@ -87,7 +87,6 @@ constructor(props) {
 
 	update() {
         let that = this;
-		console.log('PHONE NUMBERRRRRRRRRR', that.state.phone);
 		firebaseApp.database().ref('PhoneNumbers').on("value", function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
 				let registeredUserId = childSnapshot.key;

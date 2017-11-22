@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 const InitScreen = require('./src/pages/Init'); //this screen has our app's logo (when a person opens the app for the first time, this is the page they see (look at Trevor's design))
 const SignupScreen = require('./src/pages/Signup'); //this screen is the sign up page
 const LoginScreen = require('./src/pages/Login'); //this screen is the log in page
-const HomeScreen = require('./src/pages/Home'); //this screen is the home screen. on this screen, you can change availabilty, go to choose hangmates, make a status (see trevor's design)
+const MeScreen = require('./src/pages/Me'); //this screen is the me screen.
 const ProfileScreen = require('./src/pages/Profile'); //this is the user's profile (you can view your info here)
 const EditProfileScreen = require('./src/pages/EditProfile'); //this is the user's profile (you can edit your info here)
 const SettingsScreen = require('./src/pages/Settings'); //this is the settings page
@@ -44,15 +44,15 @@ export const MatchesStack = StackNavigator({
 	UserDetail: {screen: UserDetailScreen},
 });
 
-export const HomeStack = StackNavigator({
-	Home: {screen: HomeScreen},
+export const MeStack = StackNavigator({
+	Me: {screen: MeScreen},
 	Profile: {screen: ProfileScreen},
 	EditProfile: {screen: EditProfileScreen}
 });
 
 export const Tabs = TabNavigator({
+  Me: { screen: MeStack },	
   Friends: { screen: FriendStack },
-  Home: { screen: HomeStack },
   Matches: { screen: MatchesStack }
 }, {
   tabBarComponent: NavigationComponent,
@@ -62,18 +62,18 @@ export const Tabs = TabNavigator({
       labelColor: 'white',
       rippleColor: 'white',
       tabs: {
+		Me: {
+          label: 'Me',
+          barBackgroundColor: 'black',
+		  showIcon: true,
+		  icon: (<Icon size={24} color="white" name="person" />)
+        },
         Friends: {
           label: 'Friends',
           barBackgroundColor: 'black',
 		  showIcon: true,
 		  icon: (<Icon size={24} color="white" name="people" />) 
         },	
-        Home: {
-          label: 'Home',
-          barBackgroundColor: 'black',
-		  showIcon: true,
-		  icon: (<Icon size={24} color="white" name="home" />)
-        },
         Matches: {
           label: 'Matches',
           barBackgroundColor: 'black',
