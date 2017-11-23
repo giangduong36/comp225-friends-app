@@ -23,9 +23,10 @@ const {
     FlatList,
     Alert,
     ActivityIndicator,
+    StatusBar,
 } = ReactNative;
 
-const StatusBar = require('../components/StatusBar');
+// const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
@@ -42,8 +43,9 @@ class FriendslistScreen extends Component {
 			backgroundColor: 'black'
         },
         headerTitleStyle: {
-            alignSelf: 'center',
-			color: 'white'
+            color: 'white',
+            alignSelf : (Platform.OS === "android") ? "center" : null,
+            marginRight: (Platform.OS === "android") ? 72 : null,
         },
         headerLeft: <Icon.Button name="person-add" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('AddFriend')}>Add Friend</Icon.Button>
     });
@@ -63,6 +65,7 @@ class FriendslistScreen extends Component {
     }
 
     render() {
+        StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.containerTop}>

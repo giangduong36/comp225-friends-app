@@ -15,13 +15,15 @@ const {
     AlertIOS,
     Button,
     TextInput,
-    Switch
+    StatusBar,
+    Switch,
+    Platform,
 } = ReactNative;
 
 
 
 
-const StatusBar = require('../components/StatusBar');
+// const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
@@ -33,8 +35,9 @@ class MeScreen extends Component {
 			backgroundColor: 'black'
 		},
         headerTitleStyle: {
-            alignSelf: 'center',
-			color: 'white'
+            color: 'white',
+            alignSelf : (Platform.OS === "android") ? "center" : null,
+            marginRight: (Platform.OS === "android") ? 72 : null,
         },
 		headerLeft: <Icon.Button name="person" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Profile')}>Profile</Icon.Button>
 	});
@@ -48,6 +51,7 @@ class MeScreen extends Component {
     }
     
     render() {
+        StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         uid = firebaseApp.auth().currentUser.uid;
         firebaseApp.database().ref("Availabilities").update({[uid] : this.state.value});

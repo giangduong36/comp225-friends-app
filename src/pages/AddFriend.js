@@ -15,9 +15,11 @@ const {
     Button,
     TextInput,
     Picker,
+    Platform,
+    StatusBar,
 } = ReactNative;
 
-const StatusBar = require('../components/StatusBar');
+// const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
@@ -30,7 +32,9 @@ class AddFriendScreen extends Component {
             backgroundColor: "black",
         },
         headerTitleStyle: {
-            color: "white"
+            color: "white",
+            alignSelf : (Platform.OS === "android") ? "center" : null,
+            marginRight: (Platform.OS === "android") ? 72 : null,
         },
         headerTintColor: "white"
     
@@ -45,6 +49,7 @@ class AddFriendScreen extends Component {
     }
 
     render() {
+        StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>

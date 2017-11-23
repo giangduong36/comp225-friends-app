@@ -10,12 +10,14 @@ const {
     TouchableHighlight,
     AlertIOS,
     Alert,
-    TextInput
+    TextInput,
+    Platform,
+    StatusBar
 } = ReactNative;
 const firebase = require('firebase');
 
 
-const StatusBar = require('../components/StatusBar');
+// const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const ListItem = require('../components/ListItem');
 const styles = require('../../styles.js');
@@ -69,6 +71,7 @@ class MainScreen extends Component {
     }
 
     render() {
+        StatusBar.setBarStyle("light-content", true)
         // const { navigation } = this.props.navigation.state;
         return (
             <View style={styles.container}>

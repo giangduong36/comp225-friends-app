@@ -5,7 +5,9 @@ import Firebase from 'firebase';
 const {
     Text,
     View,
-    TextInput
+    TextInput,
+    Platform,
+    StatusBar,
 } = ReactNative;
 
 const ActionButton = require('../components/ActionButton');
@@ -20,7 +22,9 @@ class ProfileScreen extends Component {
             backgroundColor: "black",
         },
         headerTitleStyle: {
-            color: "white"
+            color: "white",
+            alignSelf : (Platform.OS === "android") ? "center" : null,
+            marginRight: (Platform.OS === "android") ? 72 : null,
         },
         headerTintColor: "white"
     };
@@ -54,6 +58,7 @@ class ProfileScreen extends Component {
     }
 
     render() {
+        StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>

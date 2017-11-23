@@ -13,12 +13,13 @@ const {
     Alert,
     Button,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    StatusBar,
 } = ReactNative;
 
 const {Linking, Platform} = ReactNative;
 
-const StatusBar = require('../components/StatusBar');
+// const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
@@ -64,6 +65,7 @@ class UserDetailScreen extends Component {
     }
 
     render() {
+        StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         uid = firebaseApp.auth().currentUser.uid;
         return (

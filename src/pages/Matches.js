@@ -23,11 +23,12 @@ const {
     FlatList,
     Alert,
     ActivityIndicator,
+    StatusBar,
 } = ReactNative;
 
 import Communications from 'react-native-communications';
 
-const StatusBar = require('../components/StatusBar');
+// const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
@@ -62,6 +63,7 @@ class MatchesScreen extends Component {
     }
 
     render() {
+        StatusBar.setBarStyle("light-content", true)
         return (
             <View style={styles.container}>
 				<ActionButton
