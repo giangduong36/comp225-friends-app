@@ -42,6 +42,7 @@ class HomeScreen extends Component {
     
     constructor(props) {
         super(props);
+        uid = firebaseApp.auth().currentUser.uid;
         this.state = {
             value: false
         }
@@ -50,7 +51,7 @@ class HomeScreen extends Component {
     
     render() {
         const {navigate} = this.props.navigation;
-        uid = firebaseApp.auth().currentUser.uid;
+      
         firebaseApp.database().ref("Availabilities").update({[uid] : this.state.value});
         return (
             <View style={[styles.containerTop, {alignItems: 'center'}]}>
