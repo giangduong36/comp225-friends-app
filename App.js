@@ -27,7 +27,7 @@ import {
 import { BottomNavigation, NavigationComponent, Tab } from 'react-native-material-bottom-navigation'
 
 export const InitStack = StackNavigator({
-	Init: {screen: InitScreen},
+	// Init: {screen: InitScreen},
 	Login: {screen: LoginScreen},
     Signup: {screen: SignupScreen},
 });
