@@ -42,21 +42,20 @@ class HomeScreen extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {
-            value: false
-        }
+        uid = firebaseApp.auth().currentUser.uid;
         
+        this.state = {
+            value: firebaseApp.database().ref("/Availabilities/" + uid).once('value');
+        }
     }
     
     render() {
         const {navigate} = this.props.navigation;
-        uid = firebaseApp.auth().currentUser.uid;
+      
         firebaseApp.database().ref("Availabilities").update({[uid] : this.state.value});
         return (
-            <View style={[styles.containerTop, {alignItems: 'center'}]}>
-
+                <View style={[styles.containerTop, {alignItems: 'center'}]}>
                 <Text style={styles.welcome}>Are you available?</Text>
-                
                 
                 <Switch //toggle switch for availability info
                     value = {this.state.value}
