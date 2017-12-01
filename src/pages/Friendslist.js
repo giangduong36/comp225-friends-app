@@ -5,8 +5,6 @@ import {List, ListItem, SearchBar} from "react-native-elements";
 
 //Import Icon
 import Icon from 'react-native-vector-icons/MaterialIcons'
-// import FriendsFlatList from "./flatListDemo";
-// import FriendsFlatList from "./FriendFlatList";
 
 const {
     AppRegistry,
@@ -30,9 +28,6 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
-
-// const Header = require('../components/Header');
-// const flatList = require('./FriendFlatList');
 
 
 class FriendslistScreen extends Component {
@@ -60,9 +55,12 @@ class FriendslistScreen extends Component {
             error: null,
             refreshing: false,
         };
-        this.loadFriends();
-
     }
+
+    componentDidMount() {
+        this.loadFriends();
+    }
+
 
     render() {
         StatusBar.setBarStyle("light-content", true)

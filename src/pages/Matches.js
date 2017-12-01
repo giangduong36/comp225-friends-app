@@ -5,6 +5,7 @@ import {List, ListItem, SearchBar} from "react-native-elements";
 
 //Import Icon
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import {Button} from 'react-native-elements'
 // import FriendsFlatList from "./flatListDemo";
 // import FriendsFlatList from "./FriendFlatList";
 
@@ -16,7 +17,6 @@ const {
     View,
     TouchableHighlight,
     AlertIOS,
-    Button,
     TextInput,
     Platform,
     SectionList,
@@ -37,98 +37,126 @@ const firebaseApp = require('../services/firebaseInit');
 
 
 class MatchesScreen extends Component {
-    static navigationOptions = {
-        title: 'Matches',
-		headerStyle: {
-			backgroundColor: 'black'
-		},
-        headerTitleStyle: {
-            alignSelf: 'center',
-			color: 'white'
+
+    static navigationOptions = ({navigation}) => ({
+        title: "Matches",
+        headerStyle: {
+            backgroundColor: 'black'
         },
-    };
+        headerTitleStyle: {
+            color: 'white',
+            alignSelf: (Platform.OS === "android") ? "center" : null,
+            marginRight: (Platform.OS === "android") ? 72 : null,
+        },
+    });
 
     constructor(props) {
         super(props);
         this.state = {
             loading: false,
-            data: [{'name': "abc", "email": "gg.com"}],
+            data: [],
             page: 1,
             seed: 1,
             error: null,
-            refreshing: false
+            refreshing: false,
+            phone: null,
         };
-        // this.loadFriends();
-
     }
+
+    componentDidMount() {
+        this.loadMatches();
+    }
+
 
     render() {
         StatusBar.setBarStyle("light-content", true)
+        const {navigate} = this.props.navigation;
         return (
-            <View style={styles.container}>
-				<ActionButton
-                    title="Submit"
-                    onPress= {() => Communications.text('0123456789')}
-                />
-                {/*TODO: Make a flatlist/sectionlist view of friends*/}
-
-                {/*<List>*/}
-                {/*<FlatList*/}
-                {/*data={this.state.data}*/}
-                {/*renderItem={({item}) => (*/}
-                {/*<ListItem*/}
-                {/*roundAvatar*/}
-                {/*// title={`${item.name.first} ${item.name.last}`}*/}
-                {/*title={item.name}*/}
-                {/*subtitle={""}*/}
-                {/*containerStyle={{borderBottomWidth: 0}}*/}
-                {/*// onPress={() => navigate('AddFriend')}*/}
-                {/*onPress={() =>*/}
-                {/*Alert.alert(*/}
-                {/*`You clicked on ${item.name} !`,*/}
-                {/*null*/}
-                {/*)*/}
-                {/*}*/}
-                {/*/>*/}
-                {/*)}*/}
-                {/*keyExtractor={item => item.email}*/}
-                {/*ItemSeparatorComponent={this.renderSeparator}*/}
-                {/*ListHeaderComponent={this.renderHeader}*/}
-                {/*ListFooterComponent={this.renderFooter}*/}
-                {/*onRefresh={this.handleRefresh}*/}
-                {/*refreshing={this.state.refreshing}*/}
-                {/*onEndReached={this.handleLoadMore}*/}
-                {/*onEndReachedThreshold={50}*/}
-                {/*/>*/}
-                {/*</List>*/}
+            <View style={styles.containerTop}>
+                {this.renderPendingMatches()}
             </View>
+
         );
     }
 
+    renderPendingMatches() {
+        const {navigate} = this.props.navigation;
+        return (
+            <List>
+                <FlatList
+                    data={this.state.data}
+                    renderItem={({item}) => (
+                        <ListItem
+                            disabled
+                            roundAvatar
+                            // title={`${item.name.first} ${item.name.last}`}
+                            title={item.name}
+                            subtitle={"Pending..."}
+                            containerStyle={{borderBottomWidth: 0}}
+                            // hideChevron={true}
+                            // rightTitle={"Hello"}
+                            rightIcon={
+                                <Button
+                                    raised
+                                    backgroundColor="deepskyblue"
+                                    onPress={() => Communications.text('123456789') /* Real phone number later */}
+                                    icon={{name: 'chat'}}
+                                    title='Text'
+                                />
+                            }
+                            // onPress={() => navigate('AddFriend')}
+                            avatar={{uri: 'https://78.media.tumblr.com/avatar_66b336c742ea_128.png'}} // Will change to real avatar later
+                        />
+                    )}
+                    keyExtractor={item => item.key}
+                    ItemSeparatorComponent={this.renderSeparator}
+                    ListHeaderComponent={this.renderHeader}
+                    // ListFooterComponent={this.renderFooter}
+                    onRefresh={this.handleRefresh}
+                    refreshing={this.state.refreshing}
+                    onEndReached={this.handleLoadMore}
+                    onEndReachedThreshold={50}
+                />
+            </List>
+        )
+    }
 
-    // loadFriends() {
-    //     console.log("Loading friends...");
-    //     let that = this;
-    //     firebaseApp.database().ref('Names').once("value", function (snapshot) {
-    //         snapshot.forEach(function (childSnapshot) {
-    //             // let childKey = childSnapshot.key;
-    //             // console.log(childKey);
-    //             // console.log(name[i]);
-    //             let friendName = childSnapshot.val();
-    //             console.log(friendName);
-    //             that.state.data.push({'name': friendName});
-    //         });
-    //     });
-    // }
+    findPhoneNum(userID) {
+        let that = this;
+        firebaseApp.database().ref('PhoneNumbers/' + userID).on("value", function (snapshot) {
+            that.state.phone = snapshot.val();
+        });
+    }
+
+    loadMatches() {
+        console.log("Loading pending matches...");
+        let that = this;
+        uid = firebaseApp.auth().currentUser.uid;
+        firebaseApp.database().ref('PendingMatches/' + uid).on("value", function (snapshot) {
+            while (that.state.data.length > 0) {
+                that.state.data.pop();
+            }
+            snapshot.forEach(function (childSnapshot) {
+                // let childKey = childSnapshot.key;
+                let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
+                nameLoc.on('value', function (snapshot) {
+                    that.state.data.push({'name': snapshot.val(), 'key': snapshot.key});
+                });
+
+            });
+        });
+
+    }
+
 
     renderSeparator = () => {
         return (
             <View
                 style={{
                     height: 1,
-                    width: "86%",
+                    width: "100%",
                     backgroundColor: "#CED0CE",
-                    marginLeft: "14%"
+                    marginLeft: "0%"
                 }}
             />
         );
@@ -137,13 +165,13 @@ class MatchesScreen extends Component {
     renderHeader = () => {
         return (
             <View>
-                <Text style={styles.welcome}>welcome to the matches list screen</Text>
-				
+                <SearchBar placeholder="Search for a friend..." lightTheme round/>
             </View>
 
         )
     };
 
+    /*Displaying loading sign*/
     renderFooter = () => {
         // if (!this.state.loading) return null;
         return (
@@ -154,12 +182,15 @@ class MatchesScreen extends Component {
                     borderColor: "#CED0CE"
                 }}
             >
+                {/*Render the loading sign at the end of the list*/}
                 <ActivityIndicator animating size="large"/>
             </View>
         );
     };
 
+    handleLoadMore() {
 
+    }
 }
 
 
