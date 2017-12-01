@@ -21,8 +21,6 @@ const {
 } = ReactNative;
 
 
-
-
 // const StatusBar = require('../components/StatusBar');
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
@@ -44,17 +42,26 @@ class MeScreen extends Component {
     
     constructor(props) {
         super(props);
+        uid = firebaseApp.auth().currentUser.uid;
         this.state = {
             value: false
         }
+        let screen = this;
+        firebaseApp.database().ref("Availabilities/" + uid).once('value')
+            .then(function(snapshot){
+                screen.setState({value: snapshot.val()})
+            })
         
+    }
+    
+    componentDidUpdate(prevProps, prevState){
+        firebaseApp.database().ref("Availabilities").update({[uid] : this.state.value});
     }
     
     render() {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
-        uid = firebaseApp.auth().currentUser.uid;
-        firebaseApp.database().ref("Availabilities").update({[uid] : this.state.value});
+        
         return (
             <View style={[styles.containerTop, {alignItems: 'center'}]}>
 
@@ -64,7 +71,7 @@ class MeScreen extends Component {
                 <Switch //toggle switch for availability info
                     value = {this.state.value}
                     onTintColor="#999999"
-                    style={{marginBottom: 10}}
+                style={{marginBottom: 10, marginTop: 50, transform: [{ scaleX: 3}, { scaleY: 3}]}}
                     thumbTintColor="#0000ff"
                     tintColor="#000000"
                     onValueChange={(value) => this.setState({value})}
