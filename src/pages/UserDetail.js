@@ -62,6 +62,9 @@ class UserDetailScreen extends Component {
 
     componentDidMount() {
         this.loadData();
+        // let friend = this.props.navigation.state.params.chosenFriend;
+        // let uid = firebaseApp.auth().currentUser.uid;
+        // this.getMatch(uid,friend.key); // Is it better to call this here?
     }
 
     render() {
@@ -109,7 +112,7 @@ class UserDetailScreen extends Component {
                     text: 'Unmatch',
                     onPress: (text) => {
                         firebaseApp.database().ref('PendingMatches/' + uid).child(friend_id).remove();
-                        firebaseApp.database().ref('PendingMatches/' + friend_id).child(uid).remove()
+                        // firebaseApp.database().ref('PendingMatches/' + friend_id).child(uid).remove()
                     }
                 },
 
@@ -158,7 +161,7 @@ class UserDetailScreen extends Component {
                 );
             } else {
                 userMatches.update({[friend.key]: ""});
-                friendMatches.update({[uid]: ""});
+                // friendMatches.update({[uid]: ""});
                 Alert.alert(
                     "Congrats",
                     "You successfully sent a match request to this person!",
@@ -166,6 +169,32 @@ class UserDetailScreen extends Component {
                         {text: "Cool!", onPress: () => console.log("Successfully sent a match request")}
                     ]
                 );
+            }
+        });
+        this.getMatch(uid, friend.key);
+    }
+
+    getMatch(uid, friend_id) {
+        console.log("check match");
+        let userPendingMatches = firebaseApp.database().ref("PendingMatches/" + uid);
+        let friendPendingMatches = firebaseApp.database().ref("PendingMatches/" + friend_id);
+
+        let userMatches = firebaseApp.database().ref("Matches/" + uid);
+        let friendMatches = firebaseApp.database().ref("Matches/" + friend_id);
+
+        userPendingMatches.child(friend_id).once('value', function (snapshot) {
+            let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
+            if (matched) {
+                friendPendingMatches.child(uid).once('value', function (snapshot2) {
+                    let matched2 = (snapshot2.val() !== null); // Check if already sent a match request to this user
+                    if (matched2) {
+                        console.log("Both want to match!");
+                        userPendingMatches.child(friend_id).remove();
+                        friendPendingMatches.child(uid).remove();
+                        userMatches.update({[friend_id]: ""});
+                        friendMatches.update({[uid]: ""});
+                    }
+                });
             }
         });
     }

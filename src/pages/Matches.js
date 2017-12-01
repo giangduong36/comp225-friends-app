@@ -54,7 +54,8 @@ class MatchesScreen extends Component {
         super(props);
         this.state = {
             loading: false,
-            data: [],
+            pendingMatches: [],
+            matches: [],
             page: 1,
             seed: 1,
             error: null,
@@ -64,6 +65,7 @@ class MatchesScreen extends Component {
     }
 
     componentDidMount() {
+        this.loadPendingMatches();
         this.loadMatches();
     }
 
@@ -73,25 +75,26 @@ class MatchesScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.containerTop}>
+                {this.renderMatches()}
                 {this.renderPendingMatches()}
             </View>
 
         );
     }
 
-    renderPendingMatches() {
+    renderMatches() {
         const {navigate} = this.props.navigation;
         return (
             <List>
                 <FlatList
-                    data={this.state.data}
+                    data={this.state.matches}
                     renderItem={({item}) => (
                         <ListItem
                             disabled
                             roundAvatar
                             // title={`${item.name.first} ${item.name.last}`}
                             title={item.name}
-                            subtitle={"Pending..."}
+                            subtitle={"Matched!"}
                             containerStyle={{borderBottomWidth: 0}}
                             // hideChevron={true}
                             // rightTitle={"Hello"}
@@ -121,6 +124,48 @@ class MatchesScreen extends Component {
         )
     }
 
+    renderPendingMatches() {
+        const {navigate} = this.props.navigation;
+        return (
+            <List>
+                <FlatList
+                    data={this.state.pendingMatches}
+                    renderItem={({item}) => (
+                        <ListItem
+                            disabled
+                            roundAvatar
+                            // title={`${item.name.first} ${item.name.last}`}
+                            title={item.name}
+                            subtitle={"Pending..."}
+                            containerStyle={{borderBottomWidth: 0}}
+                            // hideChevron={true}
+                            // rightTitle={"Hello"}
+                            rightIcon={
+                                <Button
+                                    raised
+                                    backgroundColor="deepskyblue"
+                                    onPress={() => Communications.text('123456789') /* Real phone number later */}
+                                    icon={{name: 'chat'}}
+                                    title='Text'
+                                />
+                            }
+                            // onPress={() => navigate('AddFriend')}
+                            avatar={{uri: 'https://78.media.tumblr.com/avatar_66b336c742ea_128.png'}} // Will change to real avatar later
+                        />
+                    )}
+                    keyExtractor={item => item.key}
+                    ItemSeparatorComponent={this.renderSeparator}
+                    ListHeaderComponent={this.renderSeparator()}
+                    // ListFooterComponent={this.renderFooter}
+                    onRefresh={this.handleRefresh}
+                    refreshing={this.state.refreshing}
+                    onEndReached={this.handleLoadMore}
+                    onEndReachedThreshold={50}
+                />
+            </List>
+        )
+    }
+
     findPhoneNum(userID) {
         let that = this;
         firebaseApp.database().ref('PhoneNumbers/' + userID).on("value", function (snapshot) {
@@ -128,24 +173,41 @@ class MatchesScreen extends Component {
         });
     }
 
-    loadMatches() {
+    loadPendingMatches() {
         console.log("Loading pending matches...");
         let that = this;
         uid = firebaseApp.auth().currentUser.uid;
         firebaseApp.database().ref('PendingMatches/' + uid).on("value", function (snapshot) {
-            while (that.state.data.length > 0) {
-                that.state.data.pop();
+            while (that.state.pendingMatches.length > 0) {
+                that.state.pendingMatches.pop();
             }
             snapshot.forEach(function (childSnapshot) {
-                // let childKey = childSnapshot.key;
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
                 nameLoc.on('value', function (snapshot) {
-                    that.state.data.push({'name': snapshot.val(), 'key': snapshot.key});
+                    that.state.pendingMatches.push({'name': snapshot.val(), 'key': snapshot.key});
                 });
 
             });
         });
 
+    }
+
+    loadMatches() {
+        console.log("Loading matches...");
+        let that = this;
+        uid = firebaseApp.auth().currentUser.uid;
+        firebaseApp.database().ref('Matches/' + uid).on("value", function (snapshot) {
+            while (that.state.matches.length > 0) {
+                that.state.matches.pop();
+            }
+            snapshot.forEach(function (childSnapshot) {
+                let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
+                nameLoc.on('value', function (snapshot) {
+                    that.state.matches.push({'name': snapshot.val(), 'key': snapshot.key});
+                });
+
+            });
+        });
     }
 
 
@@ -170,6 +232,7 @@ class MatchesScreen extends Component {
 
         )
     };
+
 
     /*Displaying loading sign*/
     renderFooter = () => {

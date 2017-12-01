@@ -8,6 +8,7 @@ const {
     TextInput,
     Platform,
     StatusBar,
+    Alert
 } = ReactNative;
 
 const ActionButton = require('../components/ActionButton');
@@ -69,9 +70,35 @@ class ProfileScreen extends Component {
                     title="Edit Profile"
                     onPress={() => navigate("EditProfile")}
                 />
+                <ActionButton offsetY={5}
+                              title="Log out"
+                              onPress={this._logout.bind(this)}
+                />
             </View>
         );
-	}	
+    }
+
+    _logout() {
+        const {navigate} = this.props.navigation;
+
+        firebaseApp.auth().signOut().then(function () {
+            // Sign-out successful.
+            Alert.alert(
+                'Successfully signed out!',
+                null,
+                [
+                    {text: 'Go to Log in', onPress: () => navigate('Login')},
+                ]
+            );
+        }).catch(function (error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            alert(errorMessage);
+        });
+
+    }
+
 }
 
 

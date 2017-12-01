@@ -84,15 +84,21 @@ class LoginScreen extends Component {
 
                     {/*TO DELETE LATER: Button to access Account page without log in*/}
                     <ActionButton
-                        onPress={this._testLogin.bind(this)}
+                        onPress={this._testBypass.bind(this)}
                         title="TEST BYPASS"
                     />
+
+                    <ActionButton
+                        onPress={this._testFriend.bind(this)}
+                        title="TEST AS FRIEND"
+                    />
+
                 </View>
             </View>
         );
     }
 
-    _testLogin() {
+    _testBypass() {
         const {navigate} = this.props.navigation;
 
         this.setState({
@@ -103,8 +109,28 @@ class LoginScreen extends Component {
             "TEST@TEST.com",
             "123456"
         ).then(function (user) {
-            navigate('Me'); 
-            
+            navigate('Me');
+
+        }).catch(function (error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            alert(errorMessage);
+        });
+    }
+
+    _testFriend() {
+        const {navigate} = this.props.navigation;
+
+        this.setState({
+            loaded: false
+        });
+
+        firebaseApp.auth().signInWithEmailAndPassword(
+            "friendTest@fb.com",
+            "123321"
+        ).then(function (user) {
+            navigate('Me');
         }).catch(function (error) {
             // Handle Errors here.
             let errorCode = error.code;
