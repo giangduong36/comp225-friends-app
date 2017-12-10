@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
+import DismissKeyboardHOC from "../components/DismissKeyboardHOC.js";
 
 const {
     AppRegistry,
@@ -20,6 +21,7 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
+const DismissKeyboardView = DismissKeyboardHOC(View);
 
 
 class EditProfileScreen extends Component {
@@ -70,7 +72,7 @@ constructor(props) {
         const {navigate} = this.props.navigation;
 
         return (
-            <View style={styles.container}>
+            <DismissKeyboardView style={styles.container}>
                 <TextInput
                     style={styles.textinput}
                     onChangeText={(text) => this.setState({name: text})}
@@ -93,7 +95,7 @@ constructor(props) {
                     title="Submit"
                     onPress={this.update.bind(this)}
                 />
-            </View>
+            </DismissKeyboardView>
         );
 	}
 

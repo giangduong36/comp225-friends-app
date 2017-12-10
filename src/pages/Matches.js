@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
 import {List, ListItem, SearchBar} from "react-native-elements";
+import DismissKeyboardHOC from "../components/DismissKeyboardHOC";
 
 //Import Icon
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -32,6 +33,7 @@ import Communications from 'react-native-communications';
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
+const DismissKeyboardView = DismissKeyboardHOC(View);
 
 // const flatList = require('./FriendFlatList');
 
@@ -74,10 +76,10 @@ class MatchesScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.containerTop}>
+            <DismissKeyboardView style={styles.containerTop}>
                 {this.renderMatches()}
                 {this.renderPendingMatches()}
-            </View>
+            </DismissKeyboardView>
 
         );
     }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
+import DismissKeyboardHOC from "../components/DismissKeyboardHOC.js";
 
 const {
     AppRegistry,
@@ -21,6 +22,7 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
+const DismissKeyboardView = DismissKeyboardHOC(View);
 
 
 class LoginScreen extends Component {
@@ -52,12 +54,12 @@ class LoginScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.container}>
+            <DismissKeyboardView style={styles.container}>
 
                 {/*<Header text="Login" loaded={this.state.loaded} />*/}
                 <Text style={styles.welcome}>Hello, F.R.I.E.N.D.S!</Text>
 
-                <View style={styles.body}>
+                <DismissKeyboardView style={styles.body}>
                     <TextInput
                         style={styles.textinput}
                         onChangeText={(text) => this.setState({email: text})}
@@ -93,8 +95,8 @@ class LoginScreen extends Component {
                         title="TEST AS FRIEND"
                     />
 
-                </View>
-            </View>
+                </DismissKeyboardView>
+            </DismissKeyboardView>
         );
     }
 

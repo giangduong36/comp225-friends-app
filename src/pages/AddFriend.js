@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
+import DismissKeyboardHOC from "../components/DismissKeyboardHOC.js";
 
 const {
     AppRegistry,
@@ -23,7 +24,7 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
-
+const DismissKeyboardView = DismissKeyboardHOC(View);
 
 class AddFriendScreen extends Component {
     static navigationOptions = {
@@ -52,7 +53,7 @@ class AddFriendScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.container}>
+            <DismissKeyboardView style={styles.container}>
                 <Text style={styles.welcome}>welcome to the add friend screen</Text>
 
                 <TextInput
@@ -76,7 +77,7 @@ class AddFriendScreen extends Component {
                 {/*/!*<Picker.Item label="JavaScript" value="js" />*!/*/}
                 {/*{this.state.friendItems}*/}
                 {/*</Picker>*/}
-            </View>
+            </DismissKeyboardView>
 
         );
     }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
 import {List, ListItem, SearchBar} from "react-native-elements";
+import DismissKeyboardHOC from "../components/DismissKeyboardHOC.js";
 
 //Import Icon
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -28,6 +29,7 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
+const DismissKeyboardView = DismissKeyboardHOC(View);
 
 
 class FriendslistScreen extends Component {
@@ -66,7 +68,7 @@ class FriendslistScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.containerTop}>
+            <DismissKeyboardView style={styles.containerTop}>
                 {/*TODO: Make a flatlist/sectionlist view of friends*/}
 
                 <List>
@@ -99,7 +101,7 @@ class FriendslistScreen extends Component {
                         onEndReachedThreshold={50}
                     />
                 </List>
-            </View>
+            </DismissKeyboardView>
         );
     }
 
