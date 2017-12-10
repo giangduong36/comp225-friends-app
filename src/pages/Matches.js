@@ -46,7 +46,7 @@ class MatchesScreen extends Component {
         headerTitleStyle: {
             color: 'white',
             alignSelf: (Platform.OS === "android") ? "center" : null,
-            marginRight: (Platform.OS === "android") ? 72 : null,
+            // marginRight: (Platform.OS === "android") ? 72 : null,
         },
     });
 
