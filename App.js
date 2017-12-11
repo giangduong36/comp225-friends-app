@@ -27,9 +27,8 @@ import {
 import { BottomNavigation, NavigationComponent, Tab } from 'react-native-material-bottom-navigation'
 
 export const InitStack = StackNavigator({
-	// Init: {screen: InitScreen},
 	Login: {screen: LoginScreen},
-    Signup: {screen: SignupScreen},
+  Signup: {screen: SignupScreen},
 });
 
 export const FriendStack = StackNavigator({
@@ -47,7 +46,7 @@ export const MeStack = StackNavigator({
 	Me: {screen: MeScreen},
 	Profile: {screen: ProfileScreen},
 	EditProfile: {screen: EditProfileScreen}
-});
+}, {gesturesEnabled:false});
 
 export const Tabs = TabNavigator({
   Me: { screen: MeStack },	
@@ -90,6 +89,9 @@ export const Root = StackNavigator({
   },
   Tabs: {
     screen: Tabs,
+    navigationOptions: {
+      gesturesEnabled:false,
+    }
   },
 }, {
   mode: 'modal',
