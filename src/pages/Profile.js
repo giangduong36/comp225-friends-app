@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
+import {NavigationActions} from "react-navigation";
 
 const {
     Text,
@@ -80,6 +81,7 @@ class ProfileScreen extends Component {
 
     _logout() {
         const {navigate} = this.props.navigation;
+        const {dispatch} = this.props.navigation;
 
         firebaseApp.auth().signOut().then(function () {
             // Sign-out successful.
@@ -87,7 +89,15 @@ class ProfileScreen extends Component {
                 'Successfully signed out!',
                 null,
                 [
-                    {text: 'Go to Log in', onPress: () => navigate('Login')},
+                    {text: 'Go to Log in', onPress: () => dispatch( 
+                        NavigationActions.reset({
+                            index:0,
+                            actions:[
+                                    NavigationActions.navigate({routeName:"InitStack"})
+                                ],
+                            key: null,
+                                })) 
+                    },
                 ]
             );
         }).catch(function (error) {
