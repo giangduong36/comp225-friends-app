@@ -65,6 +65,7 @@ class LoginScreen extends Component {
                         onChangeText={(text) => this.setState({email: text})}
                         value={this.state.email}
                         placeholder={"Email Address"}
+                        underlineColorAndroid="transparent"
                     />
                     <TextInput
                         style={styles.textinput}
@@ -72,6 +73,7 @@ class LoginScreen extends Component {
                         value={this.state.password}
                         secureTextEntry={true}
                         placeholder={"Password"}
+                        underlineColorAndroid="transparent"
                     />
 
                     <ActionButton

@@ -60,6 +60,7 @@ class AddFriendScreen extends Component {
                     style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor:"white", justifyContent:"center"}}
                     onChangeText={(text) => this.state.text=text}
                     placeholder={this.state.text}
+                    underlineColorAndroid="transparent"
                 />
 
                 <ActionButton title="ADD FRIEND" onPress={this.addFriend.bind(this)}/>

@@ -30,8 +30,8 @@ let styles = StyleSheet.create({
         backgroundColor: "lightgray",
         color:"black",
         borderWidth:1,
-        borderColor:"black",
-        height: 30,
+        borderColor:"black",        
+        // height: 30,
     },
     actionText: {
         color: 'black',

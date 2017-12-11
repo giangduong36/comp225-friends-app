@@ -63,6 +63,7 @@ class SignupScreen extends Component {
                     onChangeText={(text) => this.setState({email: text})}
                     value={this.state.email}
                     placeholder={"Email Address"}
+                    underlineColorAndroid="transparent"
                 />
                 <TextInput
                     style={styles.textinput}
@@ -70,12 +71,14 @@ class SignupScreen extends Component {
                     value={this.state.password}
                     secureTextEntry={true}
                     placeholder={"Password"}
+                    underlineColorAndroid="transparent"
                 />
                 <TextInput
                     style={styles.textinput}
                     onChangeText={(text) => this.setState({phoneNumber: text})}
                     value={this.state.phoneNumber}
                     placeholder={"Phone Number"}
+                    underlineColorAndroid="transparent"
                 />
                 <ActionButton
                     title="Sign Up"

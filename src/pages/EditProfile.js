@@ -78,18 +78,21 @@ constructor(props) {
                     onChangeText={(text) => this.setState({name: text})}
                     value={this.state.name}
                     placeholder={"Name"}
+                    underlineColorAndroid="transparent"
                 />
 				<TextInput
                     style={styles.textinput}
                     onChangeText={(text) => this.setState({phone: text})}
                     value={this.state.phone}
                     placeholder={"Phone Number"}
+                    underlineColorAndroid="transparent"
                 />
 				<TextInput
                     style={styles.textinput}
                     onChangeText={(text) => this.setState({status: text})}
                     value={this.state.status}
                     placeholder={"Status"}
+                    underlineColorAndroid="transparent"
                 />
 				<ActionButton
                     title="Submit"
