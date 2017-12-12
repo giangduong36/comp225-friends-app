@@ -112,7 +112,8 @@ class UserDetailScreen extends Component {
                     text: 'Unmatch',
                     onPress: (text) => {
                         firebaseApp.database().ref('PendingMatches/' + uid).child(friend_id).remove();
-                        // firebaseApp.database().ref('PendingMatches/' + friend_id).child(uid).remove()
+                        firebaseApp.database().ref('Matches/' + uid).child(friend_id).remove();
+                        firebaseApp.database().ref('Matches/' + friend_id).child(uid).remove()
                     }
                 },
 
@@ -215,17 +216,6 @@ class UserDetailScreen extends Component {
                 {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
             ]
         );
-        // const url = (Platform.OS === 'ios')
-        //     ? 'sms:1-408-555-1212?body=yourMessage'
-        //     : 'sms:1-408-555-1212';
-        //
-        // Linking.canOpenURL(url).then(supported => {
-        //     if (!supported) {
-        //         console.log('Unsupported url: ' + url)
-        //     } else {
-        //         return Linking.openURL(url)
-        //     }
-        // }).catch(err => console.error('An error occurred', err))
     }
 
 }

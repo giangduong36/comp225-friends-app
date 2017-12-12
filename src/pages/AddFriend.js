@@ -88,7 +88,7 @@ class AddFriendScreen extends Component {
         let friendPhone = this.state.text;
         let friendID = null;
         console.log(friendPhone);
-        firebaseApp.database().ref("UserIDs/" + friendPhone).once("value", function(data) {
+        firebaseApp.database().ref("UserIDs/" + friendPhone).on("value", function (data) {
             friendID = data.val();
             console.log("The reference worked");
             console.log(friendID);
