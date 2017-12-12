@@ -30,14 +30,14 @@ class MeScreen extends Component {
     static navigationOptions = ({ navigation}) => ({
 		title: "Me",
 		headerStyle: {
-			backgroundColor: 'black'
+			backgroundColor: styles.constants.headerColor
 		},
         headerTitleStyle: {
-            color: 'white',
+            color: styles.constants.headerText,
             alignSelf : (Platform.OS === "android") ? "center" : null,
             marginRight: (Platform.OS === "android") ? 72 : null,
         },
-		headerLeft: <Icon.Button name="person" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('Profile')}>Profile</Icon.Button>
+		headerLeft: <Icon.Button name="person" backgroundColor={styles.constants.headerColor} style={{flex: 1}} onPress={() => navigation.navigate('Profile')}>Profile</Icon.Button>
 	});
     
     constructor(props) {

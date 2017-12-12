@@ -40,10 +40,10 @@ class MatchesScreen extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Matches",
         headerStyle: {
-            backgroundColor: 'black'
+            backgroundColor: styles.constants.headerColor
         },
         headerTitleStyle: {
-            color: 'white',
+            color: styles.constants.headerText,
             alignSelf: (Platform.OS === "android") ? "center" : null,
             // marginRight: (Platform.OS === "android") ? 72 : null,
         },

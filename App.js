@@ -9,7 +9,6 @@ const firebaseApp = require('./src/services/firebaseInit');
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 // Import pages
-const InitScreen = require('./src/pages/Init'); //this screen has our app's logo (when a person opens the app for the first time, this is the page they see (look at Trevor's design))
 const SignupScreen = require('./src/pages/Signup'); //this screen is the sign up page
 const LoginScreen = require('./src/pages/Login'); //this screen is the log in page
 const MeScreen = require('./src/pages/Me'); //this screen is the me screen.

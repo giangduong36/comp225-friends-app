@@ -30,14 +30,14 @@ class AddFriendScreen extends Component {
     static navigationOptions = {
         title: 'Add friend',
         headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: styles.constants.headerColor,
         },
         headerTitleStyle: {
-            color: "white",
+            color: styles.constants.headerText,
             alignSelf : (Platform.OS === "android") ? "center" : null,
             marginRight: (Platform.OS === "android") ? 72 : null,
         },
-        headerTintColor: "white"
+        headerTintColor: styles.constants.headerButtons
     
     };
 
