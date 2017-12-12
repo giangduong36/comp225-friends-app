@@ -29,15 +29,15 @@ class LoginScreen extends Component {
     static navigationOptions = {
         title: 'Login',
         headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: styles.constants.headerColor,
         },
         headerTitleStyle: {
-            color: "white",
+            color: styles.constants.headerText,
             alignSelf : (Platform.OS === "android") ? "center" : null,
             // marginRight: (Platform.OS === "android") ? 72 : null,
             
         },
-        headerTintColor: "white"
+        headerTintColor: styles.constants.headerButtons
     };
 
     constructor(props) {
@@ -175,35 +175,6 @@ class LoginScreen extends Component {
             alert(errorMessage);
         });
     }
-
-
-    /* TO DELETE LATER: Function to create fake users in Firebase */
-    // createFakeData() {
-    //     console.log("Create fake data");
-    //     const name = ['u1', 'u2', 'u3', 'u4', 'u5', 'u6'],
-    //         friend = ['', 'b', 'c', 'd', 'e'];
-    //
-    //     // var res = arr1.map(function(v, i) {
-    //     //     return {
-    //     //         index: v,
-    //     //         value: arr2[i]
-    //     //     };
-    //     // })
-    //     for (let i = 0; i < name.length; i++) {
-    //         let uid = Math.floor(Math.random() * 100000);
-    //         firebaseApp.database().ref('/randomUsers/' + uid).set({
-    //             "status": Math.random() < 0.5 ? "free" : "busy",
-    //             "name": name[i],
-    //             "email": name[i] + "@gmail.com",
-    //             "phone": Math.floor(Math.random() * 100),
-    //         });
-    //         for (let j = 0; j < name.length; j++) {
-    //             if (i !== j) {
-    //                 firebaseApp.database().ref('/randomUsers/' + uid + '/friends/').push({"name": name[i]});
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 

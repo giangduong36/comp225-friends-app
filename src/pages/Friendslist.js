@@ -37,14 +37,14 @@ class FriendslistScreen extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Friends",
         headerStyle: {
-			backgroundColor: 'black'
+			backgroundColor: styles.constants.headerColor
         },
         headerTitleStyle: {
-            color: 'white',
+            color: styles.constants.headerText,
             alignSelf : (Platform.OS === "android") ? "center" : null,
             marginRight: (Platform.OS === "android") ? 72 : null,
         },
-        headerLeft: <Icon.Button name="person-add" backgroundColor="black" style={{flex: 1}} onPress={() => navigation.navigate('AddFriend')}>Add Friend</Icon.Button>
+        headerLeft: <Icon.Button name="person-add" backgroundColor={styles.constants.headerColor} style={{flex: 1}} onPress={() => navigation.navigate('AddFriend')}>Add Friend</Icon.Button>
     });
 
     constructor(props) {

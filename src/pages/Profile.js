@@ -21,14 +21,14 @@ class ProfileScreen extends Component {
     static navigationOptions = {
         title: 'Profile',
         headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: styles.constants.headerColor,
         },
         headerTitleStyle: {
-            color: "white",
+            color: styles.constants.headerText,
             alignSelf : (Platform.OS === "android") ? "center" : null,
             marginRight: (Platform.OS === "android") ? 72 : null,
         },
-        headerTintColor: "white"
+        headerTintColor: styles.constants.headerButtons
     };
 
 	constructor(props) {
@@ -64,9 +64,9 @@ class ProfileScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text style={styles.actionText}> <Text style={{fontWeight: 'bold'}}>Name:</Text> {this.state.name}</Text>
-                <Text style={styles.actionText}> <Text style={{fontWeight: 'bold'}}>Status:</Text> {this.state.status} </Text>
-                <Text style={styles.actionText}> <Text style={{fontWeight: 'bold'}}>Phone:</Text> {this.state.phone} </Text>
+                <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Name:</Text> {this.state.name}</Text>
+                <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Status:</Text> {this.state.status} </Text>
+                <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Phone:</Text> {this.state.phone} </Text>
 				<ActionButton offsetY={5}
                     title="Edit Profile"
                     onPress={() => navigate("EditProfile")}

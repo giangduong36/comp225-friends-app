@@ -29,13 +29,13 @@ class UserDetailScreen extends Component {
     static navigationOptions = {
         title: 'User Detail',
 		headerStyle: {
-			backgroundColor: 'black'
+			backgroundColor: styles.constants.headerColor
 		},
         headerTitleStyle: {
             alignSelf: 'center',
-			color: 'white'
+			color: styles.constants.headerText
         },
-        headerTintColor: "white"
+        headerTintColor: styles.constants.headerButtons
     };
 
     constructor(props) {

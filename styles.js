@@ -2,7 +2,12 @@ const React = require('react-native');
 const {StyleSheet} = React;
 
 const constants = {
-    actionColor: 'deepskyblue'
+    buttonBorder: 'transparent',
+    buttonBG: "deepskyblue",
+    buttonText: "black",
+    headerColor: "black",
+    headerText: "white",
+    headerButtons: "white"
 };
 
 let styles = StyleSheet.create({
@@ -33,20 +38,27 @@ let styles = StyleSheet.create({
         borderColor:"black",        
         // height: 30,
     },
+    text: {
+        color: "black",
+        fontFamily: "CaviarDreams",
+        fontSize: 20,
+        textAlign: "center",
+    },
     actionText: {
-        color: 'black',
+        color: constants.buttonText,
 		fontFamily: 'CaviarDreams',
         fontSize: 20,
         textAlign: 'center',
     },
     action: {
-        backgroundColor: constants.actionColor,
-        borderColor: 'transparent',
-        borderWidth: 1,
+        backgroundColor: constants.buttonBG,
+        borderColor: constants.buttonBorder,
+        borderWidth: 4,
         paddingLeft: 16,
         paddingTop: 14,
         paddingBottom: 16,
         margin: 5,
+        // borderRadius: 45
     },
 
     listview: {
