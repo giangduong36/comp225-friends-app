@@ -42,6 +42,7 @@ constructor(props) {
         super(props);
         this.state = {
             name: '',
+            prevPhone: "",
             phone: '',
             status: '',
 			about: '',
@@ -56,7 +57,7 @@ constructor(props) {
             that.setState({name: snapshot.val()})
         });
         firebaseApp.database().ref('PhoneNumbers/' + uid).once('value').then(function(snapshot) {
-            that.setState({phone: snapshot.val()})
+            that.setState({phone: snapshot.val(), prevPhone: snapshot.val()})
         });
 		firebaseApp.database().ref('Statuses/' + uid).once('value').then(function(snapshot) {
             that.setState({status: snapshot.val()})
@@ -137,7 +138,7 @@ constructor(props) {
 						{text: 'OK', onPress: () => console.log('OK Pressed!')},
 						]
 					);
-					firebaseApp.database().ref("PhoneNumbers").update({[uid] : "Enter a valid phone number"}); //this feels super hacky!
+					firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.prevPhone}); //this feels super hacky!
 					return true; //breaks out of this loop
 				} else{
 					if(that.state.phone !== ""){
