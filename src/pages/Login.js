@@ -55,6 +55,7 @@ class LoginScreen extends Component {
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             this.setState({ loading: false, authenticated: true });
+            this.props.navigation.navigate("Me");
           } else {
             this.setState({ loading: false, authenticated: false });
           }
@@ -67,7 +68,7 @@ class LoginScreen extends Component {
 
         if (this.state.loading) return null;
         if (this.state.authenticated) return (
-            <View style={styles.loadingScreen}>{navigate("Me")}</View>
+            <View style={styles.loadingScreen}></View>
         )
 
         return (
