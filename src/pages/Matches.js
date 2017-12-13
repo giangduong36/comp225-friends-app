@@ -98,7 +98,7 @@ class MatchesScreen extends Component {
                             rightIcon={
                                 <Button
                                     raised
-                                    backgroundColor="deepskyblue"
+                                    backgroundColor={styles.constants.buttonBG}
                                     onPress={() => Communications.text('123456789') /* Real phone number later */}
                                     icon={{name: 'chat'}}
                                     title='Text'
@@ -216,7 +216,7 @@ class MatchesScreen extends Component {
     renderHeader = () => {
         return (
             <View>
-                <SearchBar placeholder="Search for a friend..." lightTheme round/>
+                <SearchBar placeholder="Search for a friend..." lightTheme icon={{color: styles.constants.searchIcon}} round/>
             </View>
 
         )

@@ -78,6 +78,7 @@ class FriendslistScreen extends Component {
                             <ListItem
                                 roundAvatar
                                 // title={`${item.name.first} ${item.name.last}`}
+                                chevronColor={styles.constants.arrowColor}
                                 title={item.name}
                                 subtitle={""}
                                 containerStyle={{borderBottomWidth: 0}}
@@ -139,7 +140,7 @@ class FriendslistScreen extends Component {
     renderHeader = () => {
         return (
             <View>
-                <SearchBar placeholder="Search for a friend..." lightTheme round/>
+                <SearchBar placeholder="Search for a friend..." lightTheme icon={{color: styles.constants.searchIcon}} round/>
             </View>
 
         )

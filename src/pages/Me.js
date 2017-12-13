@@ -70,9 +70,9 @@ class MeScreen extends Component {
                 
                 <Switch //toggle switch for availability info
                     value = {this.state.value}
-                    onTintColor="#999999"
+                    onTintColor={styles.constants.buttonBorder}
                 style={{marginBottom: 10, marginTop: 50, transform: [{ scaleX: 3}, { scaleY: 3}]}}
-                    thumbTintColor="#0000ff"
+                    thumbTintColor={styles.constants.buttonBG}
                     tintColor="#000000"
                     onValueChange={(value) => this.setState({value})}
                 />

@@ -57,7 +57,7 @@ class AddFriendScreen extends Component {
                 <Text style={styles.welcome}>welcome to the add friend screen</Text>
 
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor:"white", justifyContent:"center"}}
+                    style={styles.textinput}
                     onChangeText={(text) => this.state.text=text}
                     placeholder={this.state.text}
                     underlineColorAndroid="transparent"

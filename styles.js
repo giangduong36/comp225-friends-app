@@ -2,13 +2,17 @@ const React = require('react-native');
 const {StyleSheet} = React;
 
 const constants = {
-    buttonBorder: 'transparent',
-    buttonBG: "deepskyblue",
-    buttonText: "black",
+    buttonBorder: 'black',
+    buttonBG: "indigo",
+    buttonText: "white",
     headerColor: "black",
     headerText: "white",
     headerButtons: "white",
     backgroundColor: "white",
+    textInputBG: "white",
+    textInputBorder: "indigo",
+    searchIcon: "indigo",
+    arrowColor: "indigo",
 };
 
 let styles = StyleSheet.create({
@@ -33,10 +37,11 @@ let styles = StyleSheet.create({
 
     textinput : {
         textAlign: "center",
-        backgroundColor: "lightgray",
-        color:"black",
-        borderWidth:1,
-        borderColor:"black",        
+        backgroundColor: constants.textInputBG,
+        color: "black",
+        borderWidth:2,
+        borderColor: constants.textInputBorder,      
+        borderRadius: 45,  
         // height: 30,
     },
     text: {
