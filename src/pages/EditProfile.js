@@ -40,11 +40,12 @@ class EditProfileScreen extends Component {
 
 constructor(props) {
         super(props);
-
         this.state = {
             name: '',
             phone: '',
             status: '',
+			about: '',
+			interest: '',
 			phoneRef: null
         }
     }
@@ -52,14 +53,20 @@ constructor(props) {
     loadData() {
         let uid = firebaseApp.auth().currentUser.uid;
         let that = this;
-        firebaseApp.database().ref('Names/' + uid).on("value", function (snapshot) {
+        firebaseApp.database().ref('Names/' + uid).once('value').then(function(snapshot) {
             that.setState({name: snapshot.val()})
         });
-        firebaseApp.database().ref('PhoneNumbers/' + uid).on("value", function (snapshot) {
+        firebaseApp.database().ref('PhoneNumbers/' + uid).once('value').then(function(snapshot) {
             that.setState({phone: snapshot.val()})
         });
-		firebaseApp.database().ref('Statuses/' + uid).on("value", function (snapshot) {
+		firebaseApp.database().ref('Statuses/' + uid).once('value').then(function(snapshot) {
             that.setState({status: snapshot.val()})
+        });
+		firebaseApp.database().ref('Abouts/' + uid).once('value').then(function(snapshot) {
+            that.setState({about: snapshot.val()})
+        });
+		firebaseApp.database().ref('Interests/' + uid).once('value').then(function(snapshot) {
+            that.setState({interest: snapshot.val()})
         });
     }
 
@@ -94,6 +101,20 @@ constructor(props) {
                     placeholder={"Status"}
                     underlineColorAndroid="transparent"
                 />
+				<TextInput
+                    style={styles.textinput}
+                    onChangeText={(text) => this.setState({about: text})}
+                    value={this.state.about}
+                    placeholder={"About"}
+                    underlineColorAndroid="transparent"
+                />
+				<TextInput
+                    style={styles.textinput}
+                    onChangeText={(text) => this.setState({interest: text})}
+                    value={this.state.interest}
+                    placeholder={"Interest"}
+                    underlineColorAndroid="transparent"
+                />
 				<ActionButton
                     title="Submit"
                     onPress={this.update.bind(this)}
@@ -104,7 +125,7 @@ constructor(props) {
 
 	update() {
         let that = this;
-		firebaseApp.database().ref('PhoneNumbers').on("value", function (snapshot) {
+		firebaseApp.database().ref('PhoneNumbers').once('value').then(function(snapshot) {
             snapshot.forEach(function (childSnapshot) {
 				let registeredUserId = childSnapshot.key;
                 let registeredNumber = childSnapshot.val();

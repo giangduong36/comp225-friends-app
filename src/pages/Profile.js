@@ -37,21 +37,29 @@ class ProfileScreen extends Component {
         this.state = {
             name: '',
             phone: '',
-            status: ''
+            status: '',
+			about: '',
+			interest: ''
         }
     }
 
     loadData() {
         let uid = firebaseApp.auth().currentUser.uid;
         let that = this;
-        firebaseApp.database().ref('Names/' + uid).on("value", function (snapshot) {
+        firebaseApp.database().ref('Names/' + uid).once('value').then(function(snapshot) {
             that.setState({name: snapshot.val()})
         });
-        firebaseApp.database().ref('PhoneNumbers/' + uid).on("value", function (snapshot) {
+        firebaseApp.database().ref('PhoneNumbers/' + uid).once('value').then(function(snapshot) {
             that.setState({phone: snapshot.val()})
         });
-		firebaseApp.database().ref('Statuses/' + uid).on("value", function (snapshot) {
+		firebaseApp.database().ref('Statuses/' + uid).once('value').then(function(snapshot) {
             that.setState({status: snapshot.val()})
+        });
+		firebaseApp.database().ref('Abouts/' + uid).once('value').then(function(snapshot) {
+            that.setState({about: snapshot.val()})
+        });
+		firebaseApp.database().ref('Interests/' + uid).once('value').then(function(snapshot) {
+            that.setState({interest: snapshot.val()})
         });
     }
 
@@ -67,6 +75,8 @@ class ProfileScreen extends Component {
                 <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Name:</Text> {this.state.name}</Text>
                 <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Status:</Text> {this.state.status} </Text>
                 <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Phone:</Text> {this.state.phone} </Text>
+				<Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Interest:</Text> {this.state.interest} </Text>
+				<Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>About:</Text> {this.state.about} </Text>
 				<ActionButton offsetY={5}
                     title="Edit Profile"
                     onPress={() => navigate("EditProfile")}
