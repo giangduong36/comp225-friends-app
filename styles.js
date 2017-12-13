@@ -7,20 +7,21 @@ const constants = {
     buttonText: "black",
     headerColor: "black",
     headerText: "white",
-    headerButtons: "white"
+    headerButtons: "white",
+    backgroundColor: "white",
 };
 
 let styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: constants.backgroundColor,
     },
 
     containerTop: {
         flex: 1,
         justifyContent: 'flex-start',
-        backgroundColor: 'white',
+        backgroundColor: constants.backgroundColor,
     },
 
     welcome: {
@@ -58,7 +59,7 @@ let styles = StyleSheet.create({
         paddingTop: 14,
         paddingBottom: 16,
         margin: 5,
-        // borderRadius: 45
+        borderRadius: 45
     },
 
     listview: {

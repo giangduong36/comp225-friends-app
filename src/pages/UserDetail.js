@@ -75,11 +75,11 @@ class UserDetailScreen extends Component {
             <View style={styles.container}>
                 {/*<Header text="Friends List" loaded={this.state.loaded} />*/}
                 <Text style={styles.welcome}>welcome to the user detail screen</Text>
-                <Text style={styles.actionText}> Name: {this.state.name}</Text>
-                <Text style={styles.actionText}> Status </Text>
-                <Text style={styles.actionText}> Phone: {this.state.phone} </Text>
-                <Text style={styles.actionText}> About </Text>
-                <Text style={styles.actionText}> Interest </Text>
+                <Text style={styles.text}> Name: {this.state.name}</Text>
+                <Text style={styles.text}> Status </Text>
+                <Text style={styles.text}> Phone: {this.state.phone} </Text>
+                <Text style={styles.text}> About </Text>
+                <Text style={styles.text}> Interest </Text>
 
                 <ActionButton title="Match!" onPress={this.matchRequest.bind(this)}/>
 
