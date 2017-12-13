@@ -61,6 +61,7 @@ class AddFriendScreen extends Component {
                     onChangeText={(text) => this.state.text=text}
                     placeholder={this.state.text}
                     underlineColorAndroid="transparent"
+                    keyboardType="numeric"
                 />
 
                 <ActionButton title="ADD FRIEND" onPress={this.addFriend.bind(this)}/>

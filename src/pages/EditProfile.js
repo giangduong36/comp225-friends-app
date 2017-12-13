@@ -92,6 +92,7 @@ constructor(props) {
                     value={this.state.phone}
                     placeholder={"Phone Number"}
                     underlineColorAndroid="transparent"
+                    keyboardType="numeric"
                 />
 				<TextInput
                     style={styles.textinput}

@@ -64,6 +64,7 @@ class SignupScreen extends Component {
                     value={this.state.email}
                     placeholder={"Email Address"}
                     underlineColorAndroid="transparent"
+                    keyboardType="email-address"
                 />
                 <TextInput
                     style={styles.textinput}
@@ -79,6 +80,7 @@ class SignupScreen extends Component {
                     value={this.state.phoneNumber}
                     placeholder={"Phone Number"}
                     underlineColorAndroid="transparent"
+                    keyboardType="numeric"
                 />
                 <ActionButton
                     title="Sign Up"

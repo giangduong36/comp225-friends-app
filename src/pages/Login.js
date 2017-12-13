@@ -66,6 +66,7 @@ class LoginScreen extends Component {
                         value={this.state.email}
                         placeholder={"Email Address"}
                         underlineColorAndroid="transparent"
+                        keyboardType="email-address"
                     />
                     <TextInput
                         style={styles.textinput}
