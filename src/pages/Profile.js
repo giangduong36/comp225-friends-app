@@ -78,11 +78,11 @@ class ProfileScreen extends Component {
                 <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Phone:</Text> {this.state.phone} </Text>
 				<Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Interest:</Text> {this.state.interest} </Text>
 				<Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>About:</Text> {this.state.about} </Text>
-				<ActionButton offsetY={5}
+				<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} offsetY={5}
                     title="Edit Profile"
                     onPress={() => navigate("EditProfile")}
                 />
-                <ActionButton offsetY={5}
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} offsetY={5}
                               title="Log out"
                               onPress={this._logout.bind(this)}
                 />

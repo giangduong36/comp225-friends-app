@@ -45,6 +45,18 @@ let styles = StyleSheet.create({
         margin: 10,
     },
 
+    loginTextInput:{
+        textAlign: "center",
+        backgroundColor: constants.textInputBG,
+        color: "black",
+        borderWidth:2,
+        borderColor: constants.textInputBorder,      
+        borderRadius: 0,  
+        margin: 5,
+        fontSize: 25,
+        width: "85%",
+    },
+
     textinput : {
         textAlign: "center",
         backgroundColor: constants.textInputBG,
@@ -55,7 +67,6 @@ let styles = StyleSheet.create({
         margin: 5,
         fontSize: 25,
         width: "85%",
-        // height: 30,
     },
     text: {
         color: "black",
@@ -63,22 +74,37 @@ let styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
     },
-    actionText: {
+    primaryButton: {
+        backgroundColor: constants.buttonBG,
+        borderColor: constants.buttonBorder,
+        borderWidth: 4,
+        paddingTop: 10,
+        paddingBottom: 10,
+        margin: 5,
+        borderRadius: 45,
+        width: "75%",
+    },
+    primaryButtonText: {
         color: constants.buttonText,
 		fontFamily: 'CaviarDreams',
         fontSize: 30,
         textAlign: 'center',
     },
-    action: {
+    secondaryButton: {
         backgroundColor: constants.buttonBG,
         borderColor: constants.buttonBorder,
         borderWidth: 4,
-        paddingLeft: 16,
-        paddingTop: 14,
-        paddingBottom: 16,
+        paddingTop: 10,
+        paddingBottom: 10,
         margin: 5,
         borderRadius: 45,
         width: "75%",
+    },
+    secondaryButtonText: {
+        color: constants.buttonText,
+		fontFamily: 'CaviarDreams',
+        fontSize: 30,
+        textAlign: 'center',
     },
 
     listview: {

@@ -81,12 +81,12 @@ class UserDetailScreen extends Component {
                 <Text style={styles.text}> About </Text>
                 <Text style={styles.text}> Interest </Text>
 
-                <ActionButton title="Match!" onPress={this.matchRequest.bind(this)}/>
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Match!" onPress={this.matchRequest.bind(this)}/>
 
-                <ActionButton title="Unfriend" onPress={this.unfriend.bind(this)}/>
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unfriend" onPress={this.unfriend.bind(this)}/>
 
                 {/*TO DELETE: For debug purpose only, will toggle match button to be unmatch later*/}
-                <ActionButton title="Unmatch!" onPress={this.delRequest.bind(this)}/>
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unmatch!" onPress={this.delRequest.bind(this)}/>
 
 
                 {/*<TouchableOpacity onPress={() => {this.someFunction()}}>*/}

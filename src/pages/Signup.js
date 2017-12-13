@@ -54,7 +54,7 @@ class SignupScreen extends Component {
         return (
             <DismissKeyboardView style={styles.body}>
                 <Text style={styles.welcome}>Let's create an account!</Text>
-                <ActionButton
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                     onPress={this._testLogin.bind(this)} //now goes to Availability rather than Main //milo!!!!!!!!!!!
                     title="TEST BYPASS"
                 />
@@ -82,11 +82,11 @@ class SignupScreen extends Component {
                     underlineColorAndroid="transparent"
                     keyboardType="numeric"
                 />
-                <ActionButton
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                     title="Sign Up"
                     onPress={this._signup.bind(this)}
                 />
-                <ActionButton
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                     title="Log In"
                     onPress={() => navigate('Login')
                     }

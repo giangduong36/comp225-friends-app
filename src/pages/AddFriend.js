@@ -64,10 +64,10 @@ class AddFriendScreen extends Component {
                     keyboardType="numeric"
                 />
 
-                <ActionButton title="ADD FRIEND" onPress={this.addFriend.bind(this)}/>
+                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="ADD FRIEND" onPress={this.addFriend.bind(this)}/>
 
                 {/*TO DELETE LATER: Button to create data on database*/}
-                {/*<ActionButton*/}
+                {/*<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}*/}
                 {/*onPress={this._addData.bind(this)}*/}
                 {/*title="Change Data"*/}
                 {/*/>*/}

@@ -115,7 +115,7 @@ constructor(props) {
                     placeholder={"Interest"}
                     underlineColorAndroid="transparent"
                 />
-				<ActionButton
+				<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                     title="Submit"
                     onPress={this.update.bind(this)}
                 />

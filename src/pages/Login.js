@@ -77,23 +77,23 @@ class LoginScreen extends Component {
                         underlineColorAndroid="transparent"
                     />
 
-                    <ActionButton
+                    <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                         title="Login"
                         onPress={this._login.bind(this)}
                     />
 
-                    <ActionButton
+                    <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                         onPress={() => navigate('Signup')}
                         title="New here?"
                     />
 
                     {/*TO DELETE LATER: Button to access Account page without log in*/}
-                    <ActionButton
+                    <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                         onPress={this._testBypass.bind(this)}
                         title="TEST BYPASS"
                     />
 
-                    <ActionButton
+                    <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                         onPress={this._testFriend.bind(this)}
                         title="TEST AS FRIEND"
                     />
