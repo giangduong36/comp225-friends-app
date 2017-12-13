@@ -45,8 +45,7 @@ constructor(props) {
             phone: '',
             status: '',
 			about: '',
-			interest: '',
-			phoneRef: null
+			interest: ''
         }
     }
 
@@ -130,8 +129,6 @@ constructor(props) {
 				let registeredUserId = childSnapshot.key;
                 let registeredNumber = childSnapshot.val();
 				if(that.state.phone == registeredNumber && registeredUserId !== uid){
-					console.log(that.state.phone);
-					that.state.phoneRef = 1;
 					Alert.alert(
 						"Phone Number Already Registered",
 						"Sorry, but the phone number you entered appears to already be in our database. Please double check you entered the correct number.",
@@ -139,19 +136,22 @@ constructor(props) {
 						{text: 'OK', onPress: () => console.log('OK Pressed!')},
 						]
 					);
+					firebaseApp.database().ref("PhoneNumbers").update({[uid] : "Enter a valid phone number"}); //this feels super hacky!
+					return true; //breaks out of this loop
+				} else{
+					if(that.state.phone !== ""){
+						firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phone}); //iterates through this else for each thing in for loop...
+					}
 				}	
             });
         });
-		if(that.state.phone !== "" && that.state.phoneRef !== 1){
-			firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phone});
-		}
+		
 		if(that.state.name !== ""){
 			firebaseApp.database().ref("Names").update({[uid] : that.state.name});
 		}
 		if(that.state.status !== ""){
 			firebaseApp.database().ref("Statuses").update({[uid] : that.state.status});
 		}
-		that.state.phoneRef = null;
 		that.props.navigation.goBack();
     }	
 }

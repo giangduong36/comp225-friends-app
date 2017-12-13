@@ -41,24 +41,25 @@ class ProfileScreen extends Component {
 			about: '',
 			interest: ''
         }
+		
     }
 
     loadData() {
         let uid = firebaseApp.auth().currentUser.uid;
         let that = this;
-        firebaseApp.database().ref('Names/' + uid).once('value').then(function(snapshot) {
+        firebaseApp.database().ref('Names/' + uid).on("value", function (snapshot) {
             that.setState({name: snapshot.val()})
         });
-        firebaseApp.database().ref('PhoneNumbers/' + uid).once('value').then(function(snapshot) {
+        firebaseApp.database().ref('PhoneNumbers/' + uid).on("value", function (snapshot) {
             that.setState({phone: snapshot.val()})
         });
-		firebaseApp.database().ref('Statuses/' + uid).once('value').then(function(snapshot) {
+		firebaseApp.database().ref('Statuses/' + uid).on("value", function (snapshot) {
             that.setState({status: snapshot.val()})
         });
-		firebaseApp.database().ref('Abouts/' + uid).once('value').then(function(snapshot) {
+		firebaseApp.database().ref('Abouts/' + uid).on("value", function (snapshot) {
             that.setState({about: snapshot.val()})
         });
-		firebaseApp.database().ref('Interests/' + uid).once('value').then(function(snapshot) {
+		firebaseApp.database().ref('Interests/' + uid).on("value", function (snapshot) {
             that.setState({interest: snapshot.val()})
         });
     }
