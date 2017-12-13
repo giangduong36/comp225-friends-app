@@ -46,13 +46,30 @@ class LoginScreen extends Component {
         this.state = {
             email: '',
             password: '',
-            loaded: true
+            loading: true,
+            authenticated: false,
         }
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            this.setState({ loading: false, authenticated: true });
+          } else {
+            this.setState({ loading: false, authenticated: false });
+          }
+        });
     }
 
     render() {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
+
+        if (this.state.loading) return null;
+        if (this.state.authenticated) return (
+            <View style={styles.loadingScreen}>{navigate("Me")}</View>
+        )
+
         return (
             <DismissKeyboardView style={styles.container}>
 

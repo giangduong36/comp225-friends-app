@@ -21,6 +21,13 @@ const constants = {
 };
 
 let styles = StyleSheet.create({
+    loadingScreen: {
+        flex:1,
+        backgroundColor: "lightgrey",
+        justifyContent: "center",
+        alignItems: "center",
+
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
