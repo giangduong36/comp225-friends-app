@@ -78,7 +78,7 @@ constructor(props) {
         const {navigate} = this.props.navigation;
 
         return (
-            <DismissKeyboardView style={styles.container}>
+            <DismissKeyboardView style={styles.body}>
                 <TextInput
                     style={styles.textinput}
                     onChangeText={(text) => this.setState({name: text})}

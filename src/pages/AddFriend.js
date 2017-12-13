@@ -53,7 +53,7 @@ class AddFriendScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <DismissKeyboardView style={styles.container}>
+            <DismissKeyboardView style={styles.body}>
                 <Text style={styles.welcome}>welcome to the add friend screen</Text>
 
                 <TextInput

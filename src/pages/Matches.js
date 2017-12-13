@@ -98,7 +98,7 @@ class MatchesScreen extends Component {
                             rightIcon={
                                 <Button
                                     raised
-                                    backgroundColor={styles.constants.buttonBG}
+                                    backgroundColor={styles.constants.matchMessage}
                                     onPress={() => Communications.text('123456789') /* Real phone number later */}
                                     icon={{name: 'chat'}}
                                     title='Text'

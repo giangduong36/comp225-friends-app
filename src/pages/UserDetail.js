@@ -72,7 +72,7 @@ class UserDetailScreen extends Component {
         const {navigate} = this.props.navigation;
         uid = firebaseApp.auth().currentUser.uid;
         return (
-            <View style={styles.container}>
+            <View style={styles.body}>
                 {/*<Header text="Friends List" loaded={this.state.loaded} />*/}
                 <Text style={styles.welcome}>welcome to the user detail screen</Text>
                 <Text style={styles.text}> Name: {this.state.name}</Text>

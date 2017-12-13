@@ -2,17 +2,22 @@ const React = require('react-native');
 const {StyleSheet} = React;
 
 const constants = {
-    buttonBorder: 'black',
-    buttonBG: "indigo",
+    buttonBorder: 'indigo',
+    buttonBG: "black",
     buttonText: "white",
-    headerColor: "black",
+    headerColor: "indigo",
     headerText: "white",
     headerButtons: "white",
     backgroundColor: "white",
     textInputBG: "white",
-    textInputBorder: "indigo",
-    searchIcon: "indigo",
-    arrowColor: "indigo",
+    textInputBorder: "black",
+    searchIcon: "black",
+    arrowColor: "black",
+    tabButtons: "white",
+    tabRipple: "white",
+    tabBG: "indigo",
+    tabBars: "white",
+    matchMessage: "indigo",
 };
 
 let styles = StyleSheet.create({
@@ -21,7 +26,12 @@ let styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: constants.backgroundColor,
     },
-
+    body: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: constants.backgroundColor,
+        alignItems: "center"
+    },
     containerTop: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -41,7 +51,10 @@ let styles = StyleSheet.create({
         color: "black",
         borderWidth:2,
         borderColor: constants.textInputBorder,      
-        borderRadius: 45,  
+        borderRadius: 0,  
+        margin: 5,
+        fontSize: 25,
+        width: "85%",
         // height: 30,
     },
     text: {
@@ -53,7 +66,7 @@ let styles = StyleSheet.create({
     actionText: {
         color: constants.buttonText,
 		fontFamily: 'CaviarDreams',
-        fontSize: 20,
+        fontSize: 30,
         textAlign: 'center',
     },
     action: {
@@ -64,7 +77,8 @@ let styles = StyleSheet.create({
         paddingTop: 14,
         paddingBottom: 16,
         margin: 5,
-        borderRadius: 45
+        borderRadius: 45,
+        width: "75%",
     },
 
     listview: {

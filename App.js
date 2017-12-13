@@ -1,6 +1,7 @@
 'use strict';
 //Import React
 import React, {Component} from 'react';
+const styles = require("./styles");
 
 // Import firebase
 const firebaseApp = require('./src/services/firebaseInit');
@@ -56,26 +57,26 @@ export const Tabs = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     bottomNavigationOptions: {
-      labelColor: 'white',
-      rippleColor: 'white',
+      labelColor: styles.constants.tabButtons,
+      rippleColor: styles.constants.tabRipple,
       tabs: {
 		Me: {
           label: 'Me',
-          barBackgroundColor: 'black',
+          barBackgroundColor: styles.constants.tabBG,
 		  showIcon: true,
-		  icon: (<Icon size={24} color="white" name="person" />)
+		  icon: (<Icon size={24} color={styles.constants.tabButtons} name="person" />)
         },
         Friends: {
           label: 'Friends',
-          barBackgroundColor: 'black',
+          barBackgroundColor: styles.constants.tabBG,
 		  showIcon: true,
-		  icon: (<Icon size={24} color="white" name="people" />) 
+		  icon: (<Icon size={24} color={styles.constants.tabButtons} name="people" />) 
         },	
         Matches: {
           label: 'Matches',
-          barBackgroundColor: 'black',
+          barBackgroundColor: styles.constants.tabBG,
 		  showIcon: true,
-		  icon: (<Icon size={24} color="white" name="chat-bubble" />)
+		  icon: (<Icon size={24} color={styles.constants.tabButtons} name="chat-bubble" />)
         }
       }
     }

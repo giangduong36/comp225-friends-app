@@ -72,7 +72,7 @@ class ProfileScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.container}>
+            <View style={styles.body}>
                 <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Name:</Text> {this.state.name}</Text>
                 <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Status:</Text> {this.state.status} </Text>
                 <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Phone:</Text> {this.state.phone} </Text>

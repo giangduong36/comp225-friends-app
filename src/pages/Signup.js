@@ -52,7 +52,7 @@ class SignupScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <DismissKeyboardView style={styles.container}>
+            <DismissKeyboardView style={styles.body}>
                 <Text style={styles.welcome}>Let's create an account!</Text>
                 <ActionButton
                     onPress={this._testLogin.bind(this)} //now goes to Availability rather than Main //milo!!!!!!!!!!!
