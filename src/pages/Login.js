@@ -55,7 +55,7 @@ class LoginScreen extends Component {
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             this.setState({ loading: false, authenticated: true });
-            this.props.navigation.navigate("Me");
+            this.props.navigation.navigate("Tabs");
           } else {
             this.setState({ loading: false, authenticated: false });
           }
