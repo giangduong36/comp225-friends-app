@@ -110,7 +110,6 @@ class MatchesScreen extends Component {
                     )}
                     keyExtractor={item => item.key}
                     ItemSeparatorComponent={this.renderSeparator}
-                    ListHeaderComponent={this.renderHeader}
                     // ListFooterComponent={this.renderFooter}
                     onRefresh={this.handleRefresh}
                     refreshing={this.state.refreshing}
@@ -212,16 +211,6 @@ class MatchesScreen extends Component {
             />
         );
     };
-
-    renderHeader = () => {
-        return (
-            <DView>
-                <SearchBar placeholder="Search for a friend..." lightTheme icon={{color: styles.constants.searchIcon}} round/>
-            </DView>
-
-        )
-    };
-
 
     /*Displaying loading sign*/
     renderFooter = () => {
