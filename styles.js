@@ -222,7 +222,35 @@ let styles = StyleSheet.create({
 // FRIENDSLIST SCREEN STYLES
 
 // ADDFRIEND SCREEN STYLES
-
+    addFriendContainer: {
+        flex:1,
+        justifyContent: "space-around", 
+        backgroundColor: constants.backgroundColor,
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100%",
+        width: "100%"
+    },
+    addFriendTitle: {
+        fontFamily: 'CaviarDreams',
+        fontSize: 30,
+        textAlign: 'center',
+        marginTop: "10%",
+        width: "95%",
+        backgroundColor: "transparent"
+    },
+    addFriendInput: {
+        textAlign: "center",
+        backgroundColor: constants.textInputBG,
+        color: constants.textInputColor,
+        borderWidth:2,
+        borderColor: constants.textInputBorder,      
+        borderRadius: 0,  
+        includeFontPadding: false,
+        // margin: 5,
+        fontSize: 20,
+        width: "85%",
+    },
 // USERDETAIL SCREEN STYLES
 
 // MATCHES SCREEN STYLES

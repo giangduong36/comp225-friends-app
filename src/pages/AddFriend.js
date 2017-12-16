@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
 import DismissKeyboardHOC from "../components/DismissKeyboardHOC.js";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 
 const {
     AppRegistry,
@@ -25,6 +26,7 @@ const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
 const DView = DismissKeyboardHOC(View);
+const KeyboardScroller = DismissKeyboardHOC(KeyboardAwareScrollView);
 
 class AddFriendScreen extends Component {
     static navigationOptions = {
@@ -45,7 +47,7 @@ class AddFriendScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: 'Enter phone number of a friend to add them',
+            text: "",
         };
     }
 
@@ -53,34 +55,25 @@ class AddFriendScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <DView style={styles.body}>
-                <Text style={styles.loginTitle}>welcome to the add friend screen</Text>
+            <KeyboardScroller resetScrollToCoords={{x:0,y:0}} contentContainerStyle={{height:"100%"}} scrollEnabled={false}>
+                <DView style={styles.addFriendContainer}>
+                    <Text style={styles.addFriendTitle}>Enter a phone number to add that person as a friend</Text>
 
-                <TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.state.text=text}
-                    placeholder={this.state.text}
-                    underlineColorAndroid="transparent"
-                    keyboardType="numeric"
-                />
+                    <TextInput
+                        style={styles.addFriendInput}
+                        onChangeText={(text) => this.state.text=text}
+                        placeholder="Phone Number"
+                        underlineColorAndroid="transparent"
+                        keyboardType="numeric"
+                    />
 
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="ADD FRIEND" onPress={this.addFriend.bind(this)}/>
-
-                {/*TO DELETE LATER: Button to create data on database*/}
-                {/*<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}*/}
-                {/*onPress={this._addData.bind(this)}*/}
-                {/*title="Change Data"*/}
-                {/*/>*/}
-
-                {/*<Picker*/}
-                {/*selectedValue={this.state.selected}*/}
-                {/*onValueChange={(itemValue, itemIndex) => this.setState({selected: itemValue})}>*/}
-                {/*/!*<Picker.Item label="Java" value="java" />*!/*/}
-                {/*/!*<Picker.Item label="JavaScript" value="js" />*!/*/}
-                {/*{this.state.friendItems}*/}
-                {/*</Picker>*/}
-            </DView>
-
+                    <ActionButton buttonStyle={styles.primaryButton} 
+                    buttonTextStyle={styles.primaryButtonText} 
+                    title="ADD FRIEND" 
+                    onPress={this.addFriend.bind(this)}
+                    />
+                </DView>
+            </KeyboardScroller>
         );
     }
 
