@@ -87,7 +87,7 @@ class FriendslistScreen extends Component {
                         title={item.name}
                         subtitle={""}
                         containerStyle={{borderBottomWidth: 0}}
-                        // onPress={() => navigate('AddFriend')}
+                        avatar={{uri: 'https://78.media.tumblr.com/avatar_66b336c742ea_128.png'}} // Will change to real avatar later
                         onPress={
                             () => {
                                 this.props.navigation.navigate('UserDetail', {
@@ -99,15 +99,15 @@ class FriendslistScreen extends Component {
                 )}
                 keyExtractor={item => item.key}
                 ItemSeparatorComponent={this.renderSeparator}
-                ListHeaderComponent={this.renderHeader}
+                // ListHeaderComponent={this.renderHeader}
                 ListFooterComponent={() => {
                     return <View style={{backgroundColor: 'transparent', height: 1}}/>
                 }}
                 ListEmptyComponent={() => {
                     return <Text style={styles.profilePhone}> Pull to update! </Text>
                 }}
-                onRefresh={this.handleRefresh}
-                refreshing={this.state.refreshing}
+                // onRefresh={this.handleRefresh}
+                // refreshing={this.state.refreshing}
             />
         )
     };
@@ -118,27 +118,20 @@ class FriendslistScreen extends Component {
         let that = this;
         uid = firebaseApp.auth().currentUser.uid;
         firebaseApp.database().ref('FriendLists/' + uid).on("value", function (snapshot) {
-            while (that.state.data.length > 0) {
-                that.state.data.pop();
-            }
+            let newList = [];
             snapshot.forEach(function (childSnapshot) {
                 // let childKey = childSnapshot.key;
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
                 nameLoc.on('value', function (snapshot) {
-                    that.state.data.push({'name': snapshot.val(), 'key': snapshot.key});
+                    newList.push({'name': snapshot.val(), 'key': snapshot.key});
                 });
+                that.setState({data: newList});
             });
             console.log(that.state.data);
             that.setState({refreshing: false});
         });
 
     }
-
-    /* TODO: Show an instruction for pulling down to refresh */
-    renderHeader = () => {
-        return null
-    };
-
 
     renderSeparator = () => {
         return (
@@ -153,9 +146,9 @@ class FriendslistScreen extends Component {
         );
     };
 
-    handleRefresh = () => {
-        this.setState({refreshing: true}, () => this.loadFriends());
-    }
+    // handleRefresh = () => {
+    //     this.setState({refreshing: true}, () => this.loadFriends());
+    // }
 }
 
 

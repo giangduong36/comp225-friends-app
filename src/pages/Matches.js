@@ -116,8 +116,8 @@ class MatchesScreen extends Component {
                 ListFooterComponent={() => {
                     return <View style={{backgroundColor: 'transparent', height: 1}}/>
                 }}
-                onRefresh={this.handleRefresh}
-                refreshing={this.state.refreshing}
+                // onRefresh={this.handleRefresh}
+                // refreshing={this.state.refreshing}
             />
         )
     }
@@ -130,48 +130,22 @@ class MatchesScreen extends Component {
     }
 
     loadMatches() {
-        console.log(this.state.refreshing);
         let that = this;
         uid = firebaseApp.auth().currentUser.uid;
 
-        firebaseApp.database().ref('Matches/' + uid).on("value", function (snapshot) {
-            console.log("Loading matches");
-            // Delete all matched and reload
-            let newList = [];
-            that.state.matches.forEach(function (p) {
-                if (p.match_status === 'Pending match request...') {
-                    newList.push(p);
-                }
-            });
-            that.setState({
-                matches: newList,
-            });
-
-            snapshot.forEach(function (childSnapshot) {
-                let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
-                nameLoc.on('value', function (snapshot_) {
-                    that.state.matches.unshift({
-                        'name': snapshot_.val(),
-                        'match_status': 'Matched!',
-                        'key': snapshot_.key
-                    });
-                });
-            });
-        });
-
-        // When the list is empty, won't add listener.
         firebaseApp.database().ref('PendingMatches/' + uid).on("value", function (snapshot) {
             console.log("Loading pending matches");
-            let newList = [];
+            let newListMatch = [];
             that.state.matches.forEach(function (p) {
                 if (p.match_status === 'Matched!') {
-                    newList.push(p);
+                    newListMatch.push(p);
                 }
             });
             that.setState({
-                matches: newList,
+                matches: newListMatch,
             });
             snapshot.forEach(function (childSnapshot) {
+                console.log(that.state.matches);
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
                 nameLoc.on('value', function (snapshot_) {
                     that.state.matches.push({
@@ -182,7 +156,33 @@ class MatchesScreen extends Component {
                 });
             });
         });
-        that.setState({refreshing: false});
+
+        firebaseApp.database().ref('Matches/' + uid).on("value", function (snapshot) {
+            console.log("Loading matches");
+            // Delete all matched and reload
+            let newList = [];
+            that.state.matches.forEach(function (p) {
+                if (p.match_status === 'Pending match request...') {
+                    newList.push(p);
+                }
+                that.setState({
+                    matches: newList,
+                });
+            });
+            snapshot.forEach(function (childSnapshot) {
+                console.log("Matches", that.state.matches);
+                let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
+                nameLoc.on('value', function (snapshot_) {
+                    that.state.matches.unshift({
+                        'name': snapshot_.val(),
+                        'match_status': 'Matched!',
+                        'key': snapshot_.key
+                    });
+                });
+            });
+
+
+        });
     }
 
 
@@ -211,8 +211,8 @@ class MatchesScreen extends Component {
     };
 
     handleRefresh = () => {
-        console.log("Refresh...");
-        this.setState({refreshing: true}, () => this.loadMatches());
+        // console.log("Refresh...");
+        // this.setState({refreshing: true}, () => this.loadMatches());
     }
 }
 

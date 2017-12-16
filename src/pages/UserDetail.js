@@ -45,7 +45,8 @@ class UserDetailScreen extends Component {
             name: '',
             phone: '',
             availability: '',
-            status: ''
+            status: '',
+            matchStatus: false
         }
     }
 
@@ -58,6 +59,22 @@ class UserDetailScreen extends Component {
         firebaseApp.database().ref('PhoneNumbers/' + friend_uid.key).on("value", function (snapshot) {
             that.setState({phone: snapshot.val()})
         });
+
+        let uid = firebaseApp.auth().currentUser.uid;
+        let userMatches = firebaseApp.database().ref("PendingMatches/" + uid);
+        userMatches.child(friend_uid.key).on('value', function (snapshot) {
+            let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
+            let userPendingMatches = firebaseApp.database().ref("Matches/" + uid);
+            userPendingMatches.child(friend_uid.key).on('value', function (snapshot) {
+                matched = matched || (snapshot.val() !== null); // Check if already sent a match request to this user
+            });
+            that.setState({matchStatus: matched});
+        });
+
+        // let userPendingMatches = firebaseApp.database().ref("Matches/" + uid);
+        // userPendingMatches.child(friend_uid.key).on('value', function (snapshot) {
+        //     matched = (snapshot.val() !== null); // Check if already sent a match request to this user
+        // });
     }
 
     componentDidMount() {
@@ -81,12 +98,16 @@ class UserDetailScreen extends Component {
                 <Text style={styles.text}> About </Text>
                 <Text style={styles.text}> Interest </Text>
 
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Match!" onPress={this.matchRequest.bind(this)}/>
+                <ActionButton buttonStyle={styles.primaryButton}
+                              buttonTextStyle={styles.primaryButtonText}
+                              title={this.matchButton()[0]}
+                              onPress={this.matchButton()[1]}/>
+                {/*onPress={this.matchRequest.bind(this)}/>*/}
 
                 <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unfriend" onPress={this.unfriend.bind(this)}/>
 
                 {/*TO DELETE: For debug purpose only, will toggle match button to be unmatch later*/}
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unmatch!" onPress={this.delRequest.bind(this)}/>
+                {/*<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unmatch!" onPress={this.delRequest.bind(this)}/>*/}
 
 
                 {/*<TouchableOpacity onPress={() => {this.someFunction()}}>*/}
@@ -99,8 +120,12 @@ class UserDetailScreen extends Component {
         );
     }
 
-    // TO DELETE LATER
-    // Delete a match request
+    matchButton() {
+        let title = this.state.matchStatus ? "Unmatch" : "Match";
+        let func = this.state.matchStatus ? this.delRequest.bind(this) : this.matchRequest.bind(this);
+        return [title, func];
+    }
+
     delRequest() {
         let friend_id = this.props.navigation.state.params.chosenFriend.key;
         let uid = firebaseApp.auth().currentUser.uid;
@@ -111,17 +136,15 @@ class UserDetailScreen extends Component {
                 {
                     text: 'Unmatch',
                     onPress: (text) => {
+                        this.setState({matchStatus: false});
                         firebaseApp.database().ref('PendingMatches/' + uid).child(friend_id).remove();
                         firebaseApp.database().ref('Matches/' + uid).child(friend_id).remove();
                         firebaseApp.database().ref('Matches/' + friend_id).child(uid).remove()
                     }
                 },
-
                 {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
             ]
         );
-
-
     }
 
     matchRequest() {
@@ -146,7 +169,7 @@ class UserDetailScreen extends Component {
         let uid = firebaseApp.auth().currentUser.uid;
         let userMatches = firebaseApp.database().ref("PendingMatches/" + uid);
         let friendMatches = firebaseApp.database().ref("PendingMatches/" + friend.key);
-
+        let that = this;
         userMatches.child(friend.key).once('value', function (snapshot) {
             let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
             if (matched) {
@@ -162,14 +185,17 @@ class UserDetailScreen extends Component {
                 );
             } else {
                 userMatches.update({[friend.key]: ""});
-                // friendMatches.update({[uid]: ""});
-                Alert.alert(
-                    "Congrats",
-                    "You successfully sent a match request to this person!",
-                    [
-                        {text: "Cool!", onPress: () => console.log("Successfully sent a match request")}
-                    ]
-                );
+                that.setState({matchStatus: true});
+
+                // Alert.alert(
+                //     "Congrats",
+                //     "You successfully sent a match request to this person!",
+                //     [
+                //         {text: "Cool!", onPress: () => {
+                //             console.log("Successfully sent a match request");
+                //         }}
+                //     ]
+                // );
             }
         });
         this.getMatch(uid, friend.key);
