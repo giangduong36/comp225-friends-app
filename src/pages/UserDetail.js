@@ -27,13 +27,14 @@ const firebaseApp = require('../services/firebaseInit');
 
 class UserDetailScreen extends Component {
     static navigationOptions = {
-        title: "User Detail",
+        title: "Friend's Profile",
 		headerStyle: {
 			backgroundColor: styles.constants.headerColor
 		},
         headerTitleStyle: {
-            alignSelf: 'center',
-			color: styles.constants.headerText
+            color: styles.constants.headerText,
+            alignSelf : (Platform.OS === "android") ? "center" : null,
+            marginRight: (Platform.OS === "android") ? 72 : null,
         },
         headerTintColor: styles.constants.headerButtons
     };
@@ -45,7 +46,7 @@ class UserDetailScreen extends Component {
             name: '',
             phone: '',
             availability: '',
-            status: '',
+            about: '',
             matchStatus: false
         }
     }
@@ -58,6 +59,9 @@ class UserDetailScreen extends Component {
         });
         firebaseApp.database().ref('PhoneNumbers/' + friend_uid.key).on("value", function (snapshot) {
             that.setState({phone: snapshot.val()})
+        });
+        firebaseApp.database().ref('Abouts/' + friend_uid.key).on("value", function (snapshot) {
+            that.setState({about: snapshot.val()})
         });
 
         let uid = firebaseApp.auth().currentUser.uid;
@@ -90,32 +94,28 @@ class UserDetailScreen extends Component {
         uid = firebaseApp.auth().currentUser.uid;
         return (
             <View style={styles.userDetailContainer}>
-                {/*<Header text="Friends List" loaded={this.state.loaded} />*/}
-                <Text style={styles.loginTitle}>loginTitle to the user detail screen</Text>
-                <Text style={styles.text}> Name: {this.state.name}</Text>
-                <Text style={styles.text}> Status </Text>
-                <Text style={styles.text}> Phone: {this.state.phone} </Text>
-                <Text style={styles.text}> About </Text>
-                <Text style={styles.text}> Interest </Text>
+                <Text style={styles.userDetailName}>{this.state.name}</Text>
+                <Text style={styles.userDetailPhone}>{this.state.phone}</Text>
+                <Text style={styles.userDetailAbout}>{this.state.about}</Text>
+                <View style={styles.userDetailButtons}>
+                    <ActionButton buttonStyle={styles.primaryButton}
+                                buttonTextStyle={styles.primaryButtonText}
+                                title={this.matchButton()[0]}
+                                onPress={this.matchButton()[1]}/>
+                    {/*onPress={this.matchRequest.bind(this)}/>*/}
 
-                <ActionButton buttonStyle={styles.primaryButton}
-                              buttonTextStyle={styles.primaryButtonText}
-                              title={this.matchButton()[0]}
-                              onPress={this.matchButton()[1]}/>
-                {/*onPress={this.matchRequest.bind(this)}/>*/}
+                    <ActionButton buttonStyle={styles.secondaryButton} buttonTextStyle={styles.secondaryButtonText} title="Unfriend" onPress={this.unfriend.bind(this)}/>
 
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unfriend" onPress={this.unfriend.bind(this)}/>
-
-                {/*TO DELETE: For debug purpose only, will toggle match button to be unmatch later*/}
-                {/*<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unmatch!" onPress={this.delRequest.bind(this)}/>*/}
+                    {/*TO DELETE: For debug purpose only, will toggle match button to be unmatch later*/}
+                    {/*<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unmatch!" onPress={this.delRequest.bind(this)}/>*/}
 
 
-                {/*<TouchableOpacity onPress={() => {this.someFunction()}}>*/}
-                {/*<View style={styles.holder}>*/}
-                {/*<Text style={styles.text}>Test</Text>*/}
-                {/*</View>*/}
-                {/*</TouchableOpacity>*/}
-
+                    {/*<TouchableOpacity onPress={() => {this.someFunction()}}>*/}
+                    {/*<View style={styles.holder}>*/}
+                    {/*<Text style={styles.text}>Test</Text>*/}
+                    {/*</View>*/}
+                    {/*</TouchableOpacity>*/}
+                </View>
             </View>
         );
     }

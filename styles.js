@@ -258,6 +258,35 @@ let styles = StyleSheet.create({
         height: "100%",
         width: "100%"
     },
+    userDetailName: {
+        fontFamily: 'CaviarDreams',
+        fontSize: 40,
+        textAlign: 'center',
+        marginTop: "5%",
+        width: "100%",
+        backgroundColor: "transparent"
+    },
+    userDetailPhone: {
+        fontFamily: 'CaviarDreams',
+        fontSize: 35,
+        textAlign: 'center',
+        width: "100%",
+        backgroundColor: "transparent",
+        color: constants.buttonBorder,
+    },
+    userDetailAbout: {
+        fontFamily: 'CaviarDreams',
+        fontSize: 20,
+        textAlign: 'center',
+        width: "100%",
+        backgroundColor: "transparent"
+    },
+    userDetailButtons: {
+        justifyContent: "space-around",
+        alignItems: "center",
+        width: "100%",
+        height: "35%",
+    },
 // MATCHES SCREEN STYLES
 
 
