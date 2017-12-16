@@ -149,7 +149,6 @@ let styles = StyleSheet.create({
         width: "100%"
     },
     profileName: {
-        flex:1,
         fontFamily: 'CaviarDreams',
         fontSize: 40,
         textAlign: 'center',
@@ -158,7 +157,6 @@ let styles = StyleSheet.create({
         backgroundColor: "transparent"
     },
     profilePhone: {
-        flex:1,
         fontFamily: 'CaviarDreams',
         fontSize: 35,
         textAlign: 'center',
@@ -167,7 +165,6 @@ let styles = StyleSheet.create({
         color: constants.buttonBorder,
     },
     profileAbout: {
-        flex:1,
         fontFamily: 'CaviarDreams',
         fontSize: 20,
         textAlign: 'center',
@@ -178,7 +175,7 @@ let styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         width: "100%",
-        flex: 2
+        height: "35%",
     },
 
 // EDITPROFILE SCREEN STYLES
@@ -252,7 +249,15 @@ let styles = StyleSheet.create({
         width: "85%",
     },
 // USERDETAIL SCREEN STYLES
-
+    userDetailContainer:{
+        flex:1,
+        justifyContent: "space-around", 
+        backgroundColor: constants.backgroundColor,
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100%",
+        width: "100%"
+    },
 // MATCHES SCREEN STYLES
 
 
