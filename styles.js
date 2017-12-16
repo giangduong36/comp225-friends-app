@@ -139,8 +139,85 @@ let styles = StyleSheet.create({
     },
 
 // PROFILE SCREEN STYLES
+    profileContainer: {
+        flex:1,
+        justifyContent: "space-around", 
+        backgroundColor: constants.backgroundColor,
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100%",
+        width: "100%"
+    },
+    profileName: {
+        flex:1,
+        fontFamily: 'CaviarDreams',
+        fontSize: 40,
+        textAlign: 'center',
+        marginTop: "5%",
+        width: "100%",
+        backgroundColor: "transparent"
+    },
+    profilePhone: {
+        flex:1,
+        fontFamily: 'CaviarDreams',
+        fontSize: 35,
+        textAlign: 'center',
+        width: "100%",
+        backgroundColor: "transparent",
+        color: constants.buttonBorder,
+    },
+    profileAbout: {
+        flex:1,
+        fontFamily: 'CaviarDreams',
+        fontSize: 20,
+        textAlign: 'center',
+        width: "100%",
+        backgroundColor: "transparent"
+    },
+    profileButtons: {
+        justifyContent: "space-around",
+        alignItems: "center",
+        width: "100%",
+        flex: 2
+    },
 
 // EDITPROFILE SCREEN STYLES
+    editProfileContainer: {
+        flex:1,
+        justifyContent: "center", 
+        backgroundColor: constants.backgroundColor,
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100%",
+        width: "100%"
+    },
+    editProfileInputs: {
+        justifyContent: "space-around",
+        alignItems: "center",
+        backgroundColor: "transparent",
+        width: "100%",
+        height: "35%",
+        marginBottom: "10%",
+    },
+    editProfileTextInput: {
+        textAlign: "center",
+        backgroundColor: constants.textInputBG,
+        color: constants.textInputColor,
+        borderWidth:2,
+        borderColor: constants.textInputBorder,      
+        borderRadius: 0,  
+        includeFontPadding: false,
+        // margin: 5,
+        fontSize: 20,
+        width: "85%",
+    },
+    editProfileButtons: {
+        justifyContent: "space-around",
+        alignItems: "center",
+        backgroundColor: "transparent",
+        width: "100%",
+        height: "15%"
+    },
 
 // FRIENDSLIST SCREEN STYLES
 

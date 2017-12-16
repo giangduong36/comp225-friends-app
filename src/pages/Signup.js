@@ -169,11 +169,9 @@ class SignupScreen extends Component {
                         firebaseApp.database().ref("UserIDs").update( {[that.state.phoneNumber] : uid})
                         firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
                         firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
-                        firebaseApp.database().ref("Statuses").update({[uid] : "Write your status here. How's it going, what do you want to do?"});
                         firebaseApp.database().ref("Availabilities").update({[uid] : false}); //User is not available by default.
                         firebaseApp.database().ref("ProfileImages").update({[uid] : null});
-						firebaseApp.database().ref("Abouts").update({[uid] : "this is my about"});
-						firebaseApp.database().ref("Interests").update({[uid] : "these are my interests"});
+						firebaseApp.database().ref("Abouts").update({[uid] : "There is no description yet for this user."});
                         
                         Alert.alert(
                             'Successfully created new user account!',

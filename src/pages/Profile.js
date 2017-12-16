@@ -53,18 +53,12 @@ class ProfileScreen extends Component {
         firebaseApp.database().ref('PhoneNumbers/' + uid).on("value", function (snapshot) {
             that.setState({phone: snapshot.val()})
         });
-		firebaseApp.database().ref('Statuses/' + uid).on("value", function (snapshot) {
-            that.setState({status: snapshot.val()})
-        });
 		firebaseApp.database().ref('Abouts/' + uid).on("value", function (snapshot) {
             that.setState({about: snapshot.val()})
         });
-		firebaseApp.database().ref('Interests/' + uid).on("value", function (snapshot) {
-            that.setState({interest: snapshot.val()})
-        });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.loadData();
     }
 
@@ -72,20 +66,20 @@ class ProfileScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.body}>
-                <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Name:</Text> {this.state.name}</Text>
-                <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Status:</Text> {this.state.status} </Text>
-                <Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Phone:</Text> {this.state.phone} </Text>
-				<Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>Interest:</Text> {this.state.interest} </Text>
-				<Text style={styles.text}> <Text style={{fontWeight: 'bold'}}>About:</Text> {this.state.about} </Text>
-				<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} offsetY={5}
-                    title="Edit Profile"
-                    onPress={() => navigate("EditProfile")}
-                />
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} offsetY={5}
-                              title="Log out"
-                              onPress={this._logout.bind(this)}
-                />
+            <View style={styles.profileContainer}>
+                <Text style={styles.profileName}> {this.state.name}</Text>
+                <Text style={styles.profilePhone}>{this.state.phone} </Text>
+				<Text style={styles.profileAbout}>{this.state.about} </Text>
+                <View style={styles.profileButtons}>
+                    <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
+                        title="Edit Profile"
+                        onPress={() => navigate("EditProfile")}
+                    />
+                    <ActionButton buttonStyle={styles.secondaryButton} buttonTextStyle={styles.secondaryButtonText}
+                                title="Log out"
+                                onPress={this._logout.bind(this)}
+                    />
+                </View>
             </View>
         );
     }

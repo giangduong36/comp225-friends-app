@@ -72,7 +72,7 @@ class MeScreen extends Component {
                     onTintColor={styles.constants.buttonBorder}
                     style={styles.meButton}
                     thumbTintColor={styles.constants.buttonBG}
-                    tintColor="black"
+                    tintColor= {(Platform.OS === "android") ? "#dddddd" : "#777777"}
                     onValueChange={(value) => this.setState({value})}
                 />
             </View>

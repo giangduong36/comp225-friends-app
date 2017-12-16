@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
 import DismissKeyboardHOC from "../components/DismissKeyboardHOC.js";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const {
     AppRegistry,
@@ -22,6 +23,7 @@ const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
 const DView = DismissKeyboardHOC(View);
+const KeyboardScroller = DismissKeyboardHOC(KeyboardAwareScrollView)
 
 
 class EditProfileScreen extends Component {
@@ -44,9 +46,7 @@ constructor(props) {
             name: '',
             prevPhone: "",
             phone: '',
-            status: '',
 			about: '',
-			interest: ''
         }
     }
 
@@ -59,18 +59,12 @@ constructor(props) {
         firebaseApp.database().ref('PhoneNumbers/' + uid).once('value').then(function(snapshot) {
             that.setState({phone: snapshot.val(), prevPhone: snapshot.val()})
         });
-		firebaseApp.database().ref('Statuses/' + uid).once('value').then(function(snapshot) {
-            that.setState({status: snapshot.val()})
-        });
 		firebaseApp.database().ref('Abouts/' + uid).once('value').then(function(snapshot) {
             that.setState({about: snapshot.val()})
         });
-		firebaseApp.database().ref('Interests/' + uid).once('value').then(function(snapshot) {
-            that.setState({interest: snapshot.val()})
-        });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.loadData();
     }
 
@@ -79,48 +73,40 @@ constructor(props) {
         const {navigate} = this.props.navigation;
 
         return (
-            <DView style={styles.body}>
-                <TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({name: text})}
-                    value={this.state.name}
-                    placeholder={"Name"}
-                    underlineColorAndroid="transparent"
-                />
-				<TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({phone: text})}
-                    value={this.state.phone}
-                    placeholder={"Phone Number"}
-                    underlineColorAndroid="transparent"
-                    keyboardType="numeric"
-                />
-				<TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({status: text})}
-                    value={this.state.status}
-                    placeholder={"Status"}
-                    underlineColorAndroid="transparent"
-                />
-				<TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({about: text})}
-                    value={this.state.about}
-                    placeholder={"About"}
-                    underlineColorAndroid="transparent"
-                />
-				<TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({interest: text})}
-                    value={this.state.interest}
-                    placeholder={"Interest"}
-                    underlineColorAndroid="transparent"
-                />
-				<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
-                    title="Submit"
-                    onPress={this.update.bind(this)}
-                />
-            </DView>
+            <KeyboardScroller resetScrollToCoords={{x:0,y:0}} contentContainerStyle={{height:"100%"}} scrollEnabled={false}>            
+                <DView style={styles.editProfileContainer}>
+                    <DView style={styles.editProfileInputs}>
+                        <TextInput
+                            style={styles.editProfileTextInput}
+                            onChangeText={(text) => this.setState({name: text})}
+                            value={this.state.name}
+                            placeholder={"Name"}
+                            underlineColorAndroid="transparent"
+                        />
+                        <TextInput
+                            style={styles.editProfileTextInput}
+                            onChangeText={(text) => this.setState({phone: text})}
+                            value={this.state.phone}
+                            placeholder={"Phone Number"}
+                            underlineColorAndroid="transparent"
+                            keyboardType="numeric"
+                        />
+                        <TextInput
+                            style={styles.editProfileTextInput}
+                            onChangeText={(text) => this.setState({about: text})}
+                            value={this.state.about}
+                            placeholder={"About"}
+                            underlineColorAndroid="transparent"
+                        />
+                    </DView>
+                    <DView style={styles.editProfileButtons}>
+                        <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
+                            title="Submit"
+                            onPress={this.update.bind(this)}
+                        />
+                    </DView>
+                </DView>
+            </KeyboardScroller>
         );
 	}
 
@@ -152,7 +138,7 @@ constructor(props) {
 			firebaseApp.database().ref("Names").update({[uid] : that.state.name});
 		}
 		if(that.state.status !== ""){
-			firebaseApp.database().ref("Statuses").update({[uid] : that.state.status});
+			firebaseApp.database().ref("Abouts").update({[uid] : that.state.about});
 		}
 		that.props.navigation.goBack();
     }	
