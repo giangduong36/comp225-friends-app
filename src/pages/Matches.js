@@ -32,7 +32,7 @@ import Communications from 'react-native-communications';
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
-const DismissKeyboardView = DismissKeyboardHOC(View);
+const DView = DismissKeyboardHOC(View);
 
 
 class MatchesScreen extends Component {
@@ -74,9 +74,9 @@ class MatchesScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <DismissKeyboardView style={styles.containerTop}>
+            <DView style={styles.containerTop}>
                 {this.renderMatches()}
-            </DismissKeyboardView>
+            </DView>
         );
     }
 
@@ -202,7 +202,7 @@ class MatchesScreen extends Component {
 
     renderSeparator = () => {
         return (
-            <View
+            <DView
                 style={{
                     height: 1,
                     width: "100%",
@@ -215,9 +215,9 @@ class MatchesScreen extends Component {
 
     renderHeader = () => {
         return (
-            <View>
+            <DView>
                 <SearchBar placeholder="Search for a friend..." lightTheme icon={{color: styles.constants.searchIcon}} round/>
-            </View>
+            </DView>
 
         )
     };
@@ -227,7 +227,7 @@ class MatchesScreen extends Component {
     renderFooter = () => {
         // if (!this.state.loading) return null;
         return (
-            <View
+            <DView
                 style={{
                     paddingVertical: 20,
                     borderTopWidth: 1,
@@ -236,7 +236,7 @@ class MatchesScreen extends Component {
             >
                 {/*Render the loading sign at the end of the list*/}
                 <ActivityIndicator animating size="large"/>
-            </View>
+            </DView>
         );
     };
 

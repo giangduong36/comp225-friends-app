@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import DismissKeyboardHOC from '../components/DismissKeyboardHOC.js'
+import {NavigationActions} from "react-navigation";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const {
     AppRegistry,
@@ -8,6 +10,7 @@ const {
     StyleSheet,
     Text,
     View,
+    KeyboardAvoidingView,
     TouchableHighlight,
     Alert,
     AlertIOS,
@@ -20,7 +23,8 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
-const DismissKeyboardView = DismissKeyboardHOC(View);
+const DView = DismissKeyboardHOC(View);
+const KeyboardScroller = DismissKeyboardHOC(KeyboardAwareScrollView);
 
 class SignupScreen extends Component {
     static navigationOptions = {
@@ -44,7 +48,8 @@ class SignupScreen extends Component {
             email: '',
             password: '',
             phoneNumber: "",
-            phoneNumRef: null
+            phoneNumRef: null,
+            name: ""
         };
     }
 
@@ -52,47 +57,58 @@ class SignupScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <DismissKeyboardView style={styles.body}>
-                <Text style={styles.welcome}>Let's create an account!</Text>
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
-                    onPress={this._testLogin.bind(this)} //now goes to Availability rather than Main //milo!!!!!!!!!!!
-                    title="TEST BYPASS"
-                />
-                <TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({email: text})}
-                    value={this.state.email}
-                    placeholder={"Email Address"}
-                    underlineColorAndroid="transparent"
-                    keyboardType="email-address"
-                />
-                <TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({password: text})}
-                    value={this.state.password}
-                    secureTextEntry={true}
-                    placeholder={"Password"}
-                    underlineColorAndroid="transparent"
-                />
-                <TextInput
-                    style={styles.textinput}
-                    onChangeText={(text) => this.setState({phoneNumber: text})}
-                    value={this.state.phoneNumber}
-                    placeholder={"Phone Number"}
-                    underlineColorAndroid="transparent"
-                    keyboardType="numeric"
-                />
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
-                    title="Sign Up"
-                    onPress={this._signup.bind(this)}
-                />
-                <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
-                    title="Log In"
-                    onPress={() => navigate('Login')
-                    }
-                />
+            <KeyboardScroller resetScrollToCoords={{x:0,y:0}} contentContainerStyle={{height:"100%"}} scrollEnabled={false}>
+                <DView style={styles.signupContainer}>
+                    <Text style={styles.signupTitle}>Create a MATCHBOOK account</Text>
+                    <DView style={styles.signupTextInputContainer}>
+                        <TextInput
+                            style={styles.signupTextInput}
+                            onChangeText={(text) => this.setState({phoneNumber: text})}
+                            value={this.state.phoneNumber}
+                            placeholder={"Phone Number"}
+                            underlineColorAndroid="transparent"
+                            keyboardType="numeric"
+                        />
+                        <TextInput
+                            style={styles.signupTextInput}
+                            onChangeText={(text) => this.setState({name: text})}
+                            value={this.state.name}
+                            placeholder={"Name"}
+                            underlineColorAndroid="transparent"
+                            keyboardType="default"
+                        />
+                        <TextInput
+                            style={styles.signupTextInput}
+                            onChangeText={(text) => this.setState({email: text})}
+                            value={this.state.email}
+                            placeholder={"Email Address"}
+                            underlineColorAndroid="transparent"
+                            keyboardType="email-address"
+                        />
+                        <TextInput
+                            style={styles.signupTextInput}
+                            onChangeText={(text) => this.setState({password: text})}
+                            value={this.state.password}
+                            secureTextEntry={true}
+                            placeholder={"Password"}
+                            underlineColorAndroid="transparent"
+                        />
+                    </DView>
+                    <DView style = {styles.signupButtons}>
+                        <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
+                            title="Sign Up"
+                            onPress={this._signup.bind(this)}
+                        />
+                        <ActionButton buttonStyle={styles.secondaryButton} buttonTextStyle={styles.secondaryButtonText}
+                            title="Go to Log In"
+                            onPress={() => this.props.navigation.dispatch(NavigationActions.back()
+                            )}
+                        />
 
-            </DismissKeyboardView>
+                    </DView>
+
+                </DView>
+            </KeyboardScroller>
         );
     }
 

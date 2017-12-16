@@ -74,7 +74,7 @@ class UserDetailScreen extends Component {
         return (
             <View style={styles.body}>
                 {/*<Header text="Friends List" loaded={this.state.loaded} />*/}
-                <Text style={styles.welcome}>welcome to the user detail screen</Text>
+                <Text style={styles.loginTitle}>loginTitle to the user detail screen</Text>
                 <Text style={styles.text}> Name: {this.state.name}</Text>
                 <Text style={styles.text}> Status </Text>
                 <Text style={styles.text}> Phone: {this.state.phone} </Text>

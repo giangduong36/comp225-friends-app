@@ -21,7 +21,7 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
-const DismissKeyboardView = DismissKeyboardHOC(View);
+const DView = DismissKeyboardHOC(View);
 
 
 class EditProfileScreen extends Component {
@@ -79,7 +79,7 @@ constructor(props) {
         const {navigate} = this.props.navigation;
 
         return (
-            <DismissKeyboardView style={styles.body}>
+            <DView style={styles.body}>
                 <TextInput
                     style={styles.textinput}
                     onChangeText={(text) => this.setState({name: text})}
@@ -120,7 +120,7 @@ constructor(props) {
                     title="Submit"
                     onPress={this.update.bind(this)}
                 />
-            </DismissKeyboardView>
+            </DView>
         );
 	}
 

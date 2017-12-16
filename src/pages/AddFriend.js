@@ -24,7 +24,7 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
-const DismissKeyboardView = DismissKeyboardHOC(View);
+const DView = DismissKeyboardHOC(View);
 
 class AddFriendScreen extends Component {
     static navigationOptions = {
@@ -53,8 +53,8 @@ class AddFriendScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         return (
-            <DismissKeyboardView style={styles.body}>
-                <Text style={styles.welcome}>welcome to the add friend screen</Text>
+            <DView style={styles.body}>
+                <Text style={styles.loginTitle}>welcome to the add friend screen</Text>
 
                 <TextInput
                     style={styles.textinput}
@@ -79,7 +79,7 @@ class AddFriendScreen extends Component {
                 {/*/!*<Picker.Item label="JavaScript" value="js" />*!/*/}
                 {/*{this.state.friendItems}*/}
                 {/*</Picker>*/}
-            </DismissKeyboardView>
+            </DView>
 
         );
     }

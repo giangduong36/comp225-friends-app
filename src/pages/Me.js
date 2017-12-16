@@ -63,20 +63,19 @@ class MeScreen extends Component {
         const {navigate} = this.props.navigation;
         
         return (
-            <View style={[styles.containerTop, {alignItems: 'center'}]}>
+            <View style={styles.meContainer}>
 
-                <Text style={styles.welcome}>Are you available?</Text>
-                
-                
+                <Text style={styles.meTitle}>Are you available?</Text>
+                <View style={styles.meSpacer}></View>
                 <Switch //toggle switch for availability info
                     value = {this.state.value}
                     onTintColor={styles.constants.buttonBorder}
-                style={{marginBottom: 10, marginTop: 50, transform: [{ scaleX: 3}, { scaleY: 3}]}}
+                    style={styles.meButton}
                     thumbTintColor={styles.constants.buttonBG}
-                    tintColor="#000000"
+                    tintColor="black"
                     onValueChange={(value) => this.setState({value})}
                 />
-                </View>
+            </View>
                 // the switch is colored differently on ios and android
                 
                 );

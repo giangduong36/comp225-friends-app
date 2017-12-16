@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactNative from 'react-native';
 import Firebase from 'firebase';
 import DismissKeyboardHOC from "../components/DismissKeyboardHOC.js";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const {
     AppRegistry,
@@ -9,6 +10,7 @@ const {
     StyleSheet,
     Text,
     View,
+    KeyboardAvoidingView,
     TouchableHighlight,
     AlertIOS,
     Alert,
@@ -22,7 +24,8 @@ const {
 const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
-const DismissKeyboardView = DismissKeyboardHOC(View);
+const DView = DismissKeyboardHOC(View);
+const KeyboardScroller = DismissKeyboardHOC(KeyboardAwareScrollView);
 
 
 class LoginScreen extends Component {
@@ -68,18 +71,19 @@ class LoginScreen extends Component {
 
         if (this.state.loading) return null;
         if (this.state.authenticated) return (
-            <View style={styles.loadingScreen}></View>
+            <DView style={styles.loadingScreen}></DView>
         )
 
         return (
-            <DismissKeyboardView style={styles.container}>
+        <KeyboardScroller resetScrollToCoords={{x:0,y:0}} contentContainerStyle={{height:"100%"}} scrollEnabled={false}>
+            <DView style={styles.loginContainer}>
 
                 {/*<Header text="Login" loaded={this.state.loaded} />*/}
-                <Text style={styles.welcome}>Hello, F.R.I.E.N.D.S!</Text>
+                <Text style={styles.loginTitle}>Welcome to MATCHBOOK</Text>
 
-                <DismissKeyboardView style={styles.body}>
+                <DView style={styles.loginTextInputContainer}>
                     <TextInput
-                        style={styles.textinput}
+                        style={styles.loginTextInput}
                         onChangeText={(text) => this.setState({email: text})}
                         value={this.state.email}
                         placeholder={"Email Address"}
@@ -87,22 +91,24 @@ class LoginScreen extends Component {
                         keyboardType="email-address"
                     />
                     <TextInput
-                        style={styles.textinput}
+                        style={styles.loginTextInput}
                         onChangeText={(text) => this.setState({password: text})}
                         value={this.state.password}
                         secureTextEntry={true}
                         placeholder={"Password"}
                         underlineColorAndroid="transparent"
                     />
+                </DView>
+                <DView style={[styles.loginButtons,]}>
 
                     <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
-                        title="Login"
+                        title="Log In"
                         onPress={this._login.bind(this)}
                     />
 
-                    <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
+                    <ActionButton buttonStyle={styles.secondaryButton} buttonTextStyle={styles.secondaryButtonText}
                         onPress={() => navigate('Signup')}
-                        title="New here?"
+                        title="Go to Sign Up"
                     />
 
                     {/*TO DELETE LATER: Button to access Account page without log in*/}
@@ -116,8 +122,9 @@ class LoginScreen extends Component {
                         title="TEST AS FRIEND"
                     />
 
-                </DismissKeyboardView>
-            </DismissKeyboardView>
+                </DView>
+            </DView>
+            </KeyboardScroller>
         );
     }
 
@@ -132,7 +139,7 @@ class LoginScreen extends Component {
             "TEST@TEST.com",
             "123456"
         ).then(function (user) {
-            navigate('Me');
+            navigate("Tabs");
 
         }).catch(function (error) {
             // Handle Errors here.
@@ -153,7 +160,7 @@ class LoginScreen extends Component {
             "friendTest@fb.com",
             "123321"
         ).then(function (user) {
-            navigate('Me');
+            navigate("Tabs");
         }).catch(function (error) {
             // Handle Errors here.
             let errorCode = error.code;
@@ -173,7 +180,7 @@ class LoginScreen extends Component {
             this.state.email,
             this.state.password
         ).then(function (user) {
-            navigate('Me'); //milo!!!!!!!!!!!!!
+            navigate("Tabs"); //milo!!!!!!!!!!!!!
             // Alert.alert(
             //     'Successfully logged in!',
             //     null,

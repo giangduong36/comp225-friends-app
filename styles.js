@@ -11,6 +11,7 @@ const constants = {
     backgroundColor: "white",
     textInputBG: "white",
     textInputBorder: "black",
+    textInputColor: "black",
     searchIcon: "black",
     arrowColor: "black",
     tabButtons: "white",
@@ -21,6 +22,7 @@ const constants = {
 };
 
 let styles = StyleSheet.create({
+// LOADING SCREEN STYLE
     loadingScreen: {
         flex:1,
         backgroundColor: "lightgrey",
@@ -28,9 +30,130 @@ let styles = StyleSheet.create({
         alignItems: "center",
 
     },
+
+// LOGIN SCREEN STYLES
+    loginContainer: {
+        flex:1,
+        justifyContent: "space-around", 
+        backgroundColor: constants.backgroundColor,
+        alignItems: "stretch",
+        flexDirection: "column"
+    },
+    loginTitle: {
+		fontFamily: 'CaviarDreams',
+        fontSize: 45,
+        textAlign: 'center',
+        marginTop: "5%",
+        flex:10,
+        width: "100%",
+        backgroundColor: "transparent"
+    },
+    loginTextInputContainer: {
+        flex:11,
+        justifyContent: "space-around",
+        alignItems: "center",
+        width: "100%",
+        // margin: "2%"
+    },
+
+    loginTextInput:{
+        textAlign: "center",
+        backgroundColor: constants.textInputBG,
+        color: constants.textInputColor,
+        borderWidth:2,
+        borderColor: constants.textInputBorder,      
+        borderRadius: 0,  
+        includeFontPadding: false,
+        // margin: 5,
+        fontSize: 25,
+        width: "85%",
+    },
+
+    loginButtons: {
+        flex:23,
+        justifyContent: "space-around",
+        alignItems: "center",
+        marginBottom: "5%",
+    },
+
+// SIGNUP SCREEN STYLES
+    signupContainer: {
+        flex:1,
+        justifyContent: "space-around", 
+        backgroundColor: constants.backgroundColor,
+        alignItems: "stretch",
+        flexDirection: "column"
+    },
+    signupTitle: {
+        fontFamily: 'CaviarDreams',
+        fontSize: 40,
+        textAlign: 'center',
+        flex:2,
+        marginTop: "5%",
+    },
+    signupTextInputContainer: {
+        flex:3,
+        justifyContent: "space-around",
+        alignItems: "center",
+        backgroundColor: "transparent",
+    },
+    signupTextInput: {
+        textAlign: "center",
+        backgroundColor: constants.textInputBG,
+        color: constants.textInputColor,
+        borderWidth:2,
+        borderColor: constants.textInputBorder,      
+        borderRadius: 0,  
+        includeFontPadding: false,
+        // margin: 5,
+        fontSize: 25,
+        width: "85%",
+    },
+    signupButtons: {
+        flex: 2,
+        justifyContent: "space-around",
+        alignItems: "center",
+        backgroundColor: "transparent",
+    },
+// ME SCREEN STYLES
+    meContainer: {
+        flex:1,
+        justifyContent: "flex-start", 
+        backgroundColor: constants.backgroundColor,
+        alignItems: "center",
+        flexDirection: "column",
+        height: "100%",
+        width: "100%"
+    },
+    meTitle: {
+        fontFamily: 'CaviarDreams',
+        fontSize: 60,
+        textAlign: 'center',
+        marginTop: "10%",
+    },
+    meSpacer: {
+        height: "15%"
+    },
+    meButton: {
+        transform: [{ scaleX: 3}, { scaleY: 3}]
+    },
+
+// PROFILE SCREEN STYLES
+
+// EDITPROFILE SCREEN STYLES
+
+// FRIENDSLIST SCREEN STYLES
+
+// ADDFRIEND SCREEN STYLES
+
+// USERDETAIL SCREEN STYLES
+
+// MATCHES SCREEN STYLES
+
+
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         backgroundColor: constants.backgroundColor,
     },
     body: {
@@ -39,29 +162,16 @@ let styles = StyleSheet.create({
         backgroundColor: constants.backgroundColor,
         alignItems: "center"
     },
+    inputContainer: {
+        flex: 2,
+        justifyContent: 'space-around',
+        backgroundColor: constants.backgroundColor,
+        alignItems: "center"
+    },
     containerTop: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         backgroundColor: constants.backgroundColor,
-    },
-
-    welcome: {
-		fontFamily: 'CaviarDreams',
-        fontSize: 50,
-        textAlign: 'center',
-        margin: 10,
-    },
-
-    loginTextInput:{
-        textAlign: "center",
-        backgroundColor: constants.textInputBG,
-        color: "black",
-        borderWidth:2,
-        borderColor: constants.textInputBorder,      
-        borderRadius: 0,  
-        margin: 5,
-        fontSize: 25,
-        width: "85%",
     },
 
     textinput : {
@@ -71,7 +181,7 @@ let styles = StyleSheet.create({
         borderWidth:2,
         borderColor: constants.textInputBorder,      
         borderRadius: 0,  
-        margin: 5,
+        // margin: 5,
         fontSize: 25,
         width: "85%",
     },
@@ -87,7 +197,7 @@ let styles = StyleSheet.create({
         borderWidth: 4,
         paddingTop: 10,
         paddingBottom: 10,
-        margin: 5,
+        // margin: 5,
         borderRadius: 45,
         width: "75%",
     },
@@ -98,17 +208,17 @@ let styles = StyleSheet.create({
         textAlign: 'center',
     },
     secondaryButton: {
-        backgroundColor: constants.buttonBG,
+        backgroundColor: constants.buttonText,
         borderColor: constants.buttonBorder,
         borderWidth: 4,
         paddingTop: 10,
         paddingBottom: 10,
-        margin: 5,
+        // margin: 5,
         borderRadius: 45,
         width: "75%",
     },
     secondaryButtonText: {
-        color: constants.buttonText,
+        color: constants.buttonBG,
 		fontFamily: 'CaviarDreams',
         fontSize: 30,
         textAlign: 'center',
@@ -157,7 +267,9 @@ let styles = StyleSheet.create({
     },
 	//https://facebook.github.io/react-native/docs/handling-touches.html#content
 	buttonContainer: {
-    margin: 10
+        flex: 1,
+        justifyContent: "space-around"
+    // margin: 10
 	},
 });
 
