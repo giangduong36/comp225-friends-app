@@ -55,7 +55,7 @@ class LoginScreen extends Component {
     }
 
     componentDidMount() {
-        firebase.auth().onAuthStateChanged((user) => {
+        firebaseApp.auth().onAuthStateChanged((user) => {
           if (user) {
             this.setState({ loading: false, authenticated: true });
             this.props.navigation.navigate("Tabs");
@@ -140,7 +140,6 @@ class LoginScreen extends Component {
             "123456"
         ).then(function (user) {
             navigate("Tabs");
-
         }).catch(function (error) {
             // Handle Errors here.
             let errorCode = error.code;

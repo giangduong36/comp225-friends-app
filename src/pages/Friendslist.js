@@ -37,14 +37,15 @@ class FriendslistScreen extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Friends",
         headerStyle: {
-			backgroundColor: styles.constants.headerColor
+            backgroundColor: styles.constants.headerColor
         },
         headerTitleStyle: {
             color: styles.constants.headerText,
-            alignSelf : (Platform.OS === "android") ? "center" : null,
+            alignSelf: (Platform.OS === "android") ? "center" : null,
             marginRight: (Platform.OS === "android") ? 72 : null,
         },
-        headerLeft: <Icon.Button name="person-add" backgroundColor={styles.constants.headerColor} style={{flex: 1}} onPress={() => navigation.navigate('AddFriend')}>Add Friend</Icon.Button>
+        headerLeft: <Icon.Button name="person-add" backgroundColor={styles.constants.headerColor} style={{flex: 1}}
+                                 onPress={() => navigation.navigate('AddFriend')}>Add Friend</Icon.Button>
     });
 
     constructor(props) {
@@ -65,45 +66,52 @@ class FriendslistScreen extends Component {
 
 
     render() {
-        StatusBar.setBarStyle("light-content", true)
+        StatusBar.setBarStyle("light-content", true);
         const {navigate} = this.props.navigation;
         return (
             <DView style={styles.containerTop}>
-                {/*TODO: Make a flatlist/sectionlist view of friends*/}
-
-                <List>
-                    <FlatList
-                        data={this.state.data}
-                        renderItem={({item}) => (
-                            <ListItem
-                                roundAvatar
-                                // title={`${item.name.first} ${item.name.last}`}
-                                chevronColor={styles.constants.arrowColor}
-                                title={item.name}
-                                subtitle={""}
-                                containerStyle={{borderBottomWidth: 0}}
-                                // onPress={() => navigate('AddFriend')}
-                                onPress={
-                                    () => {
-                                        this.props.navigation.navigate('UserDetail', {
-                                            chosenFriend: item   //your user details
-                                        })
-                                    }
-                                }
-                            />
-                        )}
-                        keyExtractor={item => item.key}
-                        ItemSeparatorComponent={this.renderSeparator}
-                        // ListFooterComponent={this.renderFooter}
-                        onRefresh={this.handleRefresh}
-                        refreshing={this.state.refreshing}
-                        onEndReached={this.handleLoadMore}
-                        onEndReachedThreshold={50}
-                    />
-                </List>
+                {this.renderFriend()}
             </DView>
         );
     }
+
+    renderFriend() {
+        return (
+            <FlatList
+                data={this.state.data}
+                renderItem={({item}) => (
+                    <ListItem
+                        roundAvatar
+                        // title={`${item.name.first} ${item.name.last}`}
+                        chevronColor={styles.constants.arrowColor}
+                        title={item.name}
+                        subtitle={""}
+                        containerStyle={{borderBottomWidth: 0}}
+                        // onPress={() => navigate('AddFriend')}
+                        onPress={
+                            () => {
+                                this.props.navigation.navigate('UserDetail', {
+                                    chosenFriend: item   //your user details
+                                })
+                            }
+                        }
+                    />
+                )}
+                keyExtractor={item => item.key}
+                ItemSeparatorComponent={this.renderSeparator}
+                ListHeaderComponent={this.renderHeader}
+                ListFooterComponent={() => {
+                    return <View style={{backgroundColor: 'transparent', height: 1}}/>
+                }}
+                ListEmptyComponent={() => {
+                    return <Text style={styles.profilePhone}> Pull to update! </Text>
+                }}
+                onRefresh={this.handleRefresh}
+                refreshing={this.state.refreshing}
+            />
+        )
+    };
+
 
     loadFriends() {
         console.log("Loading friends...");
@@ -120,8 +128,17 @@ class FriendslistScreen extends Component {
                     that.state.data.push({'name': snapshot.val(), 'key': snapshot.key});
                 });
             });
+            console.log(that.state.data);
+            that.setState({refreshing: false});
         });
+
     }
+
+    /* TODO: Show an instruction for pulling down to refresh */
+    renderHeader = () => {
+        return null
+    };
+
 
     renderSeparator = () => {
         return (
@@ -136,28 +153,10 @@ class FriendslistScreen extends Component {
         );
     };
 
-    /*Displaying loading sign*/
-    renderFooter = () => {
-        // if (!this.state.loading) return null;
-        return (
-            <DView
-                style={{
-                    paddingVertical: 20,
-                    borderTopWidth: 1,
-                    borderColor: "#CED0CE"
-                }}
-            >
-                {/*Render the loading sign at the end of the list*/}
-                <ActivityIndicator animating size="large"/>
-            </DView>
-        );
-    };
-
-    handleLoadMore() {
-
+    handleRefresh = () => {
+        this.setState({refreshing: true}, () => this.loadFriends());
     }
 }
-
 
 
 module.exports = FriendslistScreen;

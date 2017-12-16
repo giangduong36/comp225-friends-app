@@ -27,7 +27,7 @@ const firebaseApp = require('../services/firebaseInit');
 
 class UserDetailScreen extends Component {
     static navigationOptions = {
-        title: 'User Detail',
+        title: "User Detail",
 		headerStyle: {
 			backgroundColor: styles.constants.headerColor
 		},
