@@ -1,4 +1,11 @@
 'use strict';
+
+// Horrible polyfill hack for outdated code that uses now-defunct View.propTypes
+import { View, ViewPropTypes } from 'react-native';
+if(!View.propTypes) {
+  View.__proto__.propTypes = ViewPropTypes;
+}
+
 //Import React
 import React, {Component} from 'react';
 const styles = require("./styles");

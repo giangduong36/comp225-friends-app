@@ -39,22 +39,10 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
-		<string>Caviar_Dreams_Bold.ttf</string>
+		<string>CaviarDreams_Bold.ttf</string>
 		<string>CaviarDreams_BoldItalic.ttf</string>
 		<string>CaviarDreams_Italic.ttf</string>
 		<string>CaviarDreams.ttf</string>
-		<string>caviarDreams.ttf</string>
 		<string>JosefinSans-Bold.ttf</string>
 		<string>JosefinSans-BoldItalic.ttf</string>
 		<string>JosefinSans-Italic.ttf</string>
@@ -65,6 +53,17 @@
 		<string>JosefinSans-SemiBoldItalic.ttf</string>
 		<string>JosefinSans-Thin.ttf</string>
 		<string>JosefinSans-ThinItalic.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
