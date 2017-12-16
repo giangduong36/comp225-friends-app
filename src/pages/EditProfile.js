@@ -129,7 +129,10 @@ constructor(props) {
 				} else{
 					if(that.state.phone !== ""){
 						firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phone}); //iterates through this else for each thing in for loop...
-					}
+                        // Update UserIDs because this uses phone numbers as keys
+                        firebaseApp.database().ref("UserIDs").child(parseInt(that.state.prevPhone)).remove();
+                        firebaseApp.database().ref("UserIDs").update({[that.state.phone]: uid});
+                    }
 				}	
             });
         });
