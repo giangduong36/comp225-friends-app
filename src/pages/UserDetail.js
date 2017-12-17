@@ -100,7 +100,7 @@ class UserDetailScreen extends Component {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
         // uid = firebaseApp.auth().currentUser.uid;
-        console.log("isFriend", this.state.isFriend);
+        // console.log("isFriend", this.state.isFriend);
         return (
             <View style={styles.userDetailContainer}>
                 <Text style={styles.userDetailName}>{this.state.name}</Text>
