@@ -112,7 +112,7 @@ class LoginScreen extends Component {
                     />
 
                     {/*TO DELETE LATER: Button to access Account page without log in*/}
-                    <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
+                    {/* <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                         onPress={this._testBypass.bind(this)}
                         title="TEST BYPASS"
                     />
@@ -120,7 +120,7 @@ class LoginScreen extends Component {
                     <ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText}
                         onPress={this._testFriend.bind(this)}
                         title="TEST AS FRIEND"
-                    />
+                    /> */}
 
                 </DView>
             </DView>

@@ -70,7 +70,7 @@ let styles = StyleSheet.create({
     },
 
     loginButtons: {
-        flex:23,
+        flex:17,
         justifyContent: "space-around",
         alignItems: "center",
         marginBottom: "5%",
