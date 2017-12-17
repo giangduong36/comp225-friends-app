@@ -88,7 +88,7 @@ class MatchesScreen extends Component {
                                 <Button
                                     raised
                                     backgroundColor={styles.constants.matchMessage}
-                                    onPress={() => Communications.text('123456789') /* TODO: Real phone number later */}
+                                    onPress={() => this.sendText(item.key)}
                                     icon={{name: 'chat'}}
                                     title='Text'
                                 />
@@ -190,13 +190,13 @@ class MatchesScreen extends Component {
         )
     }
 
-    findPhoneNum(userID) {
-        let that = this;
-        console.log("Phone num");
-        firebaseApp.database().ref('PhoneNumbers/' + userID).on("value", function (snapshot) {
-            console.log(snapshot.val());
-            that.state.phone = snapshot.val();
-        });
+    sendText(userID) {
+        firebaseApp.database().ref("PhoneNumbers/" + userID).once("value").then(
+            function (snapshot) {
+                console.log(snapshot.val() )
+                Communications.text(snapshot.val() )
+            }
+        )
     }
 
     loadMatches() {
