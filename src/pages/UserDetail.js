@@ -28,12 +28,12 @@ const firebaseApp = require('../services/firebaseInit');
 class UserDetailScreen extends Component {
     static navigationOptions = {
         title: "Friend's Profile",
-		headerStyle: {
-			backgroundColor: styles.constants.headerColor
-		},
+        headerStyle: {
+            backgroundColor: styles.constants.headerColor
+        },
         headerTitleStyle: {
             color: styles.constants.headerText,
-            alignSelf : (Platform.OS === "android") ? "center" : null,
+            alignSelf: (Platform.OS === "android") ? "center" : null,
             marginRight: (Platform.OS === "android") ? 72 : null,
         },
         headerTintColor: styles.constants.headerButtons
@@ -41,18 +41,20 @@ class UserDetailScreen extends Component {
 
     constructor(props) {
         super(props);
-
+        uid = firebaseApp.auth().currentUser.uid;
+        friend_uid = this.props.navigation.state.params.chosenFriend;
         this.state = {
             name: '',
             phone: '',
             availability: '',
             about: '',
-            matchStatus: false
+            matchStatus: false,
+            isFriend: null,
         }
     }
 
     loadData() {
-        let friend_uid = this.props.navigation.state.params.chosenFriend;
+        // let friend_uid = this.props.navigation.state.params.chosenFriend;
         let that = this;
         firebaseApp.database().ref('Names/' + friend_uid.key).on("value", function (snapshot) {
             that.setState({name: snapshot.val()})
@@ -64,7 +66,7 @@ class UserDetailScreen extends Component {
             that.setState({about: snapshot.val()})
         });
 
-        let uid = firebaseApp.auth().currentUser.uid;
+        // Check if the user and this friend have some match
         let userMatches = firebaseApp.database().ref("PendingMatches/" + uid);
         userMatches.child(friend_uid.key).on('value', function (snapshot) {
             let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
@@ -75,6 +77,14 @@ class UserDetailScreen extends Component {
             that.setState({matchStatus: matched});
         });
 
+        // Check if the user and this friend are friends (for toggling Unfriend button - Enhancement)
+        firebaseApp.database().ref("FriendLists/" + uid).child(friend_uid.key).on("value", function (snapshot) {
+            if (snapshot.val() !== null) {
+                that.setState({isFriend: true});
+            } else {
+                that.setState({isFriend: false});
+            }
+        });
         // let userPendingMatches = firebaseApp.database().ref("Matches/" + uid);
         // userPendingMatches.child(friend_uid.key).on('value', function (snapshot) {
         //     matched = (snapshot.val() !== null); // Check if already sent a match request to this user
@@ -83,15 +93,14 @@ class UserDetailScreen extends Component {
 
     componentDidMount() {
         this.loadData();
-        // let friend = this.props.navigation.state.params.chosenFriend;
-        // let uid = firebaseApp.auth().currentUser.uid;
         // this.getMatch(uid,friend.key); // Is it better to call this here?
     }
 
     render() {
         StatusBar.setBarStyle("light-content", true)
         const {navigate} = this.props.navigation;
-        uid = firebaseApp.auth().currentUser.uid;
+        // uid = firebaseApp.auth().currentUser.uid;
+        console.log("isFriend", this.state.isFriend);
         return (
             <View style={styles.userDetailContainer}>
                 <Text style={styles.userDetailName}>{this.state.name}</Text>
@@ -99,22 +108,15 @@ class UserDetailScreen extends Component {
                 <Text style={styles.userDetailAbout}>{this.state.about}</Text>
                 <View style={styles.userDetailButtons}>
                     <ActionButton buttonStyle={styles.primaryButton}
-                                buttonTextStyle={styles.primaryButtonText}
-                                title={this.matchButton()[0]}
-                                onPress={this.matchButton()[1]}/>
+                                  buttonTextStyle={styles.primaryButtonText}
+                                  title={this.matchButton()[0]}
+                                  onPress={this.matchButton()[1]}/>
                     {/*onPress={this.matchRequest.bind(this)}/>*/}
 
-                    <ActionButton buttonStyle={styles.secondaryButton} buttonTextStyle={styles.secondaryButtonText} title="Unfriend" onPress={this.unfriend.bind(this)}/>
+                    <ActionButton buttonStyle={styles.secondaryButton}
+                                  buttonTextStyle={styles.secondaryButtonText}
+                                  title="Unfriend" onPress={this.unfriend.bind(this)}/>
 
-                    {/*TO DELETE: For debug purpose only, will toggle match button to be unmatch later*/}
-                    {/*<ActionButton buttonStyle={styles.primaryButton} buttonTextStyle={styles.primaryButtonText} title="Unmatch!" onPress={this.delRequest.bind(this)}/>*/}
-
-
-                    {/*<TouchableOpacity onPress={() => {this.someFunction()}}>*/}
-                    {/*<View style={styles.holder}>*/}
-                    {/*<Text style={styles.text}>Test</Text>*/}
-                    {/*</View>*/}
-                    {/*</TouchableOpacity>*/}
                 </View>
             </View>
         );
@@ -126,9 +128,8 @@ class UserDetailScreen extends Component {
         return [title, func];
     }
 
+
     delRequest() {
-        let friend_id = this.props.navigation.state.params.chosenFriend.key;
-        let uid = firebaseApp.auth().currentUser.uid;
         Alert.alert(
             'Unmatch with this person?',
             null,
@@ -137,9 +138,9 @@ class UserDetailScreen extends Component {
                     text: 'Unmatch',
                     onPress: (text) => {
                         this.setState({matchStatus: false});
-                        firebaseApp.database().ref('PendingMatches/' + uid).child(friend_id).remove();
-                        firebaseApp.database().ref('Matches/' + uid).child(friend_id).remove();
-                        firebaseApp.database().ref('Matches/' + friend_id).child(uid).remove()
+                        firebaseApp.database().ref('PendingMatches/' + uid).child(friend_uid.key).remove();
+                        firebaseApp.database().ref('Matches/' + uid).child(friend_uid.key).remove();
+                        firebaseApp.database().ref('Matches/' + friend_uid.key).child(uid).remove()
                     }
                 },
                 {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
@@ -165,12 +166,10 @@ class UserDetailScreen extends Component {
 
     addMatchRequest() {
         console.log("Match");
-        let friend = this.props.navigation.state.params.chosenFriend;
-        let uid = firebaseApp.auth().currentUser.uid;
         let userMatches = firebaseApp.database().ref("PendingMatches/" + uid);
-        let friendMatches = firebaseApp.database().ref("PendingMatches/" + friend.key);
+        let friendMatches = firebaseApp.database().ref("PendingMatches/" + friend_uid.key);
         let that = this;
-        userMatches.child(friend.key).once('value', function (snapshot) {
+        userMatches.child(friend_uid.key).once('value', function (snapshot) {
             let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
             if (matched) {
                 Alert.alert(
@@ -184,21 +183,11 @@ class UserDetailScreen extends Component {
                     ]
                 );
             } else {
-                userMatches.update({[friend.key]: ""});
+                userMatches.update({[friend_uid.key]: ""});
                 that.setState({matchStatus: true});
-
-                // Alert.alert(
-                //     "Congrats",
-                //     "You successfully sent a match request to this person!",
-                //     [
-                //         {text: "Cool!", onPress: () => {
-                //             console.log("Successfully sent a match request");
-                //         }}
-                //     ]
-                // );
             }
         });
-        this.getMatch(uid, friend.key);
+        this.getMatch(uid, friend_uid.key);
     }
 
     getMatch(uid, friend_id) {
@@ -227,7 +216,6 @@ class UserDetailScreen extends Component {
     }
 
     unfriend() {
-        let friend_id = this.props.navigation.state.params.chosenFriend.key;
         Alert.alert(
             'Unfriend this person?',
             null,
@@ -235,8 +223,10 @@ class UserDetailScreen extends Component {
                 {
                     text: 'Unfriend',
                     onPress: (text) => {
-                        firebaseApp.database().ref('FriendLists/' + uid).child(friend_id).remove();
-                        firebaseApp.database().ref('FriendLists/' + friend_id).child(uid).remove()
+                        firebaseApp.database().ref('FriendLists/' + uid).child(friend_uid.key).remove();
+                        firebaseApp.database().ref('FriendLists/' + friend_uid.key).child(uid).remove();
+                        this.emptyMatches();
+                        this.props.navigation.navigate('Friendslist');
                     }
                 },
                 {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
@@ -244,8 +234,23 @@ class UserDetailScreen extends Component {
         );
     }
 
+    /*When the user is not available, delete all matches and pending match requests*/
+    emptyMatches() {
+        firebaseApp.database().ref('Matches').once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                childSnapshot.forEach(function (grandChildSnapshot) {
+                    if (childSnapshot.key = friend_uid.key && grandChildSnapshot.key === uid) {
+                        firebaseApp.database().ref('Matches/' + childSnapshot.key).child(grandChildSnapshot.key).remove();
+                    }
+                    if (childSnapshot.key = uid && grandChildSnapshot.key === friend_uid.key) {
+                        firebaseApp.database().ref('Matches/' + childSnapshot.key).child(grandChildSnapshot.key).remove();
+                    }
+                });
+            });
+        });
+        firebaseApp.database().ref("PendingMatches/" + uid).child(friend_uid.key).remove();
+    }
 }
-
 
 
 module.exports = UserDetailScreen;
