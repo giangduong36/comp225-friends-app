@@ -139,7 +139,7 @@ class LoginScreen extends Component {
             "TEST@TEST.com",
             "123456"
         ).then(function (user) {
-            navigate("Tabs");
+            // navigate("Tabs");
         }).catch(function (error) {
             // Handle Errors here.
             let errorCode = error.code;
@@ -159,7 +159,7 @@ class LoginScreen extends Component {
             "friendTest@fb.com",
             "123321"
         ).then(function (user) {
-            navigate("Tabs");
+            // navigate("Tabs");
         }).catch(function (error) {
             // Handle Errors here.
             let errorCode = error.code;
@@ -179,7 +179,7 @@ class LoginScreen extends Component {
             this.state.email,
             this.state.password
         ).then(function (user) {
-            navigate("Tabs"); //milo!!!!!!!!!!!!!
+            // navigate("Tabs"); //milo!!!!!!!!!!!!!
             // Alert.alert(
             //     'Successfully logged in!',
             //     null,
