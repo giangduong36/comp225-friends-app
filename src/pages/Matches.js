@@ -69,7 +69,7 @@ class MatchesScreen extends Component {
         StatusBar.setBarStyle("light-content", true);
         const {navigate} = this.props.navigation;
         return (
-            <DView style={styles.containerTop}>
+            <DView style={styles.matchesContainer}>
                 {this.renderMatches()}
             </DView>
         );

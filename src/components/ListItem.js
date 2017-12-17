@@ -8,8 +8,8 @@ class ListItem extends Component {
     render() {
         return (
             <TouchableHighlight onPress={this.props.onPress}>
-                <View style={styles.li}>
-                    <Text style={styles.liText}>{this.props.name}</Text>
+                <View style={this.props.listItemStyle}>
+                    <Text style={this.props.listItemTextStyle}>{this.props.name}</Text>
                 </View>
             </TouchableHighlight>
         );

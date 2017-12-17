@@ -82,10 +82,11 @@ class FriendslistScreen extends Component {
                 renderItem={({item}) => (
                     <ListItem
                         roundAvatar
+                        titleStyle={styles.friendListItemTextStyle}
                         // title={`${item.name.first} ${item.name.last}`}
                         chevronColor={styles.constants.arrowColor}
                         title={item.name}
-                        subtitle={""}
+                        subtitle={null}
                         containerStyle={{borderBottomWidth: 0}}
                         avatar={{uri: 'https://78.media.tumblr.com/avatar_66b336c742ea_128.png'}} // Will change to real avatar later
                         onPress={

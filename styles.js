@@ -217,7 +217,14 @@ let styles = StyleSheet.create({
     },
 
 // FRIENDSLIST SCREEN STYLES
-
+    friendListContainer: {
+        flex: 1,
+        justifyContent: 'space-between',
+        backgroundColor: constants.backgroundColor,
+    },
+    friendListItemTextStyle: {
+        fontSize:17,
+    },
 // ADDFRIEND SCREEN STYLES
     addFriendContainer: {
         flex:1,
@@ -288,8 +295,18 @@ let styles = StyleSheet.create({
         height: "35%",
     },
 // MATCHES SCREEN STYLES
+    matchesContainer: {
+        flex: 1,
+        justifyContent: 'space-between',
+        backgroundColor: constants.backgroundColor,
+    },
+    matchesListTitle: {
+        
+    },
+    matchesListSubtitle: {
 
-
+    },
+// OTHER STYLE ELEMENTS
     container: {
         flex: 1,
         justifyContent: 'space-around',
