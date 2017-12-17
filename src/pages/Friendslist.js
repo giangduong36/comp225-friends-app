@@ -107,8 +107,8 @@ class FriendslistScreen extends Component {
                 ListEmptyComponent={() => {
                     return <Text style={styles.profilePhone}> Pull to update! </Text>
                 }}
-                // onRefresh={this.handleRefresh}
-                // refreshing={this.state.refreshing}
+                onRefresh={this.handleRefresh}
+                refreshing={this.state.refreshing}
             />
         )
     };
@@ -123,7 +123,7 @@ class FriendslistScreen extends Component {
             snapshot.forEach(function (childSnapshot) {
                 // let childKey = childSnapshot.key;
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
-                nameLoc.on('value', function (snapshot) {
+                nameLoc.once('value', function (snapshot) {
                     newList.push({'name': snapshot.val(), 'key': snapshot.key});
                 });
                 that.setState({data: newList});
@@ -147,9 +147,9 @@ class FriendslistScreen extends Component {
         );
     };
 
-    // handleRefresh = () => {
-    //     this.setState({refreshing: true}, () => this.loadFriends());
-    // }
+    handleRefresh = () => {
+        this.setState({refreshing: true}, () => this.loadFriends());
+    }
 }
 
 

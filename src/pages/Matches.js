@@ -58,6 +58,7 @@ class MatchesScreen extends Component {
             refreshing: false,
             phone: null,
         };
+        // this.loadMatches();
     }
 
     componentDidMount() {
@@ -68,15 +69,78 @@ class MatchesScreen extends Component {
     render() {
         StatusBar.setBarStyle("light-content", true);
         const {navigate} = this.props.navigation;
+        console.log("render:", (JSON.stringify(this.state.matches)));
         return (
             <DView style={styles.matchesContainer}>
-                {this.renderMatches()}
+                {/*{this.test()}*/}
+                {/*{this.renderMatches.bind(this)}*/}
+                <FlatList
+                    data={this.state.matches}
+                    renderItem={({item}) => (
+                        <ListItem
+                            roundAvatar
+                            title={item.name}
+                            subtitle={item.match_status}
+                            containerStyle={{borderBottomWidth: 0}}
+                            // hideChevron={true}
+                            // rightTitle={"Hello"}
+                            rightIcon={
+                                <Button
+                                    raised
+                                    backgroundColor={styles.constants.matchMessage}
+                                    onPress={() => Communications.text('123456789') /* TODO: Real phone number later */}
+                                    icon={{name: 'chat'}}
+                                    title='Text'
+                                />
+                            }
+                            avatar={{uri: 'https://78.media.tumblr.com/avatar_66b336c742ea_128.png'}} // Will change to real avatar later
+                            onPress={
+                                () => {
+                                    this.props.navigation.navigate('UserDetail', {
+                                        chosenFriend: item   //your user details
+                                    })
+                                }
+                            }
+                        />
+                    )}
+                    extraData={this.state.matches}
+                    keyExtractor={item => item.key}
+                    ItemSeparatorComponent={this.renderSeparator}
+                    // ListHeaderComponent={this.renderHeader}
+                    ListEmptyComponent={() => {
+                        return <Text style={styles.profilePhone}> Pull to update! </Text>
+                    }}
+                    ListFooterComponent={() => {
+                        return <View style={{backgroundColor: 'transparent', height: 1}}/>
+                    }}
+                    // onRefresh={this.handleRefresh}
+                    // refreshing={this.state.refreshing}
+                />
             </DView>
         );
     }
 
+    test() {
+        console.log("test", this.state.matches.length);
+        if (this.state.matches.length === 1) {
+            return (
+                <FlatList
+                    data={this.state.matches.slice(0, 1)}
+                    renderItem={({item}) => (
+                        <ListItem
+                            title={item.name}
+                        />
+                    )}
+                    keyExtractor={item => item.key}
+                />
+            )
+        }
+
+    }
     renderMatches() {
         const {navigate} = this.props.navigation;
+        console.log("renderMatches:", this.state.matches);
+        let that = this;
         return (
             <FlatList
                 data={this.state.matches}
@@ -107,6 +171,7 @@ class MatchesScreen extends Component {
                         }
                     />
                 )}
+                extraData={this.state.matches}
                 keyExtractor={item => item.key}
                 ItemSeparatorComponent={this.renderSeparator}
                 // ListHeaderComponent={this.renderHeader}
@@ -135,6 +200,7 @@ class MatchesScreen extends Component {
 
         firebaseApp.database().ref('PendingMatches/' + uid).on("value", function (snapshot) {
             console.log("Loading pending matches");
+            // Delete all pending matches and reload
             let newListMatch = [];
             that.state.matches.forEach(function (p) {
                 if (p.match_status === 'Matched!') {
@@ -145,9 +211,8 @@ class MatchesScreen extends Component {
                 matches: newListMatch,
             });
             snapshot.forEach(function (childSnapshot) {
-                console.log(that.state.matches);
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
-                nameLoc.on('value', function (snapshot_) {
+                nameLoc.once('value', function (snapshot_) {
                     that.state.matches.push({
                         'name': snapshot_.val(),
                         'match_status': 'Pending match request...',
@@ -155,6 +220,7 @@ class MatchesScreen extends Component {
                     });
                 });
             });
+            console.log("Pending matches", that.state.matches);
         });
 
         firebaseApp.database().ref('Matches/' + uid).on("value", function (snapshot) {
@@ -172,7 +238,7 @@ class MatchesScreen extends Component {
             snapshot.forEach(function (childSnapshot) {
                 console.log("Matches", that.state.matches);
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
-                nameLoc.on('value', function (snapshot_) {
+                nameLoc.once('value', function (snapshot_) {
                     that.state.matches.unshift({
                         'name': snapshot_.val(),
                         'match_status': 'Matched!',
@@ -180,8 +246,7 @@ class MatchesScreen extends Component {
                     });
                 });
             });
-
-
+            console.log("Matches", that.state.matches);
         });
     }
 
