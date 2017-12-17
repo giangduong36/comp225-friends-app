@@ -312,6 +312,16 @@ let styles = StyleSheet.create({
         justifyContent: 'space-around',
         backgroundColor: constants.backgroundColor,
     },
+    loadIndicator: {
+        fontFamily: 'CaviarDreams',
+        fontSize: 35,
+        textAlign: 'center',
+        width: "100%",
+        backgroundColor: "transparent",
+        color: constants.buttonBorder,
+        marginTop: "50%", 
+        justifyContent: "center"
+    },
     body: {
         flex: 1,
         justifyContent: 'center',

@@ -108,7 +108,7 @@ class MatchesScreen extends Component {
                     ItemSeparatorComponent={this.renderSeparator}
                     // ListHeaderComponent={this.renderHeader}
                     ListEmptyComponent={() => {
-                        return <Text style={styles.profilePhone}> Pull to update! </Text>
+                        return <Text style={styles.loadIndicator}> Pull to update! </Text>
                     }}
                     ListFooterComponent={() => {
                         return <View style={{backgroundColor: 'transparent', height: 1}}/>

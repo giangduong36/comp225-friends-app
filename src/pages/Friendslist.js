@@ -69,7 +69,7 @@ class FriendslistScreen extends Component {
         StatusBar.setBarStyle("light-content", true);
         const {navigate} = this.props.navigation;
         return (
-            <DView style={styles.containerTop}>
+            <DView style={styles.friendListContainer}>
                 {this.renderFriend()}
             </DView>
         );
@@ -105,7 +105,7 @@ class FriendslistScreen extends Component {
                     return <View style={{backgroundColor: 'transparent', height: 1}}/>
                 }}
                 ListEmptyComponent={() => {
-                    return <Text style={styles.profilePhone}> Pull to update! </Text>
+                    return <Text style={styles.loadIndicator}> Pull to update! </Text>
                 }}
                 onRefresh={this.handleRefresh}
                 refreshing={this.state.refreshing}
