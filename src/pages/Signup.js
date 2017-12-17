@@ -112,27 +112,6 @@ class SignupScreen extends Component {
         );
     }
 
-    _testLogin() {
-        const {navigate} = this.props.navigation;
-
-        this.setState({
-            loaded: false
-        });
-
-        firebaseApp.auth().signInWithEmailAndPassword(
-            "TEST@TEST.com",
-            "123456"
-        ).then(function (user) {
-            navigate('Me'); 
-            
-        }).catch(function (error) {
-            // Handle Errors here.
-            let errorCode = error.code;
-            let errorMessage = error.message;
-            alert(errorMessage);
-        });
-    }
-
     _signup() {
         const {navigate} = this.props.navigation;
 
@@ -168,16 +147,18 @@ class SignupScreen extends Component {
                         firebaseApp.database().ref("Users").update({[uid] : that.state.email});
                         firebaseApp.database().ref("UserIDs").update( {[that.state.phoneNumber] : uid})
                         firebaseApp.database().ref("PhoneNumbers").update({[uid] : that.state.phoneNumber});
-                        firebaseApp.database().ref("Names").update({[uid] : "NO NAME DATA"});
+                        firebaseApp.database().ref("Names").update({[uid] : that.state.name });
                         firebaseApp.database().ref("Availabilities").update({[uid] : false}); //User is not available by default.
                         firebaseApp.database().ref("ProfileImages").update({[uid] : null});
 						firebaseApp.database().ref("Abouts").update({[uid] : "There is no description yet for this user."});
-                        
+                        console.log("Initialized the data")
                         Alert.alert(
                             'Successfully created new user account!',
                             null,
                             [
-                                {text: 'Okay!', onPress: () => navigate("Me")}
+                                {text: 'Okay!', onPress: () => {console.log("Navigating to Tabs"); 
+                                // navigate("Tabs");
+                            } }
                             ]
                         );
                     }).catch(function (error) {
