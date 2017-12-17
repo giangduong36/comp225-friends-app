@@ -71,8 +71,8 @@ class UserDetailScreen extends Component {
         userMatches.child(friend_uid.key).on('value', function (snapshot) {
             let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
             let userPendingMatches = firebaseApp.database().ref("Matches/" + uid);
-            userPendingMatches.child(friend_uid.key).on('value', function (snapshot) {
-                matched = matched || (snapshot.val() !== null); // Check if already sent a match request to this user
+            userPendingMatches.child(friend_uid.key).on('value', function (childSnapshot) {
+                matched = matched || (childSnapshot.val() !== null); // Check if already sent a match request to this user
             });
             that.setState({matchStatus: matched});
         });
