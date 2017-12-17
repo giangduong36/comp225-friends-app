@@ -67,10 +67,19 @@ class UserDetailScreen extends Component {
         });
 
         // Check if the user and this friend have some match
-        let userMatches = firebaseApp.database().ref("PendingMatches/" + uid);
+        let userPendingMatches = firebaseApp.database().ref("PendingMatches/" + uid);
+        userPendingMatches.child(friend_uid.key).on('value', function (snapshot) {
+            let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
+            let userMatches = firebaseApp.database().ref("Matches/" + uid);
+            userMatches.child(friend_uid.key).on('value', function (childSnapshot) {
+                matched = matched || (childSnapshot.val() !== null); // Check if already sent a match request to this user
+            });
+            that.setState({matchStatus: matched});
+        });
+        let userMatches = firebaseApp.database().ref("Matches/" + uid);
         userMatches.child(friend_uid.key).on('value', function (snapshot) {
             let matched = (snapshot.val() !== null); // Check if already sent a match request to this user
-            let userPendingMatches = firebaseApp.database().ref("Matches/" + uid);
+            let userPendingMatches = firebaseApp.database().ref("PendingMatches/" + uid);
             userPendingMatches.child(friend_uid.key).on('value', function (childSnapshot) {
                 matched = matched || (childSnapshot.val() !== null); // Check if already sent a match request to this user
             });
