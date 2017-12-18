@@ -54,9 +54,9 @@ export const MainMatchesNavigator = TabNavigator({
 }, {
     tabBarComponent: NavigationComponent,
     tabBarPosition: 'top',
-    swipeEnabled: false,
-    lazy: true,
-    animationEnabled: false,
+    // swipeEnabled: false,
+    // lazy: true,
+    // animationEnabled: false,
     tabBarOptions: {
         bottomNavigationOptions: {
             labelColor: styles.constants.tabButtons,
@@ -108,18 +108,21 @@ export const Tabs = TabNavigator({
         bottomNavigationOptions: {
             tabs: {
                 Me: {
+                    labelColor: styles.constants.tabButtons,
                     label: 'Me',
                     barBackgroundColor: styles.constants.tabBG,
                     showIcon: true,
                     icon: (<Icon size={24} color={styles.constants.tabButtons} name="person" />)
                 },
                 Friends: {
+                    labelColor: styles.constants.tabButtons,
                     label: 'Friends',
                     barBackgroundColor: styles.constants.tabBG,
                     showIcon: true,
                     icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>),
                 },
                 Matches: {
+                    labelColor: styles.constants.tabButtons,
                     label: 'Matches',
                     barBackgroundColor: styles.constants.tabBG,
                     showIcon: true,
