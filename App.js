@@ -52,19 +52,28 @@ export const MainMatchesNavigator = TabNavigator({
     tabBarComponent: NavigationComponent,
     tabBarPosition: 'top',
     tabBarOptions: {
+        style: {
+          borderTopColor: "black",
+          borderWidth: 0,
+          borderTopWidth: 2,
+        },
+        activeTintColor: "white",
+        inactiveTintColor: "black",
+
+
         bottomNavigationOptions: {
             labelColor: styles.constants.tabButtons,
             rippleColor: styles.constants.tabRipple,
             tabs: {
                 Pending: {
                     label: 'Pending Requests',
-                    barBackgroundColor: styles.constants.tabMatch,
+                    barBackgroundColor: styles.constants.tabMatchBG,
                     showIcon: true,
                     icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>)
                 },
                 Matches: {
                     label: 'Matched!',
-                    barBackgroundColor: styles.constants.tabMatch,
+                    barBackgroundColor: styles.constants.tabMatchBG,
                     showIcon: true,
                     icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>)
                 },
