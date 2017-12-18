@@ -26,6 +26,7 @@ const FriendslistScreen = require('./src/pages/Friendslist'); //this is the list
 const UserDetailScreen = require('./src/pages/UserDetail'); //this screen shows you another user's profile
 const AddFriendScreen = require('./src/pages/AddFriend'); //this is the page where you can search for friends and add them
 const MatchesScreen = require('./src/pages/Matches'); //this is your matches page
+const PendingMatchesScreen = require('./src/pages/PendingMatches')
 
 // Import screen navigation
 import {
@@ -44,8 +45,37 @@ export const FriendStack = StackNavigator({
 	AddFriend: {screen: AddFriendScreen},
 });
 
+export const MainMatchesNavigator = TabNavigator({
+    Pending: {screen: PendingMatchesScreen},
+    Matches: {screen: MatchesScreen},
+}, {
+    tabBarComponent: NavigationComponent,
+    tabBarPosition: 'top',
+    tabBarOptions: {
+        bottomNavigationOptions: {
+            labelColor: styles.constants.tabButtons,
+            rippleColor: styles.constants.tabRipple,
+            tabs: {
+                Pending: {
+                    label: 'Pending Requests',
+                    barBackgroundColor: styles.constants.tabBG,
+                    showIcon: true,
+                    icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>)
+                },
+                Matches: {
+                    label: 'Matched!',
+                    barBackgroundColor: styles.constants.tabBG,
+                    showIcon: true,
+                    icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>)
+                },
+            }
+        }
+    }
+});
+
+
 export const MatchesStack = StackNavigator({
-	Matches: {screen: MatchesScreen},
+    Matches: {screen: MainMatchesNavigator},
 	UserDetail: {screen: UserDetailScreen},
 });
 
@@ -54,6 +84,7 @@ export const MeStack = StackNavigator({
 	Profile: {screen: ProfileScreen},
 	EditProfile: {screen: EditProfileScreen}
 }, {gesturesEnabled:false});
+
 
 export const Tabs = TabNavigator({
   Me: { screen: MeStack },	
