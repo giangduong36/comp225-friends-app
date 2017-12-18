@@ -66,16 +66,10 @@ class PendingMatchesScreen extends Component {
         uid = firebaseApp.auth().currentUser.uid;
         pendingMatchRef = firebaseApp.database().ref('PendingMatches/' + uid);
         matchRef = firebaseApp.database().ref('Matches/' + uid);
-        // this.loadMatches();
     }
 
-    // componentWillMount(){
-    //     console.log("ComponentWillMount");
-    //     this.listenForMatch(matchRef, pendingMatchRef);
-    // }
     componentDidMount() {
         console.log("ComponentDidMount");
-        // this.loadMatches();
         this.listenForMatch(matchRef, pendingMatchRef);
     }
 
@@ -105,66 +99,6 @@ class PendingMatchesScreen extends Component {
             });
         });
         that.setState({refreshing: false});
-    }
-
-
-    listenForMatch2(matchRef, pendingRef) {
-        this.setState({reload: !this.state.reload});
-        let that = this;
-
-
-        matchRef.on("value", function (snapshot) {
-            console.log("Loading matches");
-            console.log(that.state.matches);
-            let pendingMatchList = [{name: "", key: "", match_status: ""}];
-            pendingMatchList = _.cloneDeep(that.state.matches).filter(function (item) {
-                return item.match_status === 'Pending match request...';
-            });
-            that.test(_.cloneDeep(pendingMatchList), snapshot, 'Matched!');
-        });
-
-        pendingRef.on("value", function (snapshot) {
-            console.log("Loading matches");
-            console.log(that.state.matches);
-            let matchList = [{name: "", key: "", match_status: ""}];
-            matchList = _.cloneDeep(that.state.matches).filter(function (item) {
-                return item.match_status === 'Matched!';
-            });
-            that.test(_.cloneDeep(matchList), snapshot, 'Pending match request...');
-        });
-
-
-        that.setState({refreshing: false});
-    }
-
-    test(pendingMatchList, snapshot, message) {
-        console.log("TEST");
-        console.log("pending matching list", pendingMatchList);
-        let that = this;
-        snapshot.forEach(function (childSnapshot) {
-            console.log("pending match list inside", pendingMatchList);
-            that.getNameById(pendingMatchList, childSnapshot.key, message);
-            that.setState({
-                matches: _.cloneDeep(pendingMatchList),
-            });
-            console.log("pending", pendingMatchList);
-        });
-    }
-
-    getNameById(list, uid, message) {
-        let that = this;
-        let nameLoc = firebaseApp.database().ref('Names/' + uid);
-        nameLoc.once('value').then(function (snapshot_) {
-            list.unshift({
-                'name': snapshot_.val(),
-                'match_status': message,
-                'key': uid
-            });
-            that.setState({
-                matches: _.cloneDeep(list),
-            });
-            return true;
-        });
     }
 
     render() {

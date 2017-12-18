@@ -49,8 +49,6 @@ class MatchesScreen extends Component {
         },
     });
 
-    // matches: [{name: "Please...", key: "abc", match_status: "Pending match request..."}],
-
 
     constructor(props) {
         super(props);
@@ -69,10 +67,6 @@ class MatchesScreen extends Component {
         // this.loadMatches();
     }
 
-    // componentWillMount(){
-    //     console.log("ComponentWillMount");
-    //     this.listenForMatch(matchRef, pendingMatchRef);
-    // }
     componentDidMount() {
         console.log("ComponentDidMount");
         this.listenForMatch(matchRef, pendingMatchRef);

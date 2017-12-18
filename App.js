@@ -58,13 +58,13 @@ export const MainMatchesNavigator = TabNavigator({
             tabs: {
                 Pending: {
                     label: 'Pending Requests',
-                    barBackgroundColor: styles.constants.tabBG,
+                    barBackgroundColor: styles.constants.tabMatch,
                     showIcon: true,
                     icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>)
                 },
                 Matches: {
                     label: 'Matched!',
-                    barBackgroundColor: styles.constants.tabBG,
+                    barBackgroundColor: styles.constants.tabMatch,
                     showIcon: true,
                     icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>)
                 },
@@ -94,7 +94,7 @@ export const Tabs = TabNavigator({
   tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
   tabBarOptions: {
-    bottomNavigationOptions: {
+      bottomNavigationOptions: {
       labelColor: styles.constants.tabButtons,
       rippleColor: styles.constants.tabRipple,
       tabs: {
@@ -108,7 +108,7 @@ export const Tabs = TabNavigator({
           label: 'Friends',
           barBackgroundColor: styles.constants.tabBG,
 		  showIcon: true,
-		  icon: (<Icon size={24} color={styles.constants.tabButtons} name="people" />) 
+            icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>),
         },	
         Matches: {
           label: 'Matches',

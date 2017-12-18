@@ -18,6 +18,8 @@ const constants = {
     tabRipple: "white",
     tabBG: "indigo",
     tabBars: "white",
+    tabMatch: "plum",
+    tabMatchBG: "indigo",
     matchMessage: "indigo",
 };
 
