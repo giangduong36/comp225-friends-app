@@ -64,7 +64,7 @@ export const MainMatchesNavigator = TabNavigator({
           borderTopWidth: 2,
         },
         activeTintColor: "white",
-        inactiveTintColor: "black",
+        inactiveTintColor: "gray",
 
 
         bottomNavigationOptions: {

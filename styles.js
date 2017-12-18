@@ -19,7 +19,7 @@ const constants = {
     tabBG: "indigo",
     tabBars: "white",
     tabMatch: "black",
-    tabMatchBG: "indigo",
+    tabMatchBG: "black",
     matchMessage: "indigo",
 };
 
