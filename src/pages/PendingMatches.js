@@ -105,9 +105,11 @@ class PendingMatchesScreen extends Component {
         StatusBar.setBarStyle("light-content", true);
         const {navigate} = this.props.navigation;
         console.log("render:", this.state.matches);
-        // console.log("render:", (JSON.stringify(this.state.matches)));
+        console.log("render:", (JSON.stringify(this.state.matches)));
         return (
             <DView style={styles.matchesContainer}>
+                {/*<Text style={styles.meTitle}> Hello </Text>*/}
+
                 <FlatList
                     data={this.state.matches}
                     // extraData={this.state.reload}

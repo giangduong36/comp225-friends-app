@@ -108,6 +108,7 @@ class MatchesScreen extends Component {
         // console.log("render:", (JSON.stringify(this.state.matches)));
         return (
             <DView style={styles.matchesContainer}>
+                {/*<Text style={styles.meTitle}> Hello </Text>*/}
                 <FlatList
                     data={this.state.matches}
                     // extraData={this.state.reload}
