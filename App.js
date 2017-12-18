@@ -43,14 +43,20 @@ export const FriendStack = StackNavigator({
 	Friendslist: {screen: FriendslistScreen},
 	UserDetail: {screen: UserDetailScreen},
 	AddFriend: {screen: AddFriendScreen},
+}, {
+    lasyLoad: false
 });
 
 export const MainMatchesNavigator = TabNavigator({
     Pending: {screen: PendingMatchesScreen},
     Matches: {screen: MatchesScreen},
+
 }, {
     tabBarComponent: NavigationComponent,
     tabBarPosition: 'top',
+    swipeEnabled: false,
+    lazy: true,
+    animationEnabled: false,
     tabBarOptions: {
         bottomNavigationOptions: {
             labelColor: styles.constants.tabButtons,
@@ -93,31 +99,34 @@ export const Tabs = TabNavigator({
 }, {
   tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
-  tabBarOptions: {
-      bottomNavigationOptions: {
+    swipeEnabled: false,
+    lazy: true,
+    animationEnabled: false,
+    tabBarOptions: {
       labelColor: styles.constants.tabButtons,
       rippleColor: styles.constants.tabRipple,
-      tabs: {
-		Me: {
-          label: 'Me',
-          barBackgroundColor: styles.constants.tabBG,
-		  showIcon: true,
-		  icon: (<Icon size={24} color={styles.constants.tabButtons} name="person" />)
-        },
-        Friends: {
-          label: 'Friends',
-          barBackgroundColor: styles.constants.tabBG,
-		  showIcon: true,
-            icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>),
-        },	
-        Matches: {
-          label: 'Matches',
-          barBackgroundColor: styles.constants.tabBG,
-		  showIcon: true,
-		  icon: (<Icon size={24} color={styles.constants.tabButtons} name="chat-bubble" />)
+        bottomNavigationOptions: {
+            tabs: {
+                Me: {
+                    label: 'Me',
+                    barBackgroundColor: styles.constants.tabBG,
+                    showIcon: true,
+                    icon: (<Icon size={24} color={styles.constants.tabButtons} name="person" />)
+                },
+                Friends: {
+                    label: 'Friends',
+                    barBackgroundColor: styles.constants.tabBG,
+                    showIcon: true,
+                    icon: (<Icon size={24} color={styles.constants.tabButtons} name="people"/>),
+                },
+                Matches: {
+                    label: 'Matches',
+                    barBackgroundColor: styles.constants.tabBG,
+                    showIcon: true,
+                    icon: (<Icon size={24} color={styles.constants.tabButtons} name="chat-bubble" />)
+                }
+            }
         }
-      }
-    }
   }
 })
 
