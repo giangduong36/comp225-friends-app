@@ -102,12 +102,7 @@ class MatchesScreen extends Component {
                         matches: matchList,
                     });
                 });
-                // that.setState({
-                //     matches:  _.cloneDeep(matchList),
-                //     reload : !that.state.reload
-                // });
             });
-            // that.setState(that.state);
             console.log("Pending matches", that.state.reload);
             console.log("Pending matches", that.state.matches);
         });
@@ -135,10 +130,6 @@ class MatchesScreen extends Component {
                         matches: pendingMatchList,
                     });
                 });
-                // that.setState({
-                //     matches:  _.cloneDeep(matchList),
-                // });
-
             });
             console.log("Matches", that.state.reload);
             console.log("Matches", that.state.matches);

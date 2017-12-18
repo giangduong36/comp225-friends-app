@@ -57,11 +57,14 @@ class FriendslistScreen extends Component {
             seed: 1,
             error: null,
             refreshing: false,
+            reload: false,
         };
+        uid = firebaseApp.auth().currentUser.uid;
+        friendRef = firebaseApp.database().ref('FriendLists/' + uid);
     }
 
     componentDidMount() {
-        this.loadFriends();
+        this.loadFriends(friendRef);
     }
 
 
@@ -98,6 +101,7 @@ class FriendslistScreen extends Component {
                         }
                     />
                 )}
+                extraData={this.state.reload}
                 keyExtractor={item => item.key}
                 ItemSeparatorComponent={this.renderSeparator}
                 // ListHeaderComponent={this.renderHeader}
@@ -114,12 +118,16 @@ class FriendslistScreen extends Component {
     };
 
 
-    loadFriends() {
+    loadFriends(friendRef) {
         console.log("Loading friends...");
+        this.setState({reload: !this.state.reload});
         let that = this;
-        uid = firebaseApp.auth().currentUser.uid;
-        firebaseApp.database().ref('FriendLists/' + uid).on("value", function (snapshot) {
+        friendRef.on("value", function (snapshot) {
             let newList = [];
+            that.setState({
+                data: newList,
+                reload: !that.state.reload
+            });
             snapshot.forEach(function (childSnapshot) {
                 // let childKey = childSnapshot.key;
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
@@ -129,9 +137,8 @@ class FriendslistScreen extends Component {
                 that.setState({data: newList});
             });
             console.log(that.state.data);
-            that.setState({refreshing: false});
         });
-
+        that.setState({refreshing: false});
     }
 
     renderSeparator = () => {
@@ -148,7 +155,7 @@ class FriendslistScreen extends Component {
     };
 
     handleRefresh = () => {
-        this.setState({refreshing: true}, () => this.loadFriends());
+        this.setState({refreshing: true}, () => this.loadFriends(friendRef));
     }
 }
 
