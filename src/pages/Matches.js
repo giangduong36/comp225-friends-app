@@ -33,7 +33,7 @@ const ActionButton = require('../components/ActionButton');
 const styles = require('../../styles.js');
 const firebaseApp = require('../services/firebaseInit');
 const DView = DismissKeyboardHOC(View);
-
+const _ = require('lodash');
 
 class MatchesScreen extends Component {
 
@@ -53,29 +53,128 @@ class MatchesScreen extends Component {
         super(props);
         this.state = {
             loading: false,
-            matches: [],
+            matches: [{name: "", key: "", match_status: ""}],
             error: null,
             refreshing: false,
             phone: null,
+            reload: true,
         };
+        uid = firebaseApp.auth().currentUser.uid;
+        pendingMatchRef = firebaseApp.database().ref('PendingMatches/' + uid);
+        matchRef = firebaseApp.database().ref('Matches/' + uid);
         // this.loadMatches();
     }
 
+    // componentWillMount(){
+    //     console.log("ComponentWillMount");
+    //     this.listenForMatch(matchRef, pendingMatchRef);
+    // }
     componentDidMount() {
-        this.loadMatches();
+        console.log("ComponentDidMount");
+        // this.loadMatches();
+        this.listenForMatch(matchRef, pendingMatchRef);
     }
+
+    listenForMatch(matchRef, pendingRef) {
+        this.setState({reload: !this.state.reload});
+        let that = this;
+
+        console.log("Pending matches before", that.state.reload);
+        pendingRef.on("value", function (snapshot) {
+            console.log("Loading pending matches");
+            let matchList = [{name: "", key: "", match_status: ""}];
+            matchList = that.state.matches.filter(function (item) {
+                return item.match_status === 'Matched!';
+            });
+            that.setState({
+                matches: matchList,
+                reload: !that.state.reload
+            });
+            snapshot.forEach(function (childSnapshot) {
+                let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
+                nameLoc.once('value', function (snapshot_) {
+                    matchList.push({
+                        'name': snapshot_.val(),
+                        'match_status': 'Pending match request...',
+                        'key': snapshot_.key
+                    });
+                    that.setState({
+                        matches: matchList,
+                    });
+                });
+                // that.setState({
+                //     matches:  _.cloneDeep(matchList),
+                //     reload : !that.state.reload
+                // });
+            });
+            // that.setState(that.state);
+            console.log("Pending matches", that.state.reload);
+            console.log("Pending matches", that.state.matches);
+        });
+
+        matchRef.on("value", function (snapshot) {
+            console.log("Loading matches");
+            let pendingMatchList = [{name: "", key: "", match_status: ""}];
+            pendingMatchList = that.state.matches.filter(function (item) {
+                return item.match_status === 'Pending match request...';
+            });
+            that.setState({
+                matches: pendingMatchList,
+                reload: !that.state.reload
+            });
+            console.log("Delete all matches", that.state.matches);
+            snapshot.forEach(function (childSnapshot) {
+                let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
+                nameLoc.once('value', function (snapshot_) {
+                    pendingMatchList.unshift({
+                        'name': snapshot_.val(),
+                        'match_status': 'Matched!',
+                        'key': snapshot_.key
+                    });
+                    that.setState({
+                        matches: pendingMatchList,
+                    });
+                });
+                // that.setState({
+                //     matches:  _.cloneDeep(matchList),
+                // });
+
+            });
+            console.log("Matches", that.state.reload);
+            console.log("Matches", that.state.matches);
+        });
+
+        that.setState({refreshing: false});
+    }
+
+    // listenForTasks(tasksRef) {
+    //     tasksRef.on('value', (dataSnapshot) => {
+    //         var tasks = [];
+    //         dataSnapshot.forEach((child) => {
+    //             tasks.push({
+    //                 name: child.val().title,
+    //                 _key: child.key
+    //             });
+    //         });
+    //
+    //         this.setState({
+    //             dataSource: this.state.dataSource.cloneWithRows(tasks)
+    //         });
+    //     });
+    // }
+
 
 
     render() {
         StatusBar.setBarStyle("light-content", true);
         const {navigate} = this.props.navigation;
-        console.log("render:", (JSON.stringify(this.state.matches)));
+        console.log("render:", this.state.matches);
+        // console.log("render:", (JSON.stringify(this.state.matches)));
         return (
             <DView style={styles.matchesContainer}>
-                {/*{this.test()}*/}
-                {/*{this.renderMatches.bind(this)}*/}
                 <FlatList
                     data={this.state.matches}
+                    extraData={this.state.reload}
                     renderItem={({item}) => (
                         <ListItem
                             roundAvatar
@@ -103,7 +202,6 @@ class MatchesScreen extends Component {
                             }
                         />
                     )}
-                    extraData={this.state.matches}
                     keyExtractor={item => item.key}
                     ItemSeparatorComponent={this.renderSeparator}
                     // ListHeaderComponent={this.renderHeader}
@@ -113,8 +211,8 @@ class MatchesScreen extends Component {
                     ListFooterComponent={() => {
                         return <View style={{backgroundColor: 'transparent', height: 1}}/>
                     }}
-                    // onRefresh={this.handleRefresh}
-                    // refreshing={this.state.refreshing}
+                    onRefresh={this.handleRefresh}
+                    refreshing={this.state.refreshing}
                 />
             </DView>
         );
@@ -206,15 +304,18 @@ class MatchesScreen extends Component {
         firebaseApp.database().ref('PendingMatches/' + uid).on("value", function (snapshot) {
             console.log("Loading pending matches");
             // Delete all pending matches and reload
-            let newListMatch = [];
-            that.state.matches.forEach(function (p) {
-                if (p.match_status === 'Matched!') {
-                    newListMatch.push(p);
-                }
-            });
+            // let newListMatch = [];
+            // that.state.matches.forEach(function (p) {
+            //     if (p.match_status === 'Matched!') {
+            //         newListMatch.push(p);
+            //     }
+            // });
             that.setState({
-                matches: newListMatch,
+                matches: that.state.matches.filter(function (item) {
+                    return item.match_status === 'Matched!';
+                }),
             });
+            console.log("Delete all pending matches", that.state.matches);
             snapshot.forEach(function (childSnapshot) {
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
                 nameLoc.once('value', function (snapshot_) {
@@ -224,22 +325,31 @@ class MatchesScreen extends Component {
                         'key': snapshot_.key
                     });
                 });
+                that.setState(that.state);
             });
+            that.setState(that.state);
             console.log("Pending matches", that.state.matches);
         });
 
         firebaseApp.database().ref('Matches/' + uid).on("value", function (snapshot) {
             console.log("Loading matches");
             // Delete all matched and reload
-            let newList = [];
-            that.state.matches.forEach(function (p) {
-                if (p.match_status === 'Pending match request...') {
-                    newList.push(p);
-                }
-                that.setState({
-                    matches: newList,
-                });
+            // let newList = [];
+            // that.state.matches.forEach(function (p) {
+            //     if (p.match_status === 'Pending match request...') {
+            //         newList.push(p);
+            //     }
+            //     that.setState({
+            //         matches: newList,
+            //     });
+            // });
+
+            that.setState({
+                matches: that.state.matches.filter(function (item) {
+                    return item.match_status === 'Pending match request...!';
+                }),
             });
+            console.log("Delete all matches", that.state.matches);
             snapshot.forEach(function (childSnapshot) {
                 console.log("Matches", that.state.matches);
                 let nameLoc = firebaseApp.database().ref('Names/' + childSnapshot.key);
@@ -250,7 +360,9 @@ class MatchesScreen extends Component {
                         'key': snapshot_.key
                     });
                 });
+                that.setState(that.state);
             });
+            that.setState(that.state);
             console.log("Matches", that.state.matches);
         });
     }
@@ -280,9 +392,13 @@ class MatchesScreen extends Component {
         )
     };
 
+    remove(array, element) {
+        return array.filter(e => e !== element);
+    }
+
     handleRefresh = () => {
-        // console.log("Refresh...");
-        // this.setState({refreshing: true}, () => this.loadMatches());
+        console.log("Refresh...");
+        this.setState({refreshing: true}, () => this.listenForMatch(matchRef, pendingMatchRef));
     }
 }
 
