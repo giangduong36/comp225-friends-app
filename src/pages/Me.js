@@ -67,7 +67,8 @@ class MeScreen extends Component {
 
                 <Text style={styles.meTitle}>Are you available?</Text>
                 <View style={styles.meSpacer}></View>
-                <Switch //toggle switch for availability info
+                
+                <Switch // switch value represents user availability
                     value = {this.state.value}
                     onTintColor={styles.constants.buttonBorder}
                     style={styles.meButton}
@@ -79,7 +80,6 @@ class MeScreen extends Component {
                     }}
                 />
             </View>
-                // the switch is colored differently on ios and android
         );
     }
 
